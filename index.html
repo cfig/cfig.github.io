@@ -1,4 +1,15 @@
-<html><body><h1>It works!</h1>
-<p>This is the default web page for this server.</p>
-<p>The web server software is running but no content has been added, yet.</p>
-</body></html>
+---
+layout: default
+title: My Blog
+---
+
+<h2>{{ page.title }}</h2>
+
+<p>My Articles</p>
+
+<ul>
+    {% for post in site.posts %}
+    <li>{{ post.date | date_to_string }} <a href="{{ site.baseurl }}{{ post.url }}">{{ post.title }}</a>
+    </li>
+    {% endfor %}
+</ul>
