@@ -22,12 +22,13 @@ Just add surround words with 2 underscore(\_\_) or 2 asterisks(\*\*)  make it **
 
 # blockquote
 
-examples on LOGD/LOGV in C style
-> \#define LOGW(...) fprintf(stdout, "W:" \_\_VA_ARGS\_\_)
->
-> \#define LOGI(...) fprintf(stdout, "I:" \_\_VA_ARGS\_\_)
->
-> \#define LOGV(...) do {} while (0)
->
-> \#define LOGD(...) do {} while (0)
+examples on LOGD/LOGV in C style  
+
+    #define LOGW(...) fprintf(stdout, "W:" __VA_ARGS__)
+
+    #define LOGI(...) fprintf(stdout, "I:" __VA_ARGS__)
+
+    #define LOGV(...) do {} while (0)
+
+    #define LOGD(...) do {} while (0)
 
