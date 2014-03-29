@@ -1,0 +1,25 @@
+# android build system
+
+## Preface
+On the whole, spending much time on build system is unpromising in my opinion. I even can not find some convenient tools to debug make.
+Almost all guys despise those who work on build system. But for too many times, projects met build problems which may live there for years. 
+In a word, writing makefiles is easy, writing good makefiles is not so.
+Android makefiles are beautiful, but it's tooo slow for small targets. automake is verbose but quick.
+
+This note describes something about the build system in android.
+
+## blabla 
+android make system will use /bin/bash as SHELL, which is more comfortable but low efficiency.
+*droid* is DEFAULT\_GOAL.
+it has a usefull *help* goal.
+it has a funny *out* goal.
+
+Android makefiles like _eval_ very much, it uses _eval_ heavily.
+
+    Do not override INSTALLED_xxx_TARGET, it may work, but will cause confusions.
+    Try not to patch android build, use proper VAR to customize, or add extensions. Patch is ugly and hard to maintain.
+
+## add projects for ROM companies(vendor)
+add /vendorsetup.sh to vendor dir, this will make the product appear in lunch  
+add BoardConfig as \*/$(TARGET\_DEVICE)/BoardConfig.mk  
+add AndroidProducts.mk  

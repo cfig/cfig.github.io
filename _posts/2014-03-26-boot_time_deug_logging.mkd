@@ -41,8 +41,8 @@ debian has this package
     start arm-eabi-gdb
         arm-eabi-gdb
         (gdb) target remote :1234
-        (gdb) file out/target/product/bg2qv4_dmp/symbols/system/bin/vold
-        (gdb) set solib-search-path out/target/product/bg2qv4_dmp/symbols/system/lib
+        (gdb) file out/target/product/$TARGET_PRODUCT/symbols/system/bin/vold
+        (gdb) set solib-search-path out/target/product/$TARGET_PRODUCT/symbols/system/lib
         (gdb) bt
         (gdb) info threads
         (gdb) thread 3

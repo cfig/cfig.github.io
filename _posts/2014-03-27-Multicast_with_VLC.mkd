@@ -1,0 +1,66 @@
+# VLC Streaming
+
+Multicast Address Range:  
+224.0.0.1-239.255.255.255
+
+### practice 1
+
+    ========== RTP/MPEG Transport Stream==========
+    Multicast Streaming
+    1.File->Stream
+    * Source:Choose src
+    * Destination Setup:
+    Add "RTP/MPEG Transport Stream", check "Display locally"
+    Address: 239.1.1.1, Port: 5004
+    * Option Setup:
+    TTL: 10
+    
+    ---------- Client ----------
+    Media->Open Network Stream->rtp://239.1.1.1:5004
+
+### practice 2
+
+    ========== RTP/MPEG Transport Stream==========
+    VOD
+    1.File->Stream
+    * Source:Choose src
+    * Destination Setup:
+    Add "HTTP", check "Display locally"
+    Port: 8080 
+    File Path: /1.ts
+    * Option Setup:
+    TTL: 10
+    
+    ---------- Client ----------
+    Media->Open Network Stream->http://10.37.135.142:8080/1.ts
+    
+### practice 3
+
+    =================================
+                RTP
+    =================================
+    Destinations:
+    RTP/MPEG Transpot Stream <--add
+    Display locally <--uncheck
+    
+    Transcodeing options:
+    Active Transcoding <--check
+    Video - H.264+MP3(MP4)
+    
+    Miscellaneous Options:
+    uncheck all
+    
+    
+    
+    :sout=#transcode{vcodec=h264,vb=0,scale=0,acodec=mpga,ab=128,channels=2,samplerate=44100}:duplicate{dst=std{access=udp{ttl=2},mux=ts,dst=239.239.239.2:1234},dst=display} :sout-keep
+    
+    
+    vlc --sout "#duplicate{dst=rtp{dst=224.5.6.7,port=5004,mux=ts,ttl=1},dst=display}" --sout-keep
+    
+    vlc --sout "#rtp{dst=224.5.6.7,port=5004,mux=ts,ttl=1}" --sout-keep
+    
+    vlc --sout "#transcode{vcodec=h264,vb=0,scale=0,acodec=mpga,ab=128,channels=2,samplerate=44100}:duplicate{dst=rtp{dst=224.5.6.7,port=5004,mux=ts,ttl=1},dst=display}" --sout-keep --keep 
+    
+    vlc --sout "#transcode{vcodec=h264,vb=0,scale=0,acodec=mpga,ab=128,channels=2,samplerate=44100}:duplicate{dst=rtp{dst=224.5.6.7,port=5004,mux=ts,ttl=3},dst=display}" --sout-all --sout-keep --loop 
+    
+    vlc $1 --sout "#transcode{vcodec=h264,vb=800,scale=1,acodec=mpga,ab=128,channels=2,samplerate=44100}" --sout-all --sout-keep --loop
