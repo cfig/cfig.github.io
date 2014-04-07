@@ -1,3 +1,46 @@
 # SSH: Spring Struts Hibernate
 
-## need to add this next week
+## Setup Spring dev env
+Spring framework ([homepage](http://www.projects.spring.io/spring-framework))  
+prebuilt jar files: [http://repo.spring.io/release/org/springframework/spring](http://repo.spring.io/release/org/springframework/spring)
+
+Enable "ALT + /": delete "word completion" short key; reassign to "context assist".
+
+install Spring Tool Suit(STS) to Eclipse.
+
+add spring jars to build path:
+
+    expressions
+    aop
+    beans
+    context
+    core
+
+## logging
+
+* commons-logging(JCL): deprecated
+
+* log4j is nice and all, but no thanks.
+
+* [slf4j](http://www.slf4j.org/)
+
+    Need:  
+    jcl-over-slf4j: redirect commons-logging to slf4j, spring need commons-logging  
+    slf4j-api: slf4j core api  
+
+* [logback](http://logback.qos.ch)
+
+    Need:  
+    logback-classic.jar: use it to implement real logging  
+    logback-core.jar  
+
+[chainsaw](http://logging.apache.org/chainsaw/download.html) is a good online log receiver.
+
+If chainsaw webstart can not run under JDK7/8, need to add "http://logging.apache.org" into java security exception list.
+
+## First Spring project
+
+1. create spring config xml, then switch to "Spring Config Editor", a marvellous tool.
+2. create main() class, which loads spring xml.
+
+

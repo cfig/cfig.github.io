@@ -1,0 +1,62 @@
+﻿# Gerrit
+<body bgcolor="#F3FFFF">
+</body>
+
+## Install Gerrit
+1. Download gerrit.war from [https://code.google.com/p/gerrit](https://code.google.com/p/gerrit/)
+Install guide: [https://git.eclipse.org/r/Documentation/install.html](https://git.eclipse.org/r/Documentation/install.html)
+
+2. create psql user and database
+    createuser -A -D -P -E gerrit2
+    createdb -E UTF-8 -O gerrit2 reviewdb
+
+3. init gerrit
+    java -jar gerrit.war init -d /path/to/your/gerrit_application_directory
+    (in later steps, we use $(P) for /path/to/your/gerrit_application_directory)
+
+4. start
+    $(P)/bin/gerrit.sh start
+
+## admin gerrit
+5. Login
+    https://xx.xx.xx.xx:port/#/admin/projects/
+    and config it
+
+6. Test admin SSH connection
+    ssh -p 29418 10.37.116.55
+
+7. Add gits
+    Copy git mirror into $(P)/git folder
+    Either restart the server, or flush the project_list cache:
+    ssh -p29418 name@example.com gerrit flush-caches --cache project_list
+
+## working with gerrit
+
+8. fetch code
+    git clone ssh://xx@example.com:29418/code.git  
+    git clone https://xx@10.37.x.x:8443/code
+
+What if you got "self-signed key issue reported by git":
+
+    workaround: 
+    git config --global http.sslVerify false
+
+remember https password: add to .netrc
+
+remember ssh password: .ssh/config
+
+
+9. misc
+
+    curl http://x.x.x.x:8080/ssh_info
+
+    curl https://name@x.x.x.x:8443/ssh_info -k
+
+get hook on changeid:
+scp -p -P 29418 review.example.com:hooks/commit-msg .git/hooks/
+
+提交
+git push ssh://sshusername@hostname:29418/projectname HEAD:refs/for/branchname
+
+git push ub11655:code refs/heads/master:refs/for/master
+

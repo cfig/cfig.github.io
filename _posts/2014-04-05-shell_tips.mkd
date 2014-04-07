@@ -1,0 +1,40 @@
+### add raw binary payload your shell scripts
+#### 1. pack raw binary to sh (stand\_alone.raw.sh)
+
+head
+
+    #!/bin/sh  
+    match=$(grep --text --line-number '^PAYLOAD:$' $0 | cut -d ':' -f 1)  
+    payload_start=$((match + 1))  
+    tail -n +$payload_start $0 > sepo  
+    chmod +x sepo  
+    ./sepo  
+    exit 0  
+
+tail
+
+    cat [file] >> stand_alone.raw.sh  
+
+#### 2. run stand\_alone.raw.sh
+
+    $ ./stand_alone.raw.sh
+
+### add uuencoded binary payload your shell scripts
+
+#### 1. pack uuencoded binary to sh (stand\_alone.sh)
+
+head
+
+    #!/bin/sh
+    uudecode $0
+    ./sepo
+    rm sepo
+    exit 0
+
+tail
+
+    uuencode [file] >> stand_alone.sh
+
+#### 2. run stand\_alone.sh
+
+    $ ./stand_alone.sh

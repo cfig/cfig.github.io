@@ -1,0 +1,57 @@
+# autotools
+
+## flow
+Files used in preparing a software package for distribution, when using just Autoconf:
+
+     your source files --> [autoscan*] --> [configure.scan] --> configure.ac
+
+     configure.ac --.
+                    |   .------> autoconf* -----> configure
+     [aclocal.m4] --+---+
+                    |   `-----> [autoheader*] --> [config.h.in]
+     [acsite.m4] ---'
+
+     Makefile.in
+
+Additionally, if you use Automake, the following additional productions
+come into play:
+
+     [acinclude.m4] --.
+                      |
+     [local macros] --+--> aclocal* --> aclocal.m4
+                      |
+     configure.ac ----'
+
+     configure.ac --.
+                    +--> automake* --> Makefile.in
+     Makefile.am ---'
+
+Files used in configuring a software package:
+
+                            .-------------> [config.cache]
+     configure* ------------+-------------> config.log
+                            |
+     [config.h.in] -.       v            .-> [config.h] -.
+                    +--> config.status* -+               +--> make*
+     Makefile.in ---'                    `-> Makefile ---'
+
+
+## autoconf
+autoconf can be seen as a "shell script compiler". It reads some source files, and output portable shell scripts.
+
+tutorial:(autoconf)
+1.prepare source files(.c, .h), generate configure.scan with *autoscan*
+
+(Makefile.am)
+
+2.mv configure.scan configure.ac
+
+3.list all #if,#elif,#ifdef,#ifndef directives with *ifnames*.
+
+    AC_CONFIG_AUX_DIR(build-aux): use auxiliary build tools (eg., install-sh, libtool scripts, automake scripts)
+
+config.status is a hidden slave of configure script. It will take proper actions based on the results of configure.
+
+    AC_CONFIG_FILES will create target files from several input files,source files are concatenated.
+    eg.:
+    AC_CONFIG_FILES([api.sh:head.sh:body.sh:tail.sh],[chmod +x api.sh])

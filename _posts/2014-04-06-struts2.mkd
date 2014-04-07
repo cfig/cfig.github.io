@@ -1,0 +1,8 @@
+#struts2
+
+
+
+# install web server
+Install "GlassFish Tools for Kepler" in "Eclipse Marketplace". When installation succeed, a "GlassFish" icon will appear in "Menu" -> "Help".
+
+create "Dynamic Web Project" in Eclipse, "Runtime" -> "New Runtime" -> "GlassFish 4.0"

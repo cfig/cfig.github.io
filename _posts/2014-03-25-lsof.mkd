@@ -90,3 +90,11 @@ use **ulimit -n** to check limits, use **ls /proc/\*/fd/** to count all fd
 **lsof +L1** shows you all open files that have a link count less than 1  
 This is often (but not always) indicative of an attacker trying to hide file content by unlinking it.
 > $ lsof +L1
+
+
+## memory usage monitor
+    memdump: This  program  dumps system memory to the standard output stream, skipping over holes in memory maps.  By default, the program dumps the contents of physical memory (/dev/mem).
+    memstat: Identify what's using up virtual memory.
+
+    ps aux --sort:-rss
+
