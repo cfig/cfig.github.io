@@ -1,8 +1,60 @@
 #struts2
 
+## install web server
 
-
-# install web server
 Install "GlassFish Tools for Kepler" in "Eclipse Marketplace". When installation succeed, a "GlassFish" icon will appear in "Menu" -> "Help".
 
 create "Dynamic Web Project" in Eclipse, "Runtime" -> "New Runtime" -> "GlassFish 4.0"
+
+## First "Dynamic Web Project" on Glassfish
+
+1. create project
+
+    Project Name: web1:  
+    default output folder: build\classes  
+    Context root: web1 (config in WebContent/WEB-INF/glassfish-web.xml  
+    Content Directory: WebContent  
+    Generate web.xml depoyment description.  
+
+2. add simple index.jsp
+
+3. run on GlassFish
+
+## First struts2 web project
+
+1. create dynamic web project as in previous chapter
+
+add core struts2 jar into build path.(place at WEB-INF/lib)
+
+2. add filter into web.xml
+
+> web.xml  
+
+    <filter>
+        <filter-name>struts2</filter-name>
+        <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>struts2</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+3. index.jsp
+
+add this into the beginning of the xml:  
+    
+    <%@taglib prefix="s" uri="/struts-tags"%>
+
+
+add this into &lt;body>  
+
+    <H2>System Entry</H2>
+    <s:form action="loginAction">
+        <s:textfield name="theName" label="User"></s:textfield>
+        <s:password name="thePwd" label="Password"></s:password>
+        <s:submit value="OK"></s:submit>
+        <s:reset value="clear"></s:reset>
+    </s:form>
+
+

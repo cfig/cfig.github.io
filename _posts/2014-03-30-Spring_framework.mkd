@@ -1,20 +1,18 @@
-# SSH: Spring Struts Hibernate
+# Spring Framework
 
-## Setup Spring dev env
+## intro
 Spring framework ([homepage](http://www.projects.spring.io/spring-framework))  
-prebuilt jar files: [http://repo.spring.io/release/org/springframework/spring](http://repo.spring.io/release/org/springframework/spring)
 
-Enable "ALT + /": delete "word completion" short key; reassign to "context assist".
+## Setup Spring development env in Eclipse
+1. install Spring Tool Suit(STS) for Eclipse.
 
-install Spring Tool Suit(STS) to Eclipse.
+  [http://spring.io/tools/sts/all](http://spring.io/tools/sts/all)
 
-add spring jars to build path:
+2. download spring jars
 
-    expressions
-    aop
-    beans
-    context
-    core
+Download prebuilt jar files: [http://repo.spring.io/release/org/springframework/spring](http://repo.spring.io/release/org/springframework/spring)
+
+3. Enable "ALT + /": delete "word completion" short key; reassign to "context assist".
 
 ## logging
 
@@ -39,8 +37,18 @@ add spring jars to build path:
 If chainsaw webstart can not run under JDK7/8, need to add "http://logging.apache.org" into java security exception list.
 
 ## First Spring project
+1. add spring jars to build path
 
-1. create spring config xml, then switch to "Spring Config Editor", a marvellous tool.
-2. create main() class, which loads spring xml.
+Needed Jars:  
+
+    expressions
+    aop
+    beans
+    context
+    core
+
+2. create spring config xml, then switch to "Spring Config Editor", a marvellous tool.
+
+3. create main() class, which loads spring xml.
 
 
