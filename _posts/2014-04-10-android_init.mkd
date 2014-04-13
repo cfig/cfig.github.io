@@ -1,0 +1,12 @@
+# android init
+
+## boot sequence
+
+early-init, init, early-boot, boot
+
+early-init -> init -> early-boot -> boot
+
+
+1. property\_get works, but may have random issues. (have not checked yet)  
+2. getenv doesn’t work in init itself. Process forked in init also doesn’t work.
+
