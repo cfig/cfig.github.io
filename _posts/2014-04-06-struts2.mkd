@@ -10,6 +10,8 @@ create "Dynamic Web Project" in Eclipse, "Runtime" -> "New Runtime" -> "GlassFis
 ### 1.2 Download struts2 jar files
 Download struts2 jar files from [http://struts.apache.org/development/2.x/](http://struts.apache.org/development/2.x/)
 
+Some guides on struts2 [http://www.tutorialspoint.com/struts\_2/struts\_configuration.htm](http://www.tutorialspoint.com/struts_2/struts_configuration.htm)
+
 ## 2. First "Dynamic Web Project" on Glassfish
 
 (1). create project

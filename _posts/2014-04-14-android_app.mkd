@@ -1,0 +1,40 @@
+# android app
+
+## set up eclipse
+
+1. Download Android SDK.
+[http://developer.android.com/sdk/index.html#ExistingIDE](http://developer.android.com/sdk/index.html#ExistingIDE)
+
+2. Insall ADT plugin for Eclipse. [http://developer.android.com/sdk/installing/installing-adt.html](http://developer.android.com/sdk/installing/installing-adt.html)
+
+
+## First Android app
+
+Add the following into first Android app:  
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        
+        final Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("image/*");
+        startActivityForResult(intent, 0);
+        
+        return true;
+    }
+
+
+This example will demonstrate the usage of "Storage Access Framework"(SAF).
+More details, see [https://developer.android.com/guide/topics/providers/document-provider.html#client](https://developer.android.com/guide/topics/providers/document-provider.html#client)
+
+## PreferenceFragment
+
+Create a java class which extends **PreferenceFragment**, 
+
+Create new android xml file:  
+Resource Type: "Preference"  
+Root Element: "ListPrefercnce"  
+

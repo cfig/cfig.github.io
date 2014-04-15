@@ -3,6 +3,8 @@
 ## intro
 Spring framework ([homepage](http://www.projects.spring.io/spring-framework))  
 
+Spring Release [http://spring.io/blog/category/releases](http://spring.io/blog/category/releases)
+
 ## Setup Spring development env in Eclipse
 1. install Spring Tool Suit(STS) for Eclipse.
 
