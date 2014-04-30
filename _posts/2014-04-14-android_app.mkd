@@ -105,3 +105,10 @@ create preference screen xml: xml/pref.xml
 
 ## Eclipse for platform development
 [http://source.android.com/source/using-eclipse.html](http://source.android.com/source/using-eclipse.html)
+
+
+
+
+Intent fullscreenIntent = new Intent(this, FullscreenActivity.class);
+mContext.startActivity(fullscreenIntent);
+
