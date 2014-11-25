@@ -1,9 +1,9 @@
 # android Boot Time Analysis & logging & debugging
 
 ## Enable bootchart  
+
 [http://elinux.org/Using\_Bootchart\_on\_Android](http://elinux.org/Using_Bootchart_on_Android)
 
---
 | No. |  steps |
 | :--:| :----- |
 | 1 |  apt-get install bootchart |
@@ -14,15 +14,19 @@
 
 ## logging
 ### kernel logging
+
 kernel has a ring buffer which can be dumped via command _dmesg_. Default loglevel in init.rc is 3, you can change it to 8(higest).
 > loglevel 8  
 
 ### android logging
+
 The Android application framework has a built-in logging system -- logcat, which goes through a special driver in the kernel.
 
 ## tracing
 ### strace : trace system calls and signals
+
 android has _**strace**_ in external/strace, strace can be enabled in init.rc or hot attach.
+
 > init.rc  
 >> service xxx /system/xbin/strace -tt -o/data/boot.strace /system/bin/vold
 
@@ -34,6 +38,7 @@ debian has this package
 
 ## debugging
 ### advanced method
+
     start gdbserver on board: find PID of vold, then
         gdbserver :1234 --attach 1264
     map port on PC: map 1234 on PC to 123 on board
@@ -50,4 +55,5 @@ debian has this package
 
 
 ### quick method
+
     gdbclient vold :5039 vold
