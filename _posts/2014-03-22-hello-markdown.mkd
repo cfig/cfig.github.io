@@ -1,0 +1,34 @@
+# Basic Demo of Markdown
+## 1 _italic_ and **bold**
+### italic
+Just add surround words with underscore(\_) make it _italic_,
+### __bold__
+Just add surround words with 2 underscore(\_\_) or 2 asterisks(\*\*)  make it **bold**.
+
+# 2 url
+## simple url link
+[You're **really, really** going to want to see this.](http://www.markdowntutorial.com)
+
+## img url
+![](https://www.debian.org/logos/openlogo-nd-100.jpg)
+
+
+ Here's [a link to something else][another place].
+ Here's [yet another link][another-link].
+ And now back to [the first link][another place].
+
+[another place]: www.github.com
+[another-link]: www.google.com
+
+# blockquote
+
+examples on LOGD/LOGV in C style  
+
+    #define LOGW(...) fprintf(stdout, "W:" __VA_ARGS__)
+
+    #define LOGI(...) fprintf(stdout, "I:" __VA_ARGS__)
+
+    #define LOGV(...) do {} while (0)
+
+    #define LOGD(...) do {} while (0)
+
