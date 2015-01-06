@@ -37,7 +37,7 @@ Files used in configuring a software package:
 
 
 ## autoconf
-autoconf can be seen as a "shell script compiler". It reads some source files, and output portable shell scripts.
+autoconf can be seen as a `"shell script compiler"`. It reads some source files, and output portable shell scripts.
 
 tutorial:(autoconf)
 1.prepare source files(.c, .h), generate configure.scan with *autoscan*
@@ -53,5 +53,6 @@ tutorial:(autoconf)
 config.status is a hidden slave of configure script. It will take proper actions based on the results of configure.
 
     AC_CONFIG_FILES will create target files from several input files,source files are concatenated.
+
     eg.:
     AC_CONFIG_FILES([api.sh:head.sh:body.sh:tail.sh],[chmod +x api.sh])

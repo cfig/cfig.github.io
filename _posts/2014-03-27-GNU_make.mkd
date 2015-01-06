@@ -1,11 +1,14 @@
-"gcc -M sepo.c" will generate depends.
+`"gcc -M sepo.c"` will generate depends.
 
 debug makefile:
-remake -x
-remake -X
+
+    remake -x
+    remake -X
 
 variable in make: 
-a = d #comment
+
+    a = d #comment
+
 now variable a is "d "
 
 Where do variables come from:
@@ -28,6 +31,5 @@ Where do variables come from:
             mkdir $@
     ======================
     build_log should exist
-    
     
     .DEFAULT_GOAL := apply_product_patch

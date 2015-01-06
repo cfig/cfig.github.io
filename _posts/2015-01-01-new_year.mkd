@@ -1,0 +1,34 @@
+github flavored mkd table:
+
+| Left-Aligned  | Center Aligned  | Right Aligned |
+| :------------ |:---------------:| -----:|
+| col 3 is      | some wordy text | $1600 |
+| col 2 is      | centered        |   $12 |
+| zebra stripes | are neat        |    $1 |
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}
+.tg .tg-0ord{text-align:right}
+</style>
+<table class="tg">
+  <tr>
+    <th class="tg-031e">a</th>
+    <th class="tg-031e">b</th>
+    <th class="tg-0ord">c</th>
+    <th class="tg-031e"></th>
+  </tr>
+  <tr>
+    <td class="tg-031e">d</td>
+    <td class="tg-031e">e</td>
+    <td class="tg-0ord">f</td>
+    <td class="tg-031e"></td>
+  </tr>
+  <tr>
+    <td class="tg-031e">g</td>
+    <td class="tg-031e">h</td>
+    <td class="tg-0ord">i</td>
+    <td class="tg-031e"></td>
+  </tr>
+</table>

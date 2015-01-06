@@ -1,0 +1,115 @@
+# 1. install
+
+    apt-get install pptpd
+
+# 2. enable VPN connection
+
+## 2.1 /etc/pptpd.conf
+
+> vim /etc/pptpd.conf
+
+set localip and remoteip from template like this:
+
+> localip 10.0.0.1
+> remoteip 10.0.0.100-200
+
+this sets local PPP ip and ip pool for VPN clients.
+
+## 2.2 /etc/ppp/pptpd-options
+
+> vim /etc/ppp/pptpd-options
+
+set dns servers:
+
+> ms-dns 8.8.8.8
+> ms-dns 8.8.4.4
+
+please also remember this line:
+
+> name pptpd
+
+it is used for authentication.(must match the second field in /etc/ppp/chap-secrets entries)
+
+## 2.3 /etc/ppp/chap-secrets
+
+> vim /etc/ppp/chap-secrets
+
+this file sets auth info for CHAP, edit it like this:
+
+> usr pptpd pwd *
+
+`'usr'` is VPN user name, `'pwd'` is VPN password, asterisk means all ip address ranges
+
+## 2.4 try it out
+
+then this VPN can be successfully connected and client can get IP in range 10.0.0.100-200, but client can not do anything else yet.
+
+logs can be found in /var/log/damon.log, I see this error, but it doesn`'`t matter:
+
+> Jan  8 01:46:08 lino88-59 pptpd[3981]: GRE: Bad checksum from pppd.
+
+connection established successfully:
+
+> Jan  8 01:46:12 lino88-59 ntpd[3657]: Listen normally on 7 ppp0 192.168.0.1 UDP 123
+> Jan  8 01:46:12 lino88-59 ntpd[3657]: peers refreshed
+
+
+# 3. let client can reach the outside
+
+## 3.1 sysctl
+
+    vim /etc/sysctl.conf
+
+edit it like this to enable ipv4/ipv6 forwading
+
+    net.ipv4.ip_forward=1
+    net.ipv6.conf.all.forwarding=1
+
+apply the change with
+
+    sysctl --system
+
+## 3.2 iptables
+
+### 3.2.1 edit
+
+    vim /etc/local/vpn_setting
+
+edit the file like this
+
+    *nat
+    :PREROUTING ACCEPT [29:1779]
+    :POSTROUTING ACCEPT [8:487]
+    :OUTPUT ACCEPT [8:487]
+    -A POSTROUTING -s 10.0.0.0/24 -o eth0 -j MASQUERADE
+    COMMIT
+    *filter
+    :INPUT ACCEPT [91:8273]
+    :FORWARD ACCEPT [6:1886]
+    :OUTPUT ACCEPT [84:8143]
+    -A FORWARD -i ppp+ -p tcp -m tcp --tcp-flags FIN,SYN,RST,ACK SYN -j TCPMSS --set-mss 1356
+    COMMIT
+    
+it has 2 rules, 1 will allow 10.0.0.0/24 to access eth0 in MASQUERADE mode, another rule will improve VPN server performance.
+
+### 3.2.2 apply
+
+    vim /etc/rc.local
+
+add the following line into it:
+
+    iptables-restore < /etc/local/vpn_setting
+    exit 0
+
+then
+
+    service rc.local restart
+
+this will import the rules to iptables. This setting can be backed up as:
+
+    iptables-save > new
+
+### 3.2.3 try it out
+
+Well done!
+
