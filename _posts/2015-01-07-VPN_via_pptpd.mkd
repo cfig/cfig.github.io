@@ -75,7 +75,11 @@ apply the change with
 
     vim /etc/local/vpn_setting
 
-edit the file like this
+run this command:
+
+    iptables -t nat -A POSTROUTING -j SNAT --to-source <Server_Public_IP>
+
+or edit the file like this
 
     *nat
     :PREROUTING ACCEPT [29:1779]
