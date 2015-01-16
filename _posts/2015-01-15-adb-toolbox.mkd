@@ -21,4 +21,33 @@ But after verification,
     (4) For CTS: setprop after boot up will set the value, but adbd already gets the original value, so adbd won't change behavior, but CTS can PASS.  
 
 
+#### adb keygen
+
+--------------
+
+    commit 86c9e5f7e20a3f1712038ce642628c2e1e866434
+    Author: Nick Kralevich <nnk@google.com>
+    Date:   Thu Nov 13 15:17:29 2014 -0800
+    
+        Introduce "adb keygen"
+        
+        Introduce the "adb keygen" command.
+        
+          Usage: adb keygen <filename>
+        
+        This command creates an adb public/private key pair in a user
+        specified file. This can be used to create new adb keys, or rotate
+        existing keys.
+--------------
+
+#### debug adb
+
+    /data/adb is used for writing adb debugging information when persist.adb.trace_mask is set.
+
+#### toolbox prlimit
+
+    adb shell prlimit <pid> <cur> <max>
+
+    set the limits on an arbitrary process
+
 

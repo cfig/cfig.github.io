@@ -1,0 +1,82 @@
+<meta charset="UTF-8">
+
+# SAF (Storage Access Framework)
+
+## 1. intro
+
+可以提供本地/云端的DocumentsProvider 
+
+Google guide [https://developer.android.com/guide/topics/providers/document-provider.html](https://developer.android.com/guide/topics/providers/document-provider.html)
+
+
+## 2. 系统包含3部分：
+
+* DocumentsProvider 
+
+    继承DocumentsProvider的类，作为provider
+ 
+* Client app
+
+    发intent (ACTION_OPEN_DOCUMENT and/or ACTION_CREATE_DOCUMENT)
+
+* Picker
+    
+    一个UI，让用户选文件,系统默认有DocumentsUI.apk
+
+### 3. providers
+
+系统内置的DocumentsProvider
+
+    1. DownloadStorageProvider
+    2. ExternalStorageProvider
+    3. MediaDocumentsProvider
+
+系统的sample provider:
+
+    4. VaultProvider
+    
+        development/samples/Vault/src/com/example/android/vault/VaultProvider.java
+    
+    5. MyCloudProvider
+    
+        development/samples/browseable/StorageProvider/src/com.example.android.storageprovider/MyCloudProvider.java
+    
+    6. CTS test provider
+    
+        cts/hostsidetests/appsecurity/test-apps/DocumentProvider
+
+### 4. client实测
+
+intent
+
+    Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=org.cfig/.app.saf.SAFActivity }
+
+
+
+NG:(image with GMS)
+
+        I/ActivityManager(  550): START u0 {act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 cmp=org.cfig/.app.saf.SAFActivity} from uid 0 on display 0
+    
+        I/ActivityManager(  550): START u0 {act=android.intent.action.OPEN_DOCUMENT cat=[android.intent.category.OPENABLE] typ=*/* cmp=com.google.android.tv.frameworkpackagestubs/.Stubs$DocumentsStub} from uid 10066 on display 0
+    
+GOOD:(image with AOSP only)
+
+        I/ActivityManager( 1217): START u0 {flg=0x10000000 cmp=org.cfig/.app.saf.SAFActivity} from uid 0 on display 0
+    
+        I/ActivityManager( 1217): START u0 {act=android.intent.action.OPEN_DOCUMENT cat=[android.intent.category.OPENABLE] typ=*/* cmp=com.android.documentsui/.DocumentsActivity} from uid 10038 on display 0
+
+使用android.intent.action.OPEN_DOCUMENT，默认打开DocumentsUI.apk (frameworks/base/packages/DocumentsUI)
+
+代码
+
+        int READ_REQUEST_CODE = 42;
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("*/*");
+        intent.setPackage("com.android.documentsui");
+        startActivityForResult(intent, READ_REQUEST_CODE);
+
+解释
+
+    intent.setType(): ogg files "audio/ogg",any files "*/*", imgags "image/*"
+    intent.setPackage(): 不设会走到GMS里面，然后会"no app to handle the intent"

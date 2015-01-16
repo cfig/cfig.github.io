@@ -35,3 +35,14 @@ What are they:
 
     all of the above -> system.img
 
+## misc
+
+prop:
+
+* partition.system.verified == 1
+* partition.vendor.verified == 1
+
+when system or vendor partition is dm-verity enabled, user can use "adb disable-verity" to disable verity.
+"disable dm-verity checking on USERDEBUG builds"
+
+

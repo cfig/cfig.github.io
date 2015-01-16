@@ -1,0 +1,54 @@
+<meta charset="UTF-8">
+
+# slider view 
+
+## 1. overview
+
+ViewPager provides screen slides,
+
+
+SliderActivity needs to extend FragmentActivity
+
+SliderActivity needs an adapter(SliderAdapter) to provide fragments
+
+The fragment is really provided by SliderFragment, which extends Fragment
+
+
+## 2. class relationship
+
+#### SliderActivity
+
+* onCreate()
+    
+    activity找到ViewPager, 设置adapter
+
+* onCreateOptionsMenu
+    
+    创建options菜单，显示previous,next
+
+* onOptionsItemSelected
+
+    配置options menu动作
+
+
+#### SliderPagerAdapter
+
+* getItem()
+
+    使用SliderFragment提供fragment
+    
+* getCount()
+
+    提供总页数
+
+#### SliderFragment
+
+* onCreate()
+
+    从bundle获取参数，设置成员变量（请求的页数pageNumber)
+
+* onCreateView()
+
+    inflate设置好的fragment layout
+
+
