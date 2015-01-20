@@ -1,0 +1,28 @@
+<meta charset="UTF-8">
+
+# 保卫鱿鱼
+
+现象
+
+    机器狂慢，带宽实时用量逼近threshold, VPS发警示邮件
+
+查看log
+
+    /var/log/squid3/access.log
+    海量IP疯狂刷本机3128端口，
+
+解决
+
+    1. 改变默认端口号到不常用大端口
+    2. 关闭open proxy, 使用密码验证
+    3. IP过滤
+
+    从access.log提取海量IP, 直接用iptables过滤,丢弃来自攻击网段的所有包
+
+    iptables -I INPUT -s <IP_RANGE> -j DROP
+    如:
+    iptables -I INPUT -s 90.181.203.0/24 -j DROP
+
+结果
+
+    The world is clean and clear.

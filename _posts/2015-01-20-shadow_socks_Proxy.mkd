@@ -1,0 +1,21 @@
+# set up shadowsocks server
+
+## install ss for both server and client
+
+    apt-get install python-pip
+    pip install shadowsocks
+
+## start service
+
+    ssserver -p 123 -k <PWD> --fast-open --workers 2 -d start
+
+## start client
+
+    apt-get install netcat-openbsd
+    nohup sslocal --fast-open -p 123 -l 9999 -k <PWD> -s yu.1h1m.net
+
+## setup chrome plugin
+
+install the "proxy swichyOmega" plugin for chrome, set proxy to: type socks5, addr 127.0.0.1, port 9999
+
+

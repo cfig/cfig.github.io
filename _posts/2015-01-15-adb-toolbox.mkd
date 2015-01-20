@@ -1,5 +1,7 @@
 # secure adb
 
+## enable secure adb
+
 Kitkat CTS requres that ro.adb.secure=1. 
 
     ADDITIONAL_DEFAULT_PROPERTIES += ro.adb.secure=1
@@ -19,7 +21,6 @@ But after verification,
     (2) key verification will check username/hostname via getlogin_r() and gethostname() in adb_auth_host.c, so other hosts using the same RSA key doesn't work. But you can hack the username/hostname on your machine if you already have the RSA private key.   
     (3) adb connect via network won't trigger AUTH confirmation dialog.  
     (4) For CTS: setprop after boot up will set the value, but adbd already gets the original value, so adbd won't change behavior, but CTS can PASS.  
-
 
 #### adb keygen
 
