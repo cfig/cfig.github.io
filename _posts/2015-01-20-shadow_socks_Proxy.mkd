@@ -19,3 +19,12 @@
 install the "proxy swichyOmega" plugin for chrome, set proxy to: type socks5, addr 127.0.0.1, port 9999
 
 
+## setup aptitude/apt-get
+
+    apt-get install tsocks
+    vim /etc/tsocks.conf
+    tsocks apt-get update
+
+
+    export http_proxy=http://<name>:<pwd>@<server>:<port>
+
