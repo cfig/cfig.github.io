@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>GNU_make | No Name</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="&quot;gcc -M sepo.c&quot; will generate depends.
+debug makefile:
+remake -x
+remake -X
+variable in make: 
+a = d #comment
+now variable a is “d “
+Where do variables come from:
+1.file: via 'include' comman">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GNU_make">
+<meta property="og:url" content="http://cfig.github.io/2014/03/27/2014-03-27-GNU_make/">
+<meta property="og:site_name" content="No Name">
+<meta property="og:description" content="&quot;gcc -M sepo.c&quot; will generate depends.
+debug makefile:
+remake -x
+remake -X
+variable in make: 
+a = d #comment
+now variable a is “d “
+Where do variables come from:
+1.file: via 'include' comman">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="GNU_make">
+<meta name="twitter:description" content="&quot;gcc -M sepo.c&quot; will generate depends.
+debug makefile:
+remake -x
+remake -X
+variable in make: 
+a = d #comment
+now variable a is “d “
+Where do variables come from:
+1.file: via 'include' comman">
+
+  
+    <link rel="alternative" href="/atom.xml" title="No Name" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">No Name</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Should I add a name ?</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="submit" value="&#xF002;" class="search-form-submit"><input type="hidden" name="q" value="site:http://cfig.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2014-03-27-GNU_make" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/03/27/2014-03-27-GNU_make/" class="article-date">
+  <time datetime="2014-03-27T00:00:00.000Z" itemprop="datePublished">2014 Mar 27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      GNU_make
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><code>&quot;gcc -M sepo.c&quot;</code> will generate depends.</p>
+<p>debug makefile:</p>
+<pre><code><span class="comment">remake -x</span>
+<span class="comment">remake -X</span>
+</code></pre><p>variable in make: </p>
+<pre><code><span class="variable">a =</span> d <span class="comment">#comment</span>
+</code></pre><p>now variable a is “d “</p>
+<p>Where do variables come from:</p>
+<pre><code><span class="number">1.</span><span class="keyword">file</span>: via <span class="string">"include"</span> command
+<span class="number">2.</span>command line: user decide [makefile/command_line] <span class="keyword">when</span> conflicts
+<span class="number">3.</span>env: user decide [env/makefile] <span class="keyword">when</span> conflicts
+(<span class="number">1</span>)<span class="keyword">When</span> make <span class="keyword">is</span> invoked recursively, some variables from the parent make are passed through the environment <span class="keyword">to</span> the child make. By <span class="keyword">default</span>, only those variables that originally came from the environment are exported <span class="keyword">to</span> the child<span class="attribute">'s</span> environment, but any <span class="keyword">variable</span> can be exported <span class="keyword">to</span> the environment by using the export directive.
+(<span class="number">2</span>)The export <span class="keyword">and</span> unexport directives work the same way their counterparts <span class="keyword">in</span> sh work.
+    export <span class="comment">-- export</span>
+    unexport <span class="comment">-- unset</span>
+<span class="number">4.</span>auto
+
+OUTPUT_DIR ?= <span class="keyword">out</span> #OUTPUT_DIR <span class="keyword">default</span> <span class="keyword">to</span> <span class="keyword">out</span> <span class="keyword">if</span> undefined
+
+======================
+target_a : | build_log
+REQUIRED_DIRS += build_log
+$(REQUIRED_DIRS):
+        mkdir $@
+======================
+build_log should exist
+
+.DEFAULT_GOAL := apply_product_patch
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2014/03/27/2014-03-27-GNU_make/" data-id="vdgu10zqycu2xn9p" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/03/27/2014-03-27-Multicast_with_VLC/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Multicast_with_VLC
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/03/26/2014-03-26-boot_time_deug_logging/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">boot_time_deug_logging</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">24</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/java/" style="font-size: NaNpx;">java</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a><span class="archive-list-count">8</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/01/25/2014-03-22-hello-world/">First Blog on Jekyll</a>
+          </li>
+        
+          <li>
+            <a href="/2015/01/25/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2015/01/24/2015-01-24-action_bar/">action_bar</a>
+          </li>
+        
+          <li>
+            <a href="/2015/01/20/2015-01-20-shadow_socks_Proxy/">shadow_socks_Proxy</a>
+          </li>
+        
+          <li>
+            <a href="/2015/01/16/2015-01-16-squid3_defense/">squid3_defense</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2015 cfig<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+
+  </div>
+</body>
+</html>

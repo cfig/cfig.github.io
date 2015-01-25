@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>VPN_via_pptpd | No Name</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1. install
+apt-get install pptpd
+2. enable VPN connection
+2.1 /etc/pptpd.conf
+
+vim /etc/pptpd.conf
+
+set localip and remoteip from template like this:
+
+localip 10.0.0.1remoteip 10.0.0.100-200
+
+this set">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VPN_via_pptpd">
+<meta property="og:url" content="http://cfig.github.io/2015/01/07/2015-01-07-VPN_via_pptpd/">
+<meta property="og:site_name" content="No Name">
+<meta property="og:description" content="1. install
+apt-get install pptpd
+2. enable VPN connection
+2.1 /etc/pptpd.conf
+
+vim /etc/pptpd.conf
+
+set localip and remoteip from template like this:
+
+localip 10.0.0.1remoteip 10.0.0.100-200
+
+this set">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="VPN_via_pptpd">
+<meta name="twitter:description" content="1. install
+apt-get install pptpd
+2. enable VPN connection
+2.1 /etc/pptpd.conf
+
+vim /etc/pptpd.conf
+
+set localip and remoteip from template like this:
+
+localip 10.0.0.1remoteip 10.0.0.100-200
+
+this set">
+
+  
+    <link rel="alternative" href="/atom.xml" title="No Name" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">No Name</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Should I add a name ?</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="submit" value="&#xF002;" class="search-form-submit"><input type="hidden" name="q" value="site:http://cfig.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2015-01-07-VPN_via_pptpd" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/01/07/2015-01-07-VPN_via_pptpd/" class="article-date">
+  <time datetime="2015-01-07T00:00:00.000Z" itemprop="datePublished">2015 Jan 7</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      VPN_via_pptpd
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-_install">1. install</h1>
+<pre><code>apt-<span class="keyword">get</span> install pptpd
+</code></pre><h1 id="2-_enable_VPN_connection">2. enable VPN connection</h1>
+<h2 id="2-1_/etc/pptpd-conf">2.1 /etc/pptpd.conf</h2>
+<blockquote>
+<p>vim /etc/pptpd.conf</p>
+</blockquote>
+<p>set localip and remoteip from template like this:</p>
+<blockquote>
+<p>localip 10.0.0.1<br>remoteip 10.0.0.100-200</p>
+</blockquote>
+<p>this sets local PPP ip and ip pool for VPN clients.</p>
+<h2 id="2-2_/etc/ppp/pptpd-options">2.2 /etc/ppp/pptpd-options</h2>
+<blockquote>
+<p>vim /etc/ppp/pptpd-options</p>
+</blockquote>
+<p>set dns servers:</p>
+<blockquote>
+<p>ms-dns 8.8.8.8<br>ms-dns 8.8.4.4</p>
+</blockquote>
+<p>please also remember this line:</p>
+<blockquote>
+<p>name pptpd</p>
+</blockquote>
+<p>it is used for authentication.(must match the second field in /etc/ppp/chap-secrets entries)</p>
+<h2 id="2-3_/etc/ppp/chap-secrets">2.3 /etc/ppp/chap-secrets</h2>
+<blockquote>
+<p>vim /etc/ppp/chap-secrets</p>
+</blockquote>
+<p>this file sets auth info for CHAP, edit it like this:</p>
+<blockquote>
+<p>usr pptpd pwd *</p>
+</blockquote>
+<p><code>&#39;usr&#39;</code> is VPN user name, <code>&#39;pwd&#39;</code> is VPN password, asterisk means all ip address ranges</p>
+<h2 id="2-4_try_it_out">2.4 try it out</h2>
+<p>then this VPN can be successfully connected and client can get IP in range 10.0.0.100-200, but client can not do anything else yet.</p>
+<p>logs can be found in /var/log/damon.log, I see this error, but it doesn<code>&#39;</code>t matter:</p>
+<blockquote>
+<p>Jan  8 01:46:08 lino88-59 pptpd[3981]: GRE: Bad checksum from pppd.</p>
+</blockquote>
+<p>connection established successfully:</p>
+<blockquote>
+<p>Jan  8 01:46:12 lino88-59 ntpd[3657]: Listen normally on 7 ppp0 192.168.0.1 UDP 123<br>Jan  8 01:46:12 lino88-59 ntpd[3657]: peers refreshed</p>
+</blockquote>
+<h1 id="3-_let_client_can_reach_the_outside">3. let client can reach the outside</h1>
+<h2 id="3-1_sysctl">3.1 sysctl</h2>
+<pre><code><span class="keyword">vim</span> /etc/sysctl.<span class="keyword">conf</span>
+</code></pre><p>edit it like this to enable ipv4/ipv6 forwading</p>
+<pre><code>net.ipv4.ip_forward=<span class="number">1</span>
+net.ipv6.<span class="keyword">conf</span>.<span class="keyword">all</span>.forwarding=<span class="number">1</span>
+</code></pre><p>apply the change with</p>
+<pre><code>sysctl --<span class="built_in">system</span>
+</code></pre><h2 id="3-2_iptables">3.2 iptables</h2>
+<h3 id="3-2-1_edit">3.2.1 edit</h3>
+<pre><code><span class="keyword">vim</span> /etc/local/vpn_setting
+</code></pre><p>run this command:</p>
+<pre><code>iptables -<span class="keyword">t</span> nat -A POSTROUTING -<span class="keyword">j</span> SNAT --<span class="keyword">to</span>-<span class="keyword">source</span> &lt;Server_Public_IP&gt;
+</code></pre><p>or edit the file like this</p>
+<pre><code><span class="strong">*nat
+:PREROUTING ACCEPT [29:1779]
+:POSTROUTING ACCEPT [8:487]
+:OUTPUT ACCEPT [8:487]
+-A POSTROUTING -s 10.0.0.0/24 -o eth0 -j MASQUERADE
+COMMIT
+*</span>filter
+<span class="attribute">:INPUT ACCEPT [91:8273]</span>
+<span class="attribute">:FORWARD ACCEPT [6:1886]</span>
+<span class="attribute">:OUTPUT ACCEPT [84:8143]</span>
+-A FORWARD -i ppp+ -p tcp -m tcp --tcp-flags FIN,SYN,RST,ACK SYN -j TCPMSS --set-mss 1356
+COMMIT
+</code></pre><p>it has 2 rules, 1 will allow 10.0.0.0/24 to access eth0 in MASQUERADE mode, another rule will improve VPN server performance.</p>
+<h3 id="3-2-2_apply">3.2.2 apply</h3>
+<pre><code><span class="keyword">vim</span> /etc/rc.local
+</code></pre><p>add the following line into it:</p>
+<pre><code>iptables-<span class="operator"><span class="keyword">restore</span> &lt; /etc/<span class="keyword">local</span>/vpn_setting
+exit <span class="number">0</span></span>
+</code></pre><p>then</p>
+<pre><code><span class="class"><span class="keyword">service</span> <span class="title">rc</span>.local restart</span>
+</code></pre><p>this will import the rules to iptables. This setting can be backed up as:</p>
+<pre><code><span class="input"><span class="prompt">iptables-save &gt;</span> new</span>
+</code></pre><h3 id="3-2-3_try_it_out">3.2.3 try it out</h3>
+<p>Well done!</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2015/01/07/2015-01-07-VPN_via_pptpd/" data-id="5okb123tvl06vm4l" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/01/14/2015-01-14-android_app_Slider/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          android_app_Slider
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/01/01/2015-01-01-new_year/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">new_year</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">24</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/java/" style="font-size: NaNpx;">java</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a><span class="archive-list-count">8</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/01/25/2014-03-22-hello-world/">First Blog on Jekyll</a>
+          </li>
+        
+          <li>
+            <a href="/2015/01/25/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2015/01/24/2015-01-24-action_bar/">action_bar</a>
+          </li>
+        
+          <li>
+            <a href="/2015/01/20/2015-01-20-shadow_socks_Proxy/">shadow_socks_Proxy</a>
+          </li>
+        
+          <li>
+            <a href="/2015/01/16/2015-01-16-squid3_defense/">squid3_defense</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2015 cfig<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+
+  </div>
+</body>
+</html>

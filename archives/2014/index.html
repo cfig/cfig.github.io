@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Archives: 2014 | No Name</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description">
+<meta property="og:type" content="website">
+<meta property="og:title" content="No Name">
+<meta property="og:url" content="http://cfig.github.io/archives/2014/">
+<meta property="og:site_name" content="No Name">
+<meta property="og:description">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="No Name">
+<meta name="twitter:description">
+
+  
+    <link rel="alternative" href="/atom.xml" title="No Name" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">No Name</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Should I add a name ?</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="submit" value="&#xF002;" class="search-form-submit"><input type="hidden" name="q" value="site:http://cfig.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-2014-06-16-OTA" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/06/16/2014-06-16-OTA/" class="article-date">
+  <time datetime="2014-06-16T00:00:00.000Z" itemprop="datePublished">2014 Jun 16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/06/16/2014-06-16-OTA/">OTA</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="OTA">OTA</h1>
+<p>edify<br>a mini OTA script language, implemenation under bootable/recovery/edify/, the README is a good start to study edify.</p>
+<h2 id="flex/bision">flex/bision</h2>
+<p>They are aging unix utils that help to write fast parsers. They are written in C and ouput C code.</p>
+<p>Reference: <a href="http://aquamentus.com/flex_bison.html" target="_blank" rel="external">A good turotial on flex/bision</a></p>
+<p>Flex can do the parsing work indepently:</p>
+<h4 id="in">in</h4>
+<pre><code>sNaZZle <span class="number">1.3</span>
+<span class="class"><span class="keyword">type</span> <span class="title">foo</span></span>
+<span class="class"><span class="keyword">type</span> <span class="title">bar</span></span>
+<span class="class"><span class="keyword">type</span> <span class="title">bas</span></span>
+<span class="number">0</span> <span class="number">0</span> <span class="number">10</span> <span class="number">5</span>        foo
+<span class="number">20</span> <span class="number">10</span> <span class="number">30</span> <span class="number">20</span>     foo
+<span class="number">7</span> <span class="number">8</span> <span class="number">12</span> <span class="number">13</span>       bas
+<span class="number">78</span> <span class="number">124</span> <span class="number">100</span> <span class="number">256</span>  bar
+<span class="keyword">end</span>
+</code></pre><h4 id="snail-l">snail.l</h4>
+<pre><code>%{
+<span class="preprocessor">#<span class="keyword">include</span> &lt;iostream&gt;</span>
+<span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;
+<span class="preprocessor">#<span class="keyword">define</span> YY_DECL extern "C" int yylex()</span>
+%}
+%%
+[ \t\n]         ;
+[<span class="number">0</span>-<span class="number">9</span>]+\.[<span class="number">0</span>-<span class="number">9</span>]+  { <span class="built_in">cout</span> &lt;&lt; <span class="string">"Found a float:"</span> &lt;&lt; yytext &lt;&lt; endl; }
+[<span class="number">0</span>-<span class="number">9</span>]+          { <span class="built_in">cout</span> &lt;&lt; <span class="string">"Found an integer:"</span> &lt;&lt; yytext &lt;&lt; endl; }
+[a-zA-Z0-<span class="number">9</span>]+    { <span class="built_in">cout</span> &lt;&lt; <span class="string">"Found a string: "</span> &lt;&lt; yytext &lt;&lt; endl; }
+%%
+<span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">char</span>** argv) {
+    yylex();
+}
+</code></pre><p>commands to compile and run:</p>
+<h4 id="Makefile">Makefile</h4>
+<pre><code><span class="variable">t:</span>
+    bison -<span class="keyword">d</span> -<span class="keyword">v</span> snail.<span class="keyword">y</span>
+    flex -<span class="keyword">o</span> snail.cpp snail.<span class="keyword">l</span>
+    gcc -<span class="keyword">x</span> <span class="keyword">c</span>++ snail.<span class="keyword">tab</span>.<span class="keyword">c</span> snail.cpp -lstdc++ -lfl
+</code></pre><p>Run:</p>
+<pre><code>$ ./a.<span class="keyword">out</span> &lt; <span class="keyword">in</span>
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2014/06/16/2014-06-16-OTA/" data-id="vqv4jyysn7pp62de" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2014-04-14-android_app" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/04/14/2014-04-14-android_app/" class="article-date">
+  <time datetime="2014-04-14T00:00:00.000Z" itemprop="datePublished">2014 Apr 14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/04/14/2014-04-14-android_app/">android_app</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="android_app">android app</h1>
+<h2 id="set_up_eclipse">set up eclipse</h2>
+<ol>
+<li><p>Download Android SDK.<br><a href="http://developer.android.com/sdk/index.html#ExistingIDE" target="_blank" rel="external">http://developer.android.com/sdk/index.html#ExistingIDE</a></p>
+</li>
+<li><p>Insall ADT plugin for Eclipse. <a href="http://developer.android.com/sdk/installing/installing-adt.html" target="_blank" rel="external">http://developer.android.com/sdk/installing/installing-adt.html</a></p>
+</li>
+</ol>
+<h2 id="First_Android_app">First Android app</h2>
+<p>Add the following into first Android app:  </p>
+<pre><code><span class="annotation">@Override</span>
+<span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onCreateOptionsMenu</span>(Menu menu) {
+
+    <span class="comment">// Inflate the menu; this adds items to the action bar if it is present.</span>
+    getMenuInflater().inflate(R.menu.main, menu);
+
+    <span class="keyword">final</span> Intent intent = <span class="keyword">new</span> Intent(Intent.ACTION_OPEN_DOCUMENT);
+    intent.addCategory(Intent.CATEGORY_OPENABLE);
+    intent.setType(<span class="string">"image/*"</span>);
+    startActivityForResult(intent, <span class="number">0</span>);
+
+    <span class="keyword">return</span> <span class="keyword">true</span>;
+}
+</code></pre><p>This example will demonstrate the usage of <strong>Storage Access Framework(SAF)</strong>.<br>More details, see <a href="https://developer.android.com/guide/topics/providers/document-provider.html#client" target="_blank" rel="external">https://developer.android.com/guide/topics/providers/document-provider.html#client</a></p>
+<h2 id="PreferenceFragment">PreferenceFragment</h2>
+<p>Create a java class which extends <strong>PreferenceFragment</strong>, </p>
+<p>String resources: valus/strings.xml  </p>
+<p>Array resources: values/arrays.xml  </p>
+<pre><code>&lt;<span class="type">string</span>-array <span class="property">name</span>=<span class="string">"list_provinces"</span>&gt;
+    &lt;<span class="property">item</span> &gt;Shang Hai&lt;/<span class="property">item</span>&gt;
+    &lt;<span class="property">item</span> &gt;Bei Jing&lt;/<span class="property">item</span>&gt;
+    &lt;<span class="property">item</span> &gt;Hang Zhou&lt;/<span class="property">item</span>&gt;
+&lt;/<span class="type">string</span>-array&gt;
+</code></pre><p>AndroidManifest.xml  </p>
+<pre><code><span class="tag">&lt;<span class="title">application
+</span>    <span class="attribute">android:allowBackup</span>=<span class="value">"true"</span>
+    <span class="attribute">android:icon</span>=<span class="value">"@drawable/ic_launcher"</span>
+    <span class="attribute">android:label</span>=<span class="value">"@string/app_name"</span>
+    <span class="attribute">android:theme</span>=<span class="value">"@style/AppTheme"</span> &gt;</span>
+    <span class="tag">&lt;<span class="title">activity
+</span>        <span class="attribute">android:name</span>=<span class="value">"org.cfig.a1.MainActivity"</span>
+        <span class="attribute">android:label</span>=<span class="value">"@string/app_name"</span> &gt;</span>
+        <span class="tag">&lt;<span class="title">intent-filter</span>&gt;</span>
+            <span class="tag">&lt;<span class="title">action</span> <span class="attribute">android:name</span>=<span class="value">"android.intent.action.MAIN"</span> /&gt;</span>
+
+            <span class="tag">&lt;<span class="title">category</span> <span class="attribute">android:name</span>=<span class="value">"android.intent.category.LAUNCHER"</span> /&gt;</span>
+        <span class="tag">&lt;/<span class="title">intent-filter</span>&gt;</span>
+    <span class="tag">&lt;/<span class="title">activity</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">application</span>&gt;</span>
+</code></pre><p>application has 1 <strong>activity</strong>, this <strong>activity</strong> will be started firstly when enter this app.</p>
+<p>create preference screen xml: xml/pref.xml  </p>
+<pre><code><span class="pi">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="tag">&lt;<span class="title">PreferenceScreen</span> <span class="attribute">xmlns:holo</span>=<span class="value">"http://schemas.android.com/apk/res-auto"</span>
+    <span class="attribute">xmlns:android</span>=<span class="value">"http://schemas.android.com/apk/res/android"</span> &gt;</span>
+
+    <span class="tag">&lt;<span class="title">PreferenceCategory</span> <span class="attribute">android:title</span>=<span class="value">"Province"</span> &gt;</span>
+        <span class="tag">&lt;<span class="title">CheckBoxPreference
+</span>            <span class="attribute">android:key</span>=<span class="value">"@string/k_province_sh"</span>
+            <span class="attribute">android:summary</span>=<span class="value">"City of Magics"</span>
+            <span class="attribute">android:title</span>=<span class="value">"Shang Hai"</span> /&gt;</span>
+        <span class="tag">&lt;<span class="title">CheckBoxPreference
+</span>            <span class="attribute">android:key</span>=<span class="value">"@string/k_province_bj"</span>
+            <span class="attribute">android:summary</span>=<span class="value">"City of Kings"</span>
+            <span class="attribute">android:title</span>=<span class="value">"Bei Jing"</span> /&gt;</span>
+
+        <span class="tag">&lt;<span class="title">SwitchPreference
+</span>            <span class="attribute">android:key</span>=<span class="value">"key_switch"</span>
+            <span class="attribute">android:title</span>=<span class="value">"Switch"</span> /&gt;</span>
+    <span class="tag">&lt;/<span class="title">PreferenceCategory</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">PreferenceCategory</span> <span class="attribute">android:title</span>=<span class="value">"Select Province"</span> &gt;</span>
+        <span class="tag">&lt;<span class="title">ListPreference
+</span>            <span class="attribute">android:entries</span>=<span class="value">"@array/list_provinces"</span>
+            <span class="attribute">android:entryValues</span>=<span class="value">"@array/list_provinces_value"</span>
+            <span class="attribute">android:key</span>=<span class="value">"@string/k_province_select"</span>
+            <span class="attribute">android:title</span>=<span class="value">"Province"</span> /&gt;</span>
+    <span class="tag">&lt;/<span class="title">PreferenceCategory</span>&gt;</span>
+
+    <span class="tag">&lt;<span class="title">Preference</span> <span class="attribute">android:key</span>=<span class="value">"k_a"</span> <span class="attribute">android:title</span>=<span class="value">"Start PowerSettings"</span> &gt;</span>
+        <span class="tag">&lt;<span class="title">intent</span> <span class="attribute">android:action</span>=<span class="value">"com.marvell.powersettings.POWER_SETTING"</span> /&gt;</span>
+    <span class="tag">&lt;/<span class="title">Preference</span>&gt;</span>
+
+<span class="tag">&lt;/<span class="title">PreferenceScreen</span>&gt;</span>
+</code></pre><h2 id="BOOT_COMPLETED_receiver">BOOT_COMPLETED receiver</h2>
+<h2 id="Eclipse_for_platform_development">Eclipse for platform development</h2>
+<p><a href="http://source.android.com/source/using-eclipse.html" target="_blank" rel="external">http://source.android.com/source/using-eclipse.html</a></p>
+<p>Intent fullscreenIntent = new Intent(this, FullscreenActivity.class);<br>mContext.startActivity(fullscreenIntent);</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2014/04/14/2014-04-14-android_app/" data-id="l6fnk5h3uniky0uh" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2014-04-10-android_init" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/04/10/2014-04-10-android_init/" class="article-date">
+  <time datetime="2014-04-10T00:00:00.000Z" itemprop="datePublished">2014 Apr 10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/04/10/2014-04-10-android_init/">android_init</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="android_init">android init</h1>
+<h2 id="boot_sequence">boot sequence</h2>
+<p>early-init, init, early-boot, boot</p>
+<p>early-init -&gt; init -&gt; early-boot -&gt; boot</p>
+<ol>
+<li>property_get works, but may have random issues. (have not checked yet)  </li>
+<li>getenv doesn’t work in init itself. Process forked in init also doesn’t work.</li>
+</ol>
+<p>system/core/init/property_service.c<br>    load_properties_from_file(PROP_PATH_SYSTEM_BUILD);<br>        property_set()</p>
+<p>It will read property file from /system/build.prop and set them.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2014/04/10/2014-04-10-android_init/" data-id="7a5f4dwisi6v1nhr" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2014-04-06-struts2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/04/06/2014-04-06-struts2/" class="article-date">
+  <time datetime="2014-04-06T00:00:00.000Z" itemprop="datePublished">2014 Apr 6</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/04/06/2014-04-06-struts2/">struts2</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="struts2">struts2</h1>
+<h2 id="1-_Prepare_struts2_files_and_setup_Eclipse">1. Prepare struts2 files and setup Eclipse</h2>
+<h3 id="1-1_Install_web_server(GlassFish)_for_Eclipse">1.1 Install web server(GlassFish) for Eclipse</h3>
+<p>Install “GlassFish Tools for Kepler” in “Eclipse Marketplace”. When installation succeed, a “GlassFish” icon will appear in “Menu” -&gt; “Help”.</p>
+<p>create “Dynamic Web Project” in Eclipse, “Runtime” -&gt; “New Runtime” -&gt; “GlassFish 4.0”, download GlassFish and install it.</p>
+<h3 id="1-2_Download_struts2_jar_files">1.2 Download struts2 jar files</h3>
+<p>Download struts2 jar files from <a href="http://struts.apache.org/development/2.x/" target="_blank" rel="external">http://struts.apache.org/development/2.x/</a></p>
+<p>Some guides on struts2 <a href="http://www.tutorialspoint.com/struts_2/struts_configuration.htm" target="_blank" rel="external">http://www.tutorialspoint.com/struts_2/struts_configuration.htm</a></p>
+<h2 id="2-_First_“Dynamic_Web_Project”_on_Glassfish">2. First “Dynamic Web Project” on Glassfish</h2>
+<p>(1). create project</p>
+<pre><code><span class="keyword">Project</span> Name: web1:  
+<span class="keyword">default</span> output folder: build\classes  
+Context root: web1 (config in WebContent<span class="regexp">/WEB-INF/g</span>lassfish-web.xml  
+Content Directory: WebContent  
+Generate web.xml depoyment <span class="keyword">description</span>.  
+</code></pre><p>(2). add simple index.jsp</p>
+<p>(3). run on GlassFish</p>
+<h2 id="3-_First_struts2_web_project">3. First struts2 web project</h2>
+<h3 id="1-_create_dynamic_web_project_as_in_previous_chapter">1. create dynamic web project as in previous chapter</h3>
+<p> We need struts2 core runtime jars, the core jars can be extracted from <em>struts2-blank.war</em>(in struts-2.x.x-apps.zip).<br> Add core struts2 jar into build path<br> Copy core struts2 jar at WEB-INF/lib.  </p>
+<h3 id="2-_add_filter_into_web-xml">2. add filter into web.xml</h3>
+<blockquote>
+<p>web.xml  </p>
+</blockquote>
+<pre><code><span class="variable">&lt;filter&gt;</span>
+    <span class="variable">&lt;filter-name&gt;</span>struts2<span class="variable">&lt;/filter-name&gt;</span>
+    <span class="variable">&lt;filter-class&gt;</span>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter<span class="variable">&lt;/filter-class&gt;</span>
+<span class="variable">&lt;/filter&gt;</span>
+
+<span class="variable">&lt;filter-mapping&gt;</span>
+    <span class="variable">&lt;filter-name&gt;</span>struts2<span class="variable">&lt;/filter-name&gt;</span>
+    <span class="variable">&lt;url-pattern&gt;</span>/<span class="keyword">*</span><span class="variable">&lt;/url-pattern&gt;</span>
+<span class="variable">&lt;/filter-mapping&gt;</span>
+</code></pre><p>First we create an filter named “struts2”, it’s backed by class org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter.<br>Now we map all /* url to the filter named “struts2”, then all requests to url /* will be feed to class o.a.s.d.n.f.StrutsPrepareAndExecuteFilter.</p>
+<h3 id="3-_index-jsp">3. index.jsp</h3>
+<p>add this into the beginning of the xml, this will support struts2 taglib:  </p>
+<pre><code>&lt;%@taglib <span class="variable">prefix=</span><span class="string">"s"</span> <span class="variable">uri=</span><span class="string">"/struts-tags"</span>%&gt;
+</code></pre><p>Then ‘s:form’ can be reconiged in jsp.</p>
+<p>add this into &lt;body&gt;, create a simple login form  </p>
+<pre><code><span class="tag">&lt;<span class="title">H2</span>&gt;</span>System Entry<span class="tag">&lt;/<span class="title">H2</span>&gt;</span>
+<span class="tag">&lt;<span class="title">s:form</span> <span class="attribute">action</span>=<span class="value">"loginAction"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">s:textfield</span> <span class="attribute">name</span>=<span class="value">"theName"</span> <span class="attribute">label</span>=<span class="value">"User"</span>&gt;</span><span class="tag">&lt;/<span class="title">s:textfield</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">s:password</span> <span class="attribute">name</span>=<span class="value">"thePwd"</span> <span class="attribute">label</span>=<span class="value">"Password"</span>&gt;</span><span class="tag">&lt;/<span class="title">s:password</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">s:submit</span> <span class="attribute">value</span>=<span class="value">"OK"</span>&gt;</span><span class="tag">&lt;/<span class="title">s:submit</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">s:reset</span> <span class="attribute">value</span>=<span class="value">"clear"</span>&gt;</span><span class="tag">&lt;/<span class="title">s:reset</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">s:form</span>&gt;</span>
+</code></pre><p>It creates a simple login webpage. When user click “submit”, the request will be sent to <em>loginAction</em>, with the text fields theName/thePwd passed to the java String variables in action class.<br><strong>jsp files configure the struts2 actions which can handle web requests.</strong></p>
+<h3 id="4-_create_loginAction">4. create loginAction</h3>
+<p>create loginAction(com.LoginAction) which extends ActionSupport, this class will handle requests from index.jsp.</p>
+<p>members:  </p>
+<pre><code><span class="keyword">private</span> String theName;
+<span class="keyword">private</span> String thePwd;
+</code></pre><p>theName and thePwd are configured in index.jsp, they will be passed to com.LoginAction when user click “OK” in login screen.</p>
+<p>functions:  </p>
+<pre><code><span class="annotation">@Override</span>
+<span class="keyword">public</span> String <span class="title">execute</span>() <span class="keyword">throws</span> Exception {
+    String ret = <span class="keyword">null</span>;
+    <span class="keyword">if</span> (theName.equals(<span class="string">"admin"</span>) &amp;&amp; thePwd.equals(<span class="string">"1"</span>)) {
+        ActionContext.getContext().getSession().put(<span class="string">"login"</span>, <span class="string">"true"</span>);
+        ret = <span class="string">"success"</span>;
+    } <span class="keyword">else</span> {
+        ret = <span class="string">"fail"</span>;
+    }
+
+    <span class="keyword">return</span> ret;
+}
+</code></pre><p>execute() will set an ActionContext variable “login” if login success, then return a string to web. The returned string will be used to determine next jsp page.(success-&gt;/success.jsp, fail-&gt;/fail.jsp, as configured in struts.xml)</p>
+<h3 id="5-_create_struts2_config_file:_struts-xml">5. create struts2 config file: struts.xml</h3>
+<p><strong>struts.xml configures the jsp files which will be returned to user after action is executed.</strong></p>
+<p>Note:<br>struts.xml should be place at the src/ directory.<br>PUBLIC ID of DOCTYPE must exactly match the standard struts-2.3.dtd.</p>
+<p>Create “struts.xml” from struts-2.3.dtd:  </p>
+<pre><code>&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span>?&gt;
+&lt;!<span class="type">DOCTYPE</span> struts <span class="type">PUBLIC</span> <span class="string">"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"</span> <span class="string">"struts-2.3.dtd"</span> &gt;
+&lt;struts&gt;
+    &lt;package extends=<span class="string">"struts-default"</span> name=<span class="string">"struts2"</span>&gt;
+        &lt;action class=<span class="string">"com.LoginAction"</span> name=<span class="string">"loginAction"</span>&gt;
+            &lt;<span class="literal">result</span> name=<span class="string">"success"</span>&gt;/success.jsp&lt;/<span class="literal">result</span>&gt;
+            &lt;<span class="literal">result</span> name=<span class="string">"fail"</span>&gt;/fail.jsp&lt;/<span class="literal">result</span>&gt;
+        &lt;/action&gt;
+    &lt;/package&gt;
+&lt;/struts&gt;
+</code></pre><p>It creates a <em>package</em> which extends “struts-default”, the <em>package</em> has an actions named “loginAction”(backed by com.LoginAction).<br>If loginAction returns java String “success”, then the web page will switch to “/success.jsp”, if returns java string “fail”, then “/fail.jsp”.  </p>
+<h3 id="6-_create_success-jsp_and_fail-jsp">6. create success.jsp and fail.jsp</h3>
+<p>The 2 files can be very simple, they only provide some infomation about the status of login(success or fail).</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2014/04/06/2014-04-06-struts2/" data-id="cb0xsyyikhphe5gn" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2014-04-05-shell_tips" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/04/05/2014-04-05-shell_tips/" class="article-date">
+  <time datetime="2014-04-05T00:00:00.000Z" itemprop="datePublished">2014 Apr 5</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/04/05/2014-04-05-shell_tips/">shell_tips</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="add_raw_binary_payload_your_shell_scripts">add raw binary payload your shell scripts</h3>
+<h4 id="1-_pack_raw_binary_to_sh_(stand_alone-raw-sh)">1. pack raw binary to sh (stand_alone.raw.sh)</h4>
+<p>head</p>
+<pre><code><span class="shebang">#!/bin/sh  </span>
+match=$(grep --text --line-number <span class="string">'^PAYLOAD:$'</span> <span class="variable">$0</span> | cut <span class="operator">-d</span> <span class="string">':'</span> <span class="operator">-f</span> <span class="number">1</span>)  
+payload_start=$((match + <span class="number">1</span>))  
+tail -n +<span class="variable">$payload_start</span> <span class="variable">$0</span> &gt; sepo  
+chmod +x sepo  
+./sepo  
+<span class="keyword">exit</span> <span class="number">0</span>  
+</code></pre><p>tail</p>
+<pre><code><span class="keyword">cat</span> [<span class="keyword">file</span>] &gt;&gt; stand_alone.raw.<span class="keyword">sh</span>  
+</code></pre><h4 id="2-_run_stand_alone-raw-sh">2. run stand_alone.raw.sh</h4>
+<pre><code>$ ./stand_alone.raw.<span class="keyword">sh</span>
+</code></pre><h3 id="add_uuencoded_binary_payload_your_shell_scripts">add uuencoded binary payload your shell scripts</h3>
+<h4 id="1-_pack_uuencoded_binary_to_sh_(stand_alone-sh)">1. pack uuencoded binary to sh (stand_alone.sh)</h4>
+<p>head</p>
+<pre><code><span class="shebang">#!/bin/sh</span>
+uudecode <span class="variable">$0</span>
+./sepo
+rm sepo
+<span class="keyword">exit</span> <span class="number">0</span>
+</code></pre><p>tail</p>
+<pre><code><span class="input"><span class="prompt">uuencode [file] &gt;&gt;</span> stand_alone.sh</span>
+</code></pre><h4 id="2-_run_stand_alone-sh">2. run stand_alone.sh</h4>
+<pre><code>$ ./stand_alone.<span class="keyword">sh</span>
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2014/04/05/2014-04-05-shell_tips/" data-id="rubbk6ub6f6u3ky5" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2014-04-05-gnu_autotools" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/04/05/2014-04-05-gnu_autotools/" class="article-date">
+  <time datetime="2014-04-05T00:00:00.000Z" itemprop="datePublished">2014 Apr 5</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/04/05/2014-04-05-gnu_autotools/">gnu_autotools</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="autotools">autotools</h1>
+<h2 id="flow">flow</h2>
+<p>Files used in preparing a software package for distribution, when using just Autoconf:</p>
+<pre><code> <span class="comment">your</span> <span class="comment">source</span> <span class="comment">files</span> <span class="literal">-</span><span class="literal">-</span>&gt; <span class="title">[</span><span class="comment">autoscan*</span><span class="title">]</span> <span class="literal">-</span><span class="literal">-</span>&gt; <span class="title">[</span><span class="comment">configure</span><span class="string">.</span><span class="comment">scan</span><span class="title">]</span> <span class="literal">-</span><span class="literal">-</span>&gt; <span class="comment">configure</span><span class="string">.</span><span class="comment">ac</span>
+
+ <span class="comment">configure</span><span class="string">.</span><span class="comment">ac</span> <span class="literal">-</span><span class="literal">-</span><span class="string">.</span>
+                <span class="comment">|</span>   <span class="string">.</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span>&gt; <span class="comment">autoconf*</span> <span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span>&gt; <span class="comment">configure</span>
+ <span class="title">[</span><span class="comment">aclocal</span><span class="string">.</span><span class="comment">m4</span><span class="title">]</span> <span class="literal">-</span><span class="literal">-</span><span class="literal">+</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">+</span>
+                <span class="comment">|</span>   <span class="comment">`</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span>&gt; <span class="title">[</span><span class="comment">autoheader*</span><span class="title">]</span> <span class="literal">-</span><span class="literal">-</span>&gt; <span class="title">[</span><span class="comment">config</span><span class="string">.</span><span class="comment">h</span><span class="string">.</span><span class="comment">in</span><span class="title">]</span>
+ <span class="title">[</span><span class="comment">acsite</span><span class="string">.</span><span class="comment">m4</span><span class="title">]</span> <span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="comment">'</span>
+
+ <span class="comment">Makefile</span><span class="string">.</span><span class="comment">in</span>
+</code></pre><p>Additionally, if you use Automake, the following additional productions<br>come into play:</p>
+<pre><code> <span class="title">[</span><span class="comment">acinclude</span><span class="string">.</span><span class="comment">m4</span><span class="title">]</span> <span class="literal">-</span><span class="literal">-</span><span class="string">.</span>
+                  <span class="comment">|</span>
+ <span class="title">[</span><span class="comment">local</span> <span class="comment">macros</span><span class="title">]</span> <span class="literal">-</span><span class="literal">-</span><span class="literal">+</span><span class="literal">-</span><span class="literal">-</span>&gt; <span class="comment">aclocal*</span> <span class="literal">-</span><span class="literal">-</span>&gt; <span class="comment">aclocal</span><span class="string">.</span><span class="comment">m4</span>
+                  <span class="comment">|</span>
+ <span class="comment">configure</span><span class="string">.</span><span class="comment">ac</span> <span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="comment">'</span>
+
+ <span class="comment">configure</span><span class="string">.</span><span class="comment">ac</span> <span class="literal">-</span><span class="literal">-</span><span class="string">.</span>
+                <span class="literal">+</span><span class="literal">-</span><span class="literal">-</span>&gt; <span class="comment">automake*</span> <span class="literal">-</span><span class="literal">-</span>&gt; <span class="comment">Makefile</span><span class="string">.</span><span class="comment">in</span>
+ <span class="comment">Makefile</span><span class="string">.</span><span class="comment">am</span> <span class="literal">-</span><span class="literal">-</span><span class="literal">-</span><span class="comment">'</span>
+</code></pre><p>Files used in configuring a software package:</p>
+<pre><code>                        .-------------&gt; [config.cache]
+ configure* ------------+-------------&gt; config.log
+                        |
+ [config.h.<span class="keyword">in</span>] -.       v            .-&gt; [config.h] -.
+                +--&gt; config.status* -+               +--&gt; make*
+ Makefile.<span class="keyword">in</span> ---'                    `-&gt; Makefile ---'
+</code></pre><h2 id="autoconf">autoconf</h2>
+<p>autoconf can be seen as a <code>&quot;shell script compiler&quot;</code>. It reads some source files, and output portable shell scripts.</p>
+<p>tutorial:(autoconf)<br>1.prepare source files(.c, .h), generate configure.scan with <em>autoscan</em></p>
+<p>(Makefile.am)</p>
+<p>2.mv configure.scan configure.ac</p>
+<p>3.list all #if,#elif,#ifdef,#ifndef directives with <em>ifnames</em>.</p>
+<pre><code><span class="attribute">AC_CONFIG_AUX_DIR(build-aux)</span>: <span class="string">use auxiliary build tools (eg., install-sh, libtool scripts, automake scripts)</span>
+</code></pre><p>config.status is a hidden slave of configure script. It will take proper actions based on the results of configure.</p>
+<pre><code>AC_CONFIG_FILES will <span class="built_in">create</span> target <span class="built_in">files</span> <span class="built_in">from</span> several input <span class="built_in">files</span>,source <span class="built_in">files</span> are concatenated.
+
+eg.:
+AC_CONFIG_FILES([api.sh:head.sh:body.sh:tail.sh],[chmod +x api.sh])
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2014/04/05/2014-04-05-gnu_autotools/" data-id="5rrweqk99ez67acp" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2014-04-01-setup_gerrit_server" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/04/01/2014-04-01-setup_gerrit_server/" class="article-date">
+  <time datetime="2014-04-01T00:00:00.000Z" itemprop="datePublished">2014 Apr 1</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/04/01/2014-04-01-setup_gerrit_server/">setup_gerrit_server</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>﻿# Gerrit</p>
+<body bgcolor="#F3FFFF"><br></body>
+
+<h2 id="Install_Gerrit">Install Gerrit</h2>
+<ol>
+<li><p>Download gerrit.war from <a href="https://code.google.com/p/gerrit/" target="_blank" rel="external">https://code.google.com/p/gerrit</a><br>Install guide: <a href="https://git.eclipse.org/r/Documentation/install.html" target="_blank" rel="external">https://git.eclipse.org/r/Documentation/install.html</a></p>
+</li>
+<li><p>create psql user and database<br> createuser -A -D -P -E gerrit2<br> createdb -E UTF-8 -O gerrit2 reviewdb</p>
+</li>
+<li><p>init gerrit<br> java -jar gerrit.war init -d /path/to/your/gerrit_application_directory<br> (in later steps, we use $(P) for /path/to/your/gerrit_application_directory)</p>
+</li>
+<li><p>start<br> $(P)/bin/gerrit.sh start</p>
+</li>
+</ol>
+<h2 id="admin_gerrit">admin gerrit</h2>
+<ol>
+<li><p>Login<br> <a href="https://xx.xx.xx.xx:port/#/admin/projects/" target="_blank" rel="external">https://xx.xx.xx.xx:port/#/admin/projects/</a><br> and config it</p>
+</li>
+<li><p>Test admin SSH connection<br> ssh -p 29418 10.37.116.55</p>
+</li>
+<li><p>Add gits<br> Copy git mirror into $(P)/git folder<br> Either restart the server, or flush the project_list cache:<br> ssh -p29418 name@example.com gerrit flush-caches —cache project_list</p>
+</li>
+</ol>
+<h2 id="working_with_gerrit">working with gerrit</h2>
+<ol>
+<li>fetch code<br> git clone ssh://xx@example.com:29418/code.git<br> git clone <a href="https://xx@10.37.x.x:8443/code" target="_blank" rel="external">https://xx@10.37.x.x:8443/code</a></li>
+</ol>
+<p>What if you got “self-signed key issue reported by git”:</p>
+<pre><code>workaround: 
+git config --<span class="keyword">global</span> http.sslVerify <span class="keyword">false</span>
+</code></pre><p>remember https password: add to .netrc</p>
+<p>remember ssh password: .ssh/config</p>
+<ol>
+<li><p>misc</p>
+<p> curl <a href="http://x.x.x.x:8080/ssh_info" target="_blank" rel="external">http://x.x.x.x:8080/ssh_info</a></p>
+<p> curl <a href="https://name@x.x.x.x:8443/ssh_info" target="_blank" rel="external">https://name@x.x.x.x:8443/ssh_info</a> -k</p>
+</li>
+</ol>
+<p>get hook on changeid:<br>scp -p -P 29418 review.example.com:hooks/commit-msg .git/hooks/</p>
+<p>提交<br>git push ssh://sshusername@hostname:29418/projectname HEAD:refs/for/branchname</p>
+<p>git push ub11655:code refs/heads/master:refs/for/master</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2014/04/01/2014-04-01-setup_gerrit_server/" data-id="3e3qbrxx7k9aucxr" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2014-03-30-Spring_framework" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/03/30/2014-03-30-Spring_framework/" class="article-date">
+  <time datetime="2014-03-30T00:00:00.000Z" itemprop="datePublished">2014 Mar 30</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/03/30/2014-03-30-Spring_framework/">Spring_framework</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Spring_Framework">Spring Framework</h1>
+<h2 id="intro">intro</h2>
+<p>Spring framework (<a href="http://www.projects.spring.io/spring-framework" target="_blank" rel="external">homepage</a>)  </p>
+<p>Spring Release <a href="http://spring.io/blog/category/releases" target="_blank" rel="external">http://spring.io/blog/category/releases</a></p>
+<h2 id="Setup_Spring_development_env_in_Eclipse">Setup Spring development env in Eclipse</h2>
+<ol>
+<li><p>install Spring Tool Suit(STS) for Eclipse.</p>
+<p><a href="http://spring.io/tools/sts/all" target="_blank" rel="external">http://spring.io/tools/sts/all</a></p>
+</li>
+<li><p>download spring jars</p>
+</li>
+</ol>
+<p>Download prebuilt jar files: <a href="http://repo.spring.io/release/org/springframework/spring" target="_blank" rel="external">http://repo.spring.io/release/org/springframework/spring</a></p>
+<ol>
+<li>Enable “ALT + /“: delete “word completion” short key; reassign to “context assist”.</li>
+</ol>
+<h2 id="logging">logging</h2>
+<ul>
+<li><p>commons-logging(JCL): deprecated</p>
+</li>
+<li><p>log4j is nice and all, but no thanks.</p>
+</li>
+<li><p><a href="http://www.slf4j.org/" target="_blank" rel="external">slf4j</a></p>
+<p>  Need:<br>  jcl-over-slf4j: redirect commons-logging to slf4j, spring need commons-logging<br>  slf4j-api: slf4j core api  </p>
+</li>
+<li><p><a href="http://logback.qos.ch" target="_blank" rel="external">logback</a></p>
+<p>  Need:<br>  logback-classic.jar: use it to implement real logging<br>  logback-core.jar  </p>
+</li>
+</ul>
+<p><a href="http://logging.apache.org/chainsaw/download.html" target="_blank" rel="external">chainsaw</a> is a good online log receiver.</p>
+<p>If chainsaw webstart can not run under JDK7/8, need to add “<a href="http://logging.apache.org" target="_blank" rel="external">http://logging.apache.org</a>“ into java security exception list.</p>
+<h2 id="First_Spring_project">First Spring project</h2>
+<ol>
+<li>add spring jars to build path</li>
+</ol>
+<p>Needed Jars:  </p>
+<pre><code>expressions
+aop
+beans
+<span class="keyword">context</span>
+core
+</code></pre><ol>
+<li><p>create spring config xml, then switch to “Spring Config Editor”, a marvellous tool.</p>
+</li>
+<li><p>create main() class, which loads spring xml.</p>
+</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2014/03/30/2014-03-30-Spring_framework/" data-id="77mp7kkmy4ymsdwc" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2014-03-29-makefile_in_android" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/03/29/2014-03-29-makefile_in_android/" class="article-date">
+  <time datetime="2014-03-29T00:00:00.000Z" itemprop="datePublished">2014 Mar 29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/03/29/2014-03-29-makefile_in_android/">makefile_in_android</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="android_build_system">android build system</h1>
+<h2 id="Preface">Preface</h2>
+<p>On the whole, spending much time on build system is unpromising in my opinion. I even can not find some convenient tools to debug make.<br>Almost all guys despise those who work on build system. But for too many times, projects met build problems which may live there for years.<br>In a word, writing makefiles is easy, writing good makefiles is not so.<br>Android makefiles are beautiful, but it’s tooo slow for small targets. automake is verbose but quick.</p>
+<p>This note describes something about the build system in android.</p>
+<h2 id="blabla">blabla</h2>
+<p>android make system will use /bin/bash as SHELL, which is more comfortable but low efficiency.<br><em>droid</em> is DEFAULT_GOAL.<br>it has a usefull <em>help</em> goal.<br>it has a funny <em>out</em> goal.</p>
+<p>Android makefiles like <em>eval</em> very much, it uses <em>eval</em> heavily.</p>
+<pre><code><span class="operator"><span class="keyword">Do</span> <span class="keyword">not</span> override INSTALLED_xxx_TARGET, it may <span class="keyword">work</span>, but will cause confusions.
+Try <span class="keyword">not</span> <span class="keyword">to</span> patch android build, <span class="keyword">use</span> proper <span class="keyword">VAR</span> <span class="keyword">to</span> customize, <span class="keyword">or</span> <span class="keyword">add</span> extensions. Patch <span class="keyword">is</span> ugly <span class="keyword">and</span> hard <span class="keyword">to</span> maintain.</span>
+</code></pre><h2 id="add_projects_for_ROM_companies(vendor)">add projects for ROM companies(vendor)</h2>
+<p>add /vendorsetup.sh to vendor dir, this will make the product appear in lunch<br>add BoardConfig as */$(TARGET_DEVICE)/BoardConfig.mk<br>add AndroidProducts.mk  </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2014/03/29/2014-03-29-makefile_in_android/" data-id="w75ba6e0axio22vw" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2014-03-27-Multicast_with_VLC" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/03/27/2014-03-27-Multicast_with_VLC/" class="article-date">
+  <time datetime="2014-03-27T00:00:00.000Z" itemprop="datePublished">2014 Mar 27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/03/27/2014-03-27-Multicast_with_VLC/">Multicast_with_VLC</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="VLC_Streaming">VLC Streaming</h1>
+<p>Multicast Address Range:<br>224.0.0.1-239.255.255.255</p>
+<h3 id="practice_1">practice 1</h3>
+<pre><code>========== RTP/MPEG <span class="keyword">Transport</span> Stream==========
+Multicast Streaming
+<span class="number">1.</span><span class="keyword">File</span>-&gt;Stream
+* Source:Choose src
+* Destination Setup:
+Add <span class="string">"RTP/MPEG Transport Stream"</span>, check <span class="string">"Display locally"</span>
+Address: <span class="number">239.1</span><span class="number">.1</span><span class="number">.1</span>, <span class="keyword">Port</span>: <span class="number">5004</span>
+* Option Setup:
+TTL: <span class="number">10</span>
+
+<span class="comment">---------- Client ----------</span>
+Media-&gt;<span class="keyword">Open</span> Network Stream-&gt;rtp://<span class="number">239.1</span><span class="number">.1</span><span class="number">.1</span>:<span class="number">5004</span>
+</code></pre><h3 id="practice_2">practice 2</h3>
+<pre><code>========== RTP/MPEG <span class="keyword">Transport</span> Stream==========
+VOD
+<span class="number">1.</span><span class="keyword">File</span>-&gt;Stream
+* Source:Choose src
+* Destination Setup:
+Add <span class="string">"HTTP"</span>, check <span class="string">"Display locally"</span>
+<span class="keyword">Port</span>: <span class="number">8080</span> 
+<span class="keyword">File</span> Path: /<span class="number">1.</span>ts
+* Option Setup:
+TTL: <span class="number">10</span>
+
+<span class="comment">---------- Client ----------</span>
+Media-&gt;<span class="keyword">Open</span> Network Stream-&gt;http://<span class="number">10.37</span><span class="number">.135</span><span class="number">.142</span>:<span class="number">8080</span>/<span class="number">1.</span>ts
+</code></pre><h3 id="practice_3">practice 3</h3>
+<pre><code>=================================
+            RTP
+=================================
+Destinations:
+RTP/MPEG Transpot Stream &lt;--add
+Display locally &lt;--uncheck
+
+Transcodeing options:
+Active Transcoding &lt;--check
+Video - H.264+MP3(MP4)
+
+Miscellaneous Options:
+uncheck all
+
+
+
+<span class="attribute">:sout=#transcode{vcodec=h264,vb=0,scale=0,acodec=mpga,ab=128,channels=2,samplerate=44100}:duplicate{dst=std{access=udp{ttl=2},mux=ts,dst=239.239.239.2:1234},dst=display}</span> :sout-keep
+
+
+vlc --sout "#duplicate{dst=rtp{dst=224.5.6.7,port=5004,mux=ts,ttl=1},dst=display}" --sout-keep
+
+vlc --sout "#rtp{dst=224.5.6.7,port=5004,mux=ts,ttl=1}" --sout-keep
+
+vlc --sout "#transcode{vcodec=h264,vb=0,scale=0,acodec=mpga,ab=128,channels=2,samplerate=44100}:duplicate{dst=rtp{dst=224.5.6.7,port=5004,mux=ts,ttl=1},dst=display}" --sout-keep --keep 
+
+vlc --sout "#transcode{vcodec=h264,vb=0,scale=0,acodec=mpga,ab=128,channels=2,samplerate=44100}:duplicate{dst=rtp{dst=224.5.6.7,port=5004,mux=ts,ttl=3},dst=display}" --sout-all --sout-keep --loop 
+
+vlc $1 --sout "#transcode{vcodec=h264,vb=800,scale=1,acodec=mpga,ab=128,channels=2,samplerate=44100}" --sout-all --sout-keep --loop
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2014/03/27/2014-03-27-Multicast_with_VLC/" data-id="5q1kljoli3mwpysc" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/archives/2014/page/2/">2</a><a class="extend next" rel="next" href="/archives/2014/page/2/">Next &raquo;</a>
+    </nav>
+  
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">24</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/java/" style="font-size: NaNpx;">java</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a><span class="archive-list-count">8</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/01/25/2014-03-22-hello-world/">First Blog on Jekyll</a>
+          </li>
+        
+          <li>
+            <a href="/2015/01/25/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2015/01/24/2015-01-24-action_bar/">action_bar</a>
+          </li>
+        
+          <li>
+            <a href="/2015/01/20/2015-01-20-shadow_socks_Proxy/">shadow_socks_Proxy</a>
+          </li>
+        
+          <li>
+            <a href="/2015/01/16/2015-01-16-squid3_defense/">squid3_defense</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2015 cfig<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+
+  </div>
+</body>
+</html>

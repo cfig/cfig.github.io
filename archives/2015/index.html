@@ -67,10 +67,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="false-2014-03-22-hello-world" class="article article-type-false" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/01/24/hello-world/" class="article-date">
-  <time datetime="2015-01-24T15:43:48.000Z" itemprop="datePublished">2015 Jan 24</time>
+    <a href="/2015/01/25/2014-03-22-hello-world/" class="article-date">
+  <time datetime="2015-01-25T14:53:24.000Z" itemprop="datePublished">2015 Jan 25</time>
 </a>
     
   </div>
@@ -81,7 +81,49 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/01/24/hello-world/">Hello World</a>
+      <a class="article-title" href="/2015/01/25/2014-03-22-hello-world/">First Blog on Jekyll</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2></h2>
+
+<p>This is My First Blog on Jekyll</p>
+
+Thanks to the following guide:
+<a href="http://www.ruanyifeng.com/blog/2012/08/blogging_with_jekyll.html" target="_blank" rel="external">http://www.ruanyifeng.com/blog/2012/08/blogging_with_jekyll.html</a>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2015/01/25/2014-03-22-hello-world/" data-id="de6lgnkd1bcv28n5" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/01/25/hello-world/" class="article-date">
+  <time datetime="2015-01-25T03:54:27.000Z" itemprop="datePublished">2015 Jan 25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/01/25/hello-world/">Hello World</a>
     </h1>
   
 
@@ -111,7 +153,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cfig.github.io/2015/01/24/hello-world/" data-id="eh06uxzx3dd62s67" class="article-share-link">Share</a>
+      <a data-url="http://cfig.github.io/2015/01/25/hello-world/" data-id="7nuez8zcn9v3r6uk" class="article-share-link">Share</a>
       
       
     </footer>
@@ -121,6 +163,646 @@
 
 
   
+    <article id="post-2015-01-24-action_bar" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/01/24/2015-01-24-action_bar/" class="article-date">
+  <time datetime="2015-01-24T00:00:00.000Z" itemprop="datePublished">2015 Jan 24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/01/24/2015-01-24-action_bar/">action_bar</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="action_bar">action bar</h1>
+<h2 id="1-_intro">1. intro</h2>
+<p>the action bar displays the title for the activity and the app icon on the left<br>android:minSdkVersion=”11”(ICS), use <code>android:theme=&quot;@android:style/Theme.Holo&quot;</code> as theme parent will have ActionBar support.</p>
+<h2 id="2-_add_basic_actionbar">2. add basic actionbar</h2>
+<h4 id="create_options_menu">create options menu</h4>
+<pre><code><span class="annotation">@Override</span>
+<span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span>(Bundle savedInstanceState) {
+    <span class="keyword">super</span>.onCreate(savedInstanceState);
+    setContentView(R.layout.search_layout);
+    getActionBar().setDisplayHomeAsUpEnabled(<span class="keyword">true</span>);<span class="comment">//up button go to parent activity</span>
+}
+</code></pre><h4 id="handle_options_menu_actions">handle options menu actions</h4>
+<pre><code><span class="annotation">@Override</span>
+<span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onOptionsItemSelected</span>(MenuItem item) {
+    <span class="keyword">switch</span> (item.getItemId()) {
+    <span class="keyword">case</span> R.id.action_call:
+        <span class="keyword">return</span> <span class="keyword">true</span>;
+    <span class="keyword">case</span> R.id.action_search:
+        Intent aI = <span class="keyword">new</span> Intent(<span class="keyword">this</span>, SearchActivity.class);
+        startActivity(aI);
+        <span class="keyword">return</span> <span class="keyword">true</span>;
+    <span class="keyword">case</span> R.id.action_settings:
+        <span class="keyword">return</span> <span class="keyword">true</span>;
+    <span class="keyword">case</span> R.id.action_share:
+        <span class="keyword">return</span> <span class="keyword">true</span>;
+    }
+    <span class="keyword">return</span> <span class="keyword">super</span>.onOptionsItemSelected(item);
+}
+</code></pre><h2 id="3-_actionbar_in_overlay_mode">3. actionbar in overlay mode</h2>
+<p><img src="http://developer.android.com/images/training/basics/actionbar-overlay@2x.png" alt="flower"></p>
+<h4 id="create_a_custome_theme">create a custome theme</h4>
+<pre><code><span class="pi">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span>
+<span class="tag">&lt;<span class="title">resources</span>&gt;</span>
+    <span class="comment">&lt;!-- theme --&gt;</span>
+    <span class="tag">&lt;<span class="title">style</span> <span class="attribute">name</span>=<span class="value">"MEActionBarTheme"</span> <span class="attribute">parent</span>=<span class="value">"@android:style/Theme.Holo.Light.DarkActionBar"</span>&gt;</span><span class="css">
+        &lt;<span class="tag">item</span> <span class="tag">name</span>="<span class="tag">android</span><span class="pseudo">:actionBarStyle"</span>&gt;<span class="at_rule">@<span class="keyword">style/MEActionBar&lt;/item&gt;</span>
+        &lt;item name=<span class="string">"android:windowActionBarOverlay"</span>&gt;true&lt;/item&gt;
+    </span></span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+    <span class="comment">&lt;!-- ActionBar styles --&gt;</span>
+    <span class="tag">&lt;<span class="title">style</span> <span class="attribute">name</span>=<span class="value">"MEActionBar"</span> <span class="attribute">parent</span>=<span class="value">"@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse"</span>&gt;</span><span class="css">
+        &lt;<span class="tag">item</span> <span class="tag">name</span>="<span class="tag">android</span><span class="pseudo">:background"</span>&gt;<span class="at_rule">@<span class="keyword">color/transparent_background&lt;/item&gt;</span>
+    </span></span><span class="tag">&lt;/<span class="title">style</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">color</span> <span class="attribute">name</span>=<span class="value">"transparent_background"</span>&gt;</span>#3b000000<span class="tag">&lt;/<span class="title">color</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">resources</span>&gt;</span>
+</code></pre><h4 id="declare_the_theme">declare the theme</h4>
+<p>declare the activity theme as <code>android:theme=&quot;@style/MEActionBarTheme&quot;</code></p>
+<h4 id="toggle_actionbar_via_click">toggle actionbar via click</h4>
+<p>hook onClick() event of the view object(TextView or RelativeLayout etc.) with following code:</p>
+<pre><code>    <span class="annotation">@Override</span>
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span>(View v) {
+        <span class="keyword">if</span> (getActionBar().isShowing()) {
+            getActionBar().hide();
+        } <span class="keyword">else</span> {
+            getActionBar().show();
+        }
+    }
+</code></pre><h2 id="misc">misc</h2>
+<p>themes can be applied to Activity/Application.</p>
+<p>eg: Theme.Holo, Theme.Holo.Light, </p>
+<p>google has a default <a href="http://developer.android.com/design/downloads/index.html#action-bar-icon-pack" target="_blank" rel="external"><strong>Action Bar Icon Pack</strong></a>.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2015/01/24/2015-01-24-action_bar/" data-id="jnbvx5pztkzn6v9i" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2015-01-20-shadow_socks_Proxy" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/01/20/2015-01-20-shadow_socks_Proxy/" class="article-date">
+  <time datetime="2015-01-20T00:00:00.000Z" itemprop="datePublished">2015 Jan 20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/01/20/2015-01-20-shadow_socks_Proxy/">shadow_socks_Proxy</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="set_up_shadowsocks_server">set up shadowsocks server</h1>
+<h2 id="install_ss_for_both_server_and_client">install ss for both server and client</h2>
+<pre><code>apt-<span class="built_in">get</span> install <span class="keyword">python</span>-pip
+pip install shadowsocks
+</code></pre><h2 id="start_service">start service</h2>
+<pre><code><span class="input"><span class="prompt">ssserver -p 123 -k &lt;PWD&gt;</span> --fast-open --workers <span class="number">2</span> -d start</span>
+</code></pre><h2 id="start_client">start client</h2>
+<pre><code><span class="input"><span class="prompt">apt-get install netcat-openbsd
+nohup sslocal --fast-open -p 123 -l 9999 -k &lt;PWD&gt;</span> -s yu.<span class="number">1</span>h1m.net</span>
+</code></pre><h2 id="setup_chrome_plugin">setup chrome plugin</h2>
+<p>install the “proxy swichyOmega” plugin for chrome, set proxy to: type socks5, addr 127.0.0.1, port 9999</p>
+<h2 id="setup_aptitude/apt-get">setup aptitude/apt-get</h2>
+<pre><code>apt-get install tsocks
+vim /etc/tsocks.conf
+tsocks apt-get update
+
+
+export http_proxy=http://<span class="tag">&lt;<span class="title">name</span>&gt;</span>:<span class="tag">&lt;<span class="title">pwd</span>&gt;</span>@<span class="tag">&lt;<span class="title">server</span>&gt;</span>:<span class="tag">&lt;<span class="title">port</span>&gt;</span>
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2015/01/20/2015-01-20-shadow_socks_Proxy/" data-id="x3loiqc4hszjl3cz" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2015-01-16-squid3_defense" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/01/16/2015-01-16-squid3_defense/" class="article-date">
+  <time datetime="2015-01-16T00:00:00.000Z" itemprop="datePublished">2015 Jan 16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/01/16/2015-01-16-squid3_defense/">squid3_defense</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <meta charset="UTF-8">
+
+<h1 id="保卫鱿鱼">保卫鱿鱼</h1>
+<p>现象</p>
+<pre><code>机器狂慢，带宽实时用量逼近threshold, VPS发警示邮件
+</code></pre><p>查看log</p>
+<pre><code>/<span class="built_in">var</span>/<span class="keyword">log</span>/squid3/access<span class="built_in">.</span><span class="keyword">log</span>
+海量IP疯狂刷本机<span class="number">3128</span>端口，
+</code></pre><p>解决</p>
+<pre><code><span class="input"><span class="prompt">1. 改变默认端口号到不常用大端口
+2. 关闭open proxy, 使用密码验证
+3. IP过滤
+
+从access.log提取海量IP, 直接用iptables过滤,丢弃来自攻击网段的所有包
+
+iptables -I INPUT -s &lt;IP_RANGE&gt;</span> -j <span class="constant">DROP</span></span>
+如<span class="symbol">:</span>
+iptables -<span class="constant">I</span> <span class="constant">INPUT</span> -s <span class="number">90.181</span>.<span class="number">203.0</span>/<span class="number">24</span> -j <span class="constant">DROP</span>
+</code></pre><p>结果</p>
+<pre><code><span class="variable">The</span> world is clean <span class="keyword">and</span> clear.
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2015/01/16/2015-01-16-squid3_defense/" data-id="7czsnptimpx2o7kg" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2015-01-16-squid3_on_debian" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/01/16/2015-01-16-squid3_on_debian/" class="article-date">
+  <time datetime="2015-01-16T00:00:00.000Z" itemprop="datePublished">2015 Jan 16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/01/16/2015-01-16-squid3_on_debian/">squid3_on_debian</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <meta charset="UTF-8">
+
+<p>创建密码文件</p>
+<pre><code>htpasswd -<span class="keyword">c</span>  /etc/squid3/squid.<span class="keyword">pwd</span> &lt;用户名&gt;
+</code></pre><p>配置认证程序</p>
+<pre><code>auth_param basic program /usr/lib/squid3/ncsa_auth /etc/squid3/squid.<span class="keyword">pwd</span>
+auth_param basic children <span class="number">5</span>
+auth_param basic realm Squid proxy-caching web server
+auth_param basic credentialsttl <span class="number">2</span> hours
+</code></pre><p>允许密码</p>
+<pre><code><span class="title">acl</span> password proxy_auth REQUIRED
+http_access allow password
+</code></pre><p>问题：</p>
+<pre><code><span class="number">1.</span> squid3无法启动：
+查看/<span class="built_in">var</span>/<span class="keyword">log</span>/squid3/<span class="keyword">cache</span><span class="built_in">.</span><span class="keyword">log</span>
+原则上可以把密码文件放在任何位置，但是如果放在/root下，则squid3无法访问该文件。
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2015/01/16/2015-01-16-squid3_on_debian/" data-id="srquz1di1ya6o0l0" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2015-01-15-storage_access_framework" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/01/15/2015-01-15-storage_access_framework/" class="article-date">
+  <time datetime="2015-01-15T00:00:00.000Z" itemprop="datePublished">2015 Jan 15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/01/15/2015-01-15-storage_access_framework/">storage_access_framework</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <meta charset="UTF-8">
+
+<h1 id="SAF_(Storage_Access_Framework)">SAF (Storage Access Framework)</h1>
+<h2 id="1-_intro">1. intro</h2>
+<p>可以提供本地/云端的DocumentsProvider </p>
+<p>Google guide <a href="https://developer.android.com/guide/topics/providers/document-provider.html" target="_blank" rel="external">https://developer.android.com/guide/topics/providers/document-provider.html</a></p>
+<p>api:</p>
+<pre><code>prebuilts<span class="regexp">/sdk/</span>api<span class="regexp">/19.txt</span>
+</code></pre><h2 id="2-_系统包含3部分：">2. 系统包含3部分：</h2>
+<ul>
+<li><p>DocumentsProvider </p>
+<p>  继承DocumentsProvider的类，作为provider</p>
+</li>
+<li><p>Client app</p>
+<p>  发intent (ACTION_OPEN_DOCUMENT and/or ACTION_CREATE_DOCUMENT)</p>
+</li>
+<li><p>Picker</p>
+<p>  一个UI，让用户选文件,系统默认有DocumentsUI.apk</p>
+</li>
+</ul>
+<h3 id="3-_providers">3. providers</h3>
+<p><em>系统内置的DocumentsProvider</em></p>
+<pre><code><span class="bullet">1. </span>DownloadStorageProvider
+<span class="bullet">2. </span>ExternalStorageProvider
+<span class="bullet">3. </span>MediaDocumentsProvider
+</code></pre><p><em>系统的sample provider:</em></p>
+<pre><code><span class="number">4</span>. VaultProvider
+
+    development<span class="regexp">/samples/</span>Vault<span class="regexp">/src/</span>com<span class="regexp">/example/</span>android<span class="regexp">/vault/</span>VaultProvider.java
+
+<span class="number">5</span>. MyCloudProvider
+
+    development<span class="regexp">/samples/</span>browseable<span class="regexp">/StorageProvider/</span>src<span class="regexp">/com.example.android.storageprovider/</span>MyCloudProvider.java
+
+<span class="number">6</span>. CTS test provider
+
+    cts<span class="regexp">/hostsidetests/</span>appsecurity<span class="regexp">/test-apps/</span>DocumentProvider
+</code></pre><h3 id="4-_client_samplese">4. client samplese</h3>
+<pre><code>samples<span class="regexp">/ApiDemos/</span>src<span class="regexp">/com/</span>example<span class="regexp">/android/</span>apis<span class="regexp">/content/</span>DocumentsSample.java
+samples<span class="regexp">/browseable/</span>StorageClient<span class="regexp">/src/</span>com.example.android.storageclient
+</code></pre><h3 id="5-_client实测">5. client实测</h3>
+<p>intent</p>
+<pre><code>Starting: Intent { <span class="variable">act=</span>android.intent.action.MAIN <span class="variable">cat=</span>[android.intent.category.LAUNCHER] <span class="variable">cmp=</span>org.cfig/.app.saf.SAFActivity }
+</code></pre><p>NG:(image with GMS)</p>
+<pre><code>    I/ActivityManager(  <span class="number">550</span>): START u0 {<span class="variable">act=</span>android.intent.action.MAIN <span class="variable">cat=</span>[android.intent.category.LAUNCHER] <span class="variable">flg=</span><span class="number">0</span>x10000000 <span class="variable">cmp=</span>org.cfig/.app.saf.SAFActivity} from uid <span class="number">0</span> on display <span class="number">0</span>
+
+    I/ActivityManager(  <span class="number">550</span>): START u0 {<span class="variable">act=</span>android.intent.action.OPEN_DOCUMENT <span class="variable">cat=</span>[android.intent.category.OPENABLE] <span class="variable">typ=</span>*<span class="comment">/* cmp=com.google.android.tv.frameworkpackagestubs/.Stubs$DocumentsStub} from uid 10066 on display 0</span>
+</code></pre><p>GOOD:(image with AOSP only)</p>
+<pre><code>    I/ActivityManager( <span class="number">1217</span>): START u0 {flg=<span class="number">0x10000000</span> cmp=org.cfig/.app.saf.SAFActivity} <span class="keyword">from</span> uid <span class="number">0</span> <span class="function_start"><span class="keyword">on</span></span> display <span class="number">0</span>
+
+    I/ActivityManager( <span class="number">1217</span>): START u0 {act=android.intent.action.OPEN_DOCUMENT cat=[android.intent.category.OPENABLE] typ=*/* cmp=com.android.documentsui/.DocumentsActivity} <span class="keyword">from</span> uid <span class="number">10038</span> <span class="function_start"><span class="keyword">on</span></span> display <span class="number">0</span>
+</code></pre><p>使用android.intent.action.OPEN_DOCUMENT，默认打开DocumentsUI.apk (frameworks/base/packages/DocumentsUI)</p>
+<p>代码</p>
+<pre><code>    <span class="keyword">int</span> READ_REQUEST_CODE = <span class="number">42</span>;
+    Intent intent = <span class="keyword">new</span> Intent(Intent.ACTION_OPEN_DOCUMENT);
+    intent.addCategory(Intent.CATEGORY_OPENABLE);
+    intent.setType(<span class="string">"*/*"</span>);
+    intent.setPackage(<span class="string">"com.android.documentsui"</span>);
+    startActivityForResult(intent, READ_REQUEST_CODE);
+</code></pre><p>解释</p>
+<pre><code>intent.setType(): ogg <span class="built_in">files</span> <span class="string">"audio/ogg"</span>,<span class="keyword">any</span> <span class="built_in">files</span> <span class="string">"*/*"</span>, imgags <span class="string">"image/*"</span>
+intent.setPackage(): 不设会走到GMS里面，然后会<span class="string">"no app to handle the intent"</span>
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2015/01/15/2015-01-15-storage_access_framework/" data-id="b87sgk4nda3c61au" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2015-01-15-adb-toolbox" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/01/15/2015-01-15-adb-toolbox/" class="article-date">
+  <time datetime="2015-01-15T00:00:00.000Z" itemprop="datePublished">2015 Jan 15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/01/15/2015-01-15-adb-toolbox/">adb-toolbox</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="secure_adb">secure adb</h1>
+<h2 id="enable_secure_adb">enable secure adb</h2>
+<p>Kitkat CTS requres that ro.adb.secure=1. </p>
+<pre><code><span class="attribute">ADDITIONAL_DEFAULT_PROPERTIES +</span>=<span class="string"> ro.adb.secure=1</span>
+</code></pre><p>or:  </p>
+<pre><code><span class="attribute">PRODUCT_PROPERTY_OVERRIDES +</span>=<span class="string"> ro.adb.secure=1</span>
+</code></pre><p>But there is some problems:</p>
+<p>adb via network requires key AUTH during connection.</p>
+<p>The key may be: /adb_keys or /data/misc/adb/adb_keys.<br>But after verification,   </p>
+<pre><code>(1) it only works for /adb_keys, not for /data/misc/adb/adb_keys.  
+(2) key verification will <span class="operator"><span class="keyword">check</span> username/hostname via getlogin_r() <span class="keyword">and</span> gethostname() <span class="keyword">in</span> adb_auth_host.c, so other <span class="keyword">hosts</span> <span class="keyword">using</span> the same RSA <span class="keyword">key</span> doesn<span class="string">'t work. But you can hack the username/hostname on your machine if you already have the RSA private key.   
+(3) adb connect via network won'</span>t <span class="keyword">trigger</span> AUTH confirmation dialog.  
+(<span class="number">4</span>) <span class="keyword">For</span> CTS: setprop <span class="keyword">after</span> boot up will <span class="keyword">set</span> the <span class="keyword">value</span>, but adbd already gets the original <span class="keyword">value</span>, so adbd won<span class="string">'t change behavior, but CTS can PASS.  </span></span>
+</code></pre><h4 id="adb_keygen">adb keygen</h4>
+<hr>
+<pre><code>commit <span class="number">86</span>c9e5f7e20a3f1712038ce642628c2e1e866434
+Author: Nick Kralevich &lt;nnk@google.com&gt;
+Date:   Thu Nov <span class="number">13</span> <span class="number">15</span>:<span class="number">17</span>:<span class="number">29</span> <span class="number">2014</span> -<span class="number">0800</span>
+
+    Introduce <span class="string">"adb keygen"</span>
+
+    Introduce <span class="operator">the</span> <span class="string">"adb keygen"</span> <span class="command"><span class="keyword">command</span>.</span>
+
+      Usage: adb keygen &lt;filename&gt;
+
+    This <span class="command"><span class="keyword">command</span> <span class="title">creates</span> <span class="title">an</span> <span class="title">adb</span> <span class="title">public</span>/<span class="title">private</span> <span class="title">key</span> <span class="title">pair</span> <span class="title">in</span> <span class="title">a</span> <span class="title">user</span></span>
+    specified <span class="built_in">file</span>. This can be used <span class="built_in">to</span> <span class="built_in">create</span> <span class="built_in">new</span> adb <span class="built_in">keys</span>, <span class="operator">or</span> rotate
+    existing <span class="built_in">keys</span>.
+</code></pre><hr>
+<h4 id="debug_adb">debug adb</h4>
+<pre><code>/data/adb <span class="keyword">is</span> used <span class="keyword">for</span> writing adb debugging information <span class="keyword">when</span> persist.adb.trace_mask <span class="keyword">is</span> <span class="type">set</span>.
+</code></pre><h4 id="toolbox_prlimit">toolbox prlimit</h4>
+<pre><code>adb <span class="built_in">shell</span> prlimit &lt;pid&gt; &lt;cur&gt; &lt;<span class="built_in">max</span>&gt;
+
+<span class="built_in">set</span> <span class="operator">the</span> limits <span class="command"><span class="keyword">on</span> <span class="title">an</span> <span class="title">arbitrary</span> <span class="title">process</span></span>
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2015/01/15/2015-01-15-adb-toolbox/" data-id="6hwiyvzt5vn9ej9t" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2015-01-14-android_app_Slider" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/01/14/2015-01-14-android_app_Slider/" class="article-date">
+  <time datetime="2015-01-14T00:00:00.000Z" itemprop="datePublished">2015 Jan 14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/01/14/2015-01-14-android_app_Slider/">android_app_Slider</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <meta charset="UTF-8">
+
+<h1 id="slider_view">slider view</h1>
+<h2 id="1-_overview">1. overview</h2>
+<p>ViewPager provides screen slides,</p>
+<p>SliderActivity needs to extend FragmentActivity</p>
+<p>SliderActivity needs an adapter(SliderAdapter) to provide fragments</p>
+<p>The fragment is really provided by SliderFragment, which extends Fragment</p>
+<h2 id="2-_class_relationship">2. class relationship</h2>
+<h4 id="SliderActivity">SliderActivity</h4>
+<ul>
+<li><p>onCreate()</p>
+<p>  activity找到ViewPager, 设置adapter</p>
+</li>
+<li><p>onCreateOptionsMenu</p>
+<p>  创建options菜单，显示previous,next</p>
+</li>
+<li><p>onOptionsItemSelected</p>
+<p>  配置options menu动作</p>
+</li>
+</ul>
+<h4 id="SliderPagerAdapter">SliderPagerAdapter</h4>
+<ul>
+<li><p>getItem()</p>
+<p>  使用SliderFragment提供fragment</p>
+</li>
+<li><p>getCount()</p>
+<p>  提供总页数</p>
+</li>
+</ul>
+<h4 id="SliderFragment">SliderFragment</h4>
+<ul>
+<li><p>onCreate()</p>
+<p>  从bundle获取参数，设置成员变量（请求的页数pageNumber)</p>
+</li>
+<li><p>onCreateView()</p>
+<p>  inflate设置好的fragment layout</p>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2015/01/14/2015-01-14-android_app_Slider/" data-id="ljwanto9rmleoqwt" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2015-01-07-VPN_via_pptpd" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/01/07/2015-01-07-VPN_via_pptpd/" class="article-date">
+  <time datetime="2015-01-07T00:00:00.000Z" itemprop="datePublished">2015 Jan 7</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/01/07/2015-01-07-VPN_via_pptpd/">VPN_via_pptpd</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-_install">1. install</h1>
+<pre><code>apt-<span class="keyword">get</span> install pptpd
+</code></pre><h1 id="2-_enable_VPN_connection">2. enable VPN connection</h1>
+<h2 id="2-1_/etc/pptpd-conf">2.1 /etc/pptpd.conf</h2>
+<blockquote>
+<p>vim /etc/pptpd.conf</p>
+</blockquote>
+<p>set localip and remoteip from template like this:</p>
+<blockquote>
+<p>localip 10.0.0.1<br>remoteip 10.0.0.100-200</p>
+</blockquote>
+<p>this sets local PPP ip and ip pool for VPN clients.</p>
+<h2 id="2-2_/etc/ppp/pptpd-options">2.2 /etc/ppp/pptpd-options</h2>
+<blockquote>
+<p>vim /etc/ppp/pptpd-options</p>
+</blockquote>
+<p>set dns servers:</p>
+<blockquote>
+<p>ms-dns 8.8.8.8<br>ms-dns 8.8.4.4</p>
+</blockquote>
+<p>please also remember this line:</p>
+<blockquote>
+<p>name pptpd</p>
+</blockquote>
+<p>it is used for authentication.(must match the second field in /etc/ppp/chap-secrets entries)</p>
+<h2 id="2-3_/etc/ppp/chap-secrets">2.3 /etc/ppp/chap-secrets</h2>
+<blockquote>
+<p>vim /etc/ppp/chap-secrets</p>
+</blockquote>
+<p>this file sets auth info for CHAP, edit it like this:</p>
+<blockquote>
+<p>usr pptpd pwd *</p>
+</blockquote>
+<p><code>&#39;usr&#39;</code> is VPN user name, <code>&#39;pwd&#39;</code> is VPN password, asterisk means all ip address ranges</p>
+<h2 id="2-4_try_it_out">2.4 try it out</h2>
+<p>then this VPN can be successfully connected and client can get IP in range 10.0.0.100-200, but client can not do anything else yet.</p>
+<p>logs can be found in /var/log/damon.log, I see this error, but it doesn<code>&#39;</code>t matter:</p>
+<blockquote>
+<p>Jan  8 01:46:08 lino88-59 pptpd[3981]: GRE: Bad checksum from pppd.</p>
+</blockquote>
+<p>connection established successfully:</p>
+<blockquote>
+<p>Jan  8 01:46:12 lino88-59 ntpd[3657]: Listen normally on 7 ppp0 192.168.0.1 UDP 123<br>Jan  8 01:46:12 lino88-59 ntpd[3657]: peers refreshed</p>
+</blockquote>
+<h1 id="3-_let_client_can_reach_the_outside">3. let client can reach the outside</h1>
+<h2 id="3-1_sysctl">3.1 sysctl</h2>
+<pre><code><span class="keyword">vim</span> /etc/sysctl.<span class="keyword">conf</span>
+</code></pre><p>edit it like this to enable ipv4/ipv6 forwading</p>
+<pre><code>net.ipv4.ip_forward=<span class="number">1</span>
+net.ipv6.<span class="keyword">conf</span>.<span class="keyword">all</span>.forwarding=<span class="number">1</span>
+</code></pre><p>apply the change with</p>
+<pre><code>sysctl --<span class="built_in">system</span>
+</code></pre><h2 id="3-2_iptables">3.2 iptables</h2>
+<h3 id="3-2-1_edit">3.2.1 edit</h3>
+<pre><code><span class="keyword">vim</span> /etc/local/vpn_setting
+</code></pre><p>run this command:</p>
+<pre><code>iptables -<span class="keyword">t</span> nat -A POSTROUTING -<span class="keyword">j</span> SNAT --<span class="keyword">to</span>-<span class="keyword">source</span> &lt;Server_Public_IP&gt;
+</code></pre><p>or edit the file like this</p>
+<pre><code><span class="strong">*nat
+:PREROUTING ACCEPT [29:1779]
+:POSTROUTING ACCEPT [8:487]
+:OUTPUT ACCEPT [8:487]
+-A POSTROUTING -s 10.0.0.0/24 -o eth0 -j MASQUERADE
+COMMIT
+*</span>filter
+<span class="attribute">:INPUT ACCEPT [91:8273]</span>
+<span class="attribute">:FORWARD ACCEPT [6:1886]</span>
+<span class="attribute">:OUTPUT ACCEPT [84:8143]</span>
+-A FORWARD -i ppp+ -p tcp -m tcp --tcp-flags FIN,SYN,RST,ACK SYN -j TCPMSS --set-mss 1356
+COMMIT
+</code></pre><p>it has 2 rules, 1 will allow 10.0.0.0/24 to access eth0 in MASQUERADE mode, another rule will improve VPN server performance.</p>
+<h3 id="3-2-2_apply">3.2.2 apply</h3>
+<pre><code><span class="keyword">vim</span> /etc/rc.local
+</code></pre><p>add the following line into it:</p>
+<pre><code>iptables-<span class="operator"><span class="keyword">restore</span> &lt; /etc/<span class="keyword">local</span>/vpn_setting
+exit <span class="number">0</span></span>
+</code></pre><p>then</p>
+<pre><code><span class="class"><span class="keyword">service</span> <span class="title">rc</span>.local restart</span>
+</code></pre><p>this will import the rules to iptables. This setting can be backed up as:</p>
+<pre><code><span class="input"><span class="prompt">iptables-save &gt;</span> new</span>
+</code></pre><h3 id="3-2-3_try_it_out">3.2.3 try it out</h3>
+<p>Well done!</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2015/01/07/2015-01-07-VPN_via_pptpd/" data-id="5okb123tvl06vm4l" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/archives/2015/page/2/">2</a><a class="extend next" rel="next" href="/archives/2015/page/2/">Next &raquo;</a>
+    </nav>
   
 </section>
         
@@ -129,14 +811,28 @@
     
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">24</span></li></ul>
+    </div>
+  </div>
+
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/java/" style="font-size: NaNpx;">java</a>
+    </div>
+  </div>
+
   
     
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a><span class="archive-list-count">8</span></li></ul>
     </div>
   </div>
 
@@ -148,7 +844,23 @@
       <ul>
         
           <li>
-            <a href="/2015/01/24/hello-world/">Hello World</a>
+            <a href="/2015/01/25/2014-03-22-hello-world/">First Blog on Jekyll</a>
+          </li>
+        
+          <li>
+            <a href="/2015/01/25/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2015/01/24/2015-01-24-action_bar/">action_bar</a>
+          </li>
+        
+          <li>
+            <a href="/2015/01/20/2015-01-20-shadow_socks_Proxy/">shadow_socks_Proxy</a>
+          </li>
+        
+          <li>
+            <a href="/2015/01/16/2015-01-16-squid3_defense/">squid3_defense</a>
           </li>
         
       </ul>

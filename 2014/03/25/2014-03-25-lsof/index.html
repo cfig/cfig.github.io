@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>lsof | No Name</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="find opened files with lsof or /proc
+1. lsof intro
+1.1 lsof can check opened files:
+
+/dev file
+socket files(unix/network)
+lib files
+executables
+.etc
+
+lsof page on debian: https://packages.debian.org/s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="lsof">
+<meta property="og:url" content="http://cfig.github.io/2014/03/25/2014-03-25-lsof/">
+<meta property="og:site_name" content="No Name">
+<meta property="og:description" content="find opened files with lsof or /proc
+1. lsof intro
+1.1 lsof can check opened files:
+
+/dev file
+socket files(unix/network)
+lib files
+executables
+.etc
+
+lsof page on debian: https://packages.debian.org/s">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="lsof">
+<meta name="twitter:description" content="find opened files with lsof or /proc
+1. lsof intro
+1.1 lsof can check opened files:
+
+/dev file
+socket files(unix/network)
+lib files
+executables
+.etc
+
+lsof page on debian: https://packages.debian.org/s">
+
+  
+    <link rel="alternative" href="/atom.xml" title="No Name" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">No Name</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">Should I add a name ?</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><input type="submit" value="&#xF002;" class="search-form-submit"><input type="hidden" name="q" value="site:http://cfig.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2014-03-25-lsof" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/03/25/2014-03-25-lsof/" class="article-date">
+  <time datetime="2014-03-25T00:00:00.000Z" itemprop="datePublished">2014 Mar 25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      lsof
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="find_opened_files_with_lsof_or_/proc">find opened files with lsof or /proc</h1>
+<h2 id="1-_lsof_intro">1. lsof intro</h2>
+<h3 id="1-1_lsof_can_check_opened_files:">1.1 lsof can check opened files:</h3>
+<ul>
+<li>/dev file</li>
+<li>socket files(unix/network)</li>
+<li>lib files</li>
+<li>executables</li>
+<li>.etc</li>
+</ul>
+<p>lsof page on debian: <a href="https://packages.debian.org/stable/lsof" target="_blank" rel="external">https://packages.debian.org/stable/lsof</a></p>
+<p>a cool webpage on lsof from <a href="http://www.danielmiessler.com/study/lsof" target="_blank" rel="external">daniel</a></p>
+<h3 id="1-2_output_interpretation">1.2 output interpretation</h3>
+<blockquote>
+<p><strong>COMMAND   PID USER   FD      TYPE             DEVICE SIZE/OFF     NODE NAME</strong><br>adb     15516   yu  cwd       DIR                8,1     4096 12845057 /home/yu/workspace/q<br>adb     15516   yu  rtd       DIR                8,1     4096        2 /<br>adb     15516   yu  txt       REG                8,1  4894227 11272415 /home/yu/.bin/adb<br>adb     15516   yu  mem       REG                8,1    71488 14420702 /lib/i386-linux-gnu/i686/cmov/libresolv-2.13.so<br>adb     15516   yu  mem       REG                8,1    22088 14420706 /lib/i386-linux-gnu/i686/cmov/libnss_dns-2.13.so<br>adb     15516   yu  mem       REG                8,1    42628 14420694 /lib/i386-linux-gnu/i686/cmov/libnss_files-2.13.so<br>adb     15516   yu  mem       REG                8,1  1437864 14420700 /lib/i386-linux-gnu/i686/cmov/libc-2.13.so<br>adb     15516   yu  mem       REG                8,1   114788 14420559 /lib/i386-linux-gnu/libgcc_s.so.1  </p>
+</blockquote>
+<ul>
+<li>FD:    </li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">No.</th>
+<th style="text-align:center">item</th>
+<th style="text-align:left">note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">(1)</td>
+<td style="text-align:center">cwd</td>
+<td style="text-align:left">current working directory</td>
+</tr>
+<tr>
+<td style="text-align:left">(2)</td>
+<td style="text-align:center">rtd</td>
+<td style="text-align:left">root directory</td>
+</tr>
+<tr>
+<td style="text-align:left">(3)</td>
+<td style="text-align:center">txt</td>
+<td style="text-align:left">program text (code and data)</td>
+</tr>
+<tr>
+<td style="text-align:left">(4)</td>
+<td style="text-align:center">mem</td>
+<td style="text-align:left">memory-mapped file</td>
+</tr>
+</tbody>
+</table>
+<p><style type="text/css"><br>.tg  {border-collapse:collapse;border-spacing:0;}<br>.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}<br>.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}<br>.tg .tg-s6z2{text-align:center}<br></style></p>
+<table class="tg"><br>  <tr><br>    <th class="tg-031e">No</th><br>    <th class="tg-031e">item</th><br>    <th class="tg-s6z2">note</th><br>  </tr><br>  <tr><br>    <td class="tg-031e">1<br></td><br>    <td class="tg-031e">cwd</td><br>    <td class="tg-031e">current working directory</td><br>  </tr><br>  <tr><br>    <td class="tg-031e">2</td><br>    <td class="tg-031e">rtd<br></td><br>    <td class="tg-031e">root directory<br></td><br>  </tr><br>  <tr><br>    <td class="tg-031e">3</td><br>    <td class="tg-031e">txt</td><br>    <td class="tg-031e">program text (code and data)</td><br>  </tr><br>  <tr><br>    <td class="tg-031e">4</td><br>    <td class="tg-031e">mem</td><br>    <td class="tg-031e">memory-mapped file</td><br>  </tr><br></table>
+
+<ul>
+<li>TYPE</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">No.</th>
+<th style="text-align:center">item</th>
+<th style="text-align:left">note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">1</td>
+<td style="text-align:center">DIR</td>
+<td style="text-align:left">Directory</td>
+</tr>
+<tr>
+<td style="text-align:left">2</td>
+<td style="text-align:center">REG</td>
+<td style="text-align:left">Regular file</td>
+</tr>
+<tr>
+<td style="text-align:left">3</td>
+<td style="text-align:center">CHR</td>
+<td style="text-align:left">Character special file</td>
+</tr>
+<tr>
+<td style="text-align:left">4</td>
+<td style="text-align:center">FIFO</td>
+<td style="text-align:left">First In First Out</td>
+</tr>
+</tbody>
+</table>
+<p><style type="text/css"><br>.tg  {border-collapse:collapse;border-spacing:0;}<br>.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}<br>.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}<br>.tg .tg-s6z2{text-align:center}<br></style></p>
+<table class="tg"><br>  <tr><br>    <th class="tg-031e">No</th><br>    <th class="tg-031e">item</th><br>    <th class="tg-s6z2">note</th><br>  </tr><br>  <tr><br>    <td class="tg-031e">1<br></td><br>    <td class="tg-031e">DIR</td><br>    <td class="tg-031e">Directory</td><br>  </tr><br>  <tr><br>    <td class="tg-031e">2</td><br>    <td class="tg-031e">REG</td><br>    <td class="tg-031e">Regular file</td><br>  </tr><br>  <tr><br>    <td class="tg-031e">3</td><br>    <td class="tg-031e">CHR</td><br>    <td class="tg-031e">Character special file</td><br>  </tr><br>  <tr><br>    <td class="tg-031e">4</td><br>    <td class="tg-031e">FIFO</td><br>    <td class="tg-031e">First In First Out</td><br>  </tr><br></table>
+
+<h3 id="1-3_practice">1.3 practice</h3>
+<h4 id="Given_PID:">Given PID:</h4>
+<pre><code>$ lsof -p &amp;lt;pid&gt;  
+$ ls /<span class="keyword">proc</span>/&amp;lt;pid&gt;/fd
+</code></pre><h4 id="Given_port/protocol">Given port/protocol</h4>
+<pre><code><span class="variable">$ </span>lsof -i <span class="symbol">:</span><span class="number">5037</span>  
+
+<span class="constant">COMMAND PID USER </span>  <span class="constant">FD </span>  <span class="constant">TYPE DEVICE SIZE/OFF NODE NAME </span> 
+adbd    <span class="number">939</span> root    <span class="number">5</span>u  <span class="constant">IPv4 </span>    <span class="number">93</span>      0t<span class="number">0</span>  <span class="constant">TCP </span><span class="symbol">localhost:</span><span class="number">5037</span> (<span class="constant">LISTEN)</span>
+
+<span class="variable">$ </span>lsof -i <span class="variable">@localhost</span>  
+
+<span class="constant">COMMAND PID USER </span>  <span class="constant">FD </span>  <span class="constant">TYPE DEVICE SIZE/OFF NODE NAME </span> 
+adbd    <span class="number">939</span> root    <span class="number">5</span>u  <span class="constant">IPv4 </span>    <span class="number">93</span>      0t<span class="number">0</span>  <span class="constant">TCP </span><span class="symbol">localhost:</span><span class="number">5037</span> (<span class="constant">LISTEN)</span>
+
+<span class="variable">$ </span>lsof -i <span class="constant">TCP </span> 
+<span class="variable">$ </span>lsof -i <span class="constant">TCP:</span><span class="number">80</span>  
+<span class="variable">$ </span>lsof -i <span class="constant">TCP@</span><span class="number">192.168</span>.<span class="number">0</span>.<span class="number">2</span><span class="symbol">:</span><span class="number">636</span>  
+<span class="variable">$ </span>lsof -i --&gt; show all network connections  
+<span class="variable">$ </span>lsof -i <span class="number">4</span> --&gt; show only <span class="constant">IPv4 </span>connections  
+<span class="variable">$ </span>lsof -i <span class="number">6</span> --&gt; show only <span class="constant">IPv6 </span>connections  
+<span class="variable">$ </span>lsof -i <span class="constant">TCP:</span><span class="number">1</span>-<span class="number">1024</span> --&gt; <span class="constant">List Open Files </span>of <span class="constant">TCP Port </span>ranges <span class="number">1</span>-<span class="number">1024</span>
+</code></pre><h4 id="Given_UID">Given UID</h4>
+<blockquote>
+<p>$ lsof -u &lt;UID&gt;<br>$ lsof -u ^&lt;UID&gt;</p>
+</blockquote>
+<h4 id="Given_category">Given category</h4>
+<blockquote>
+<p>$ lsof -d txt<br>$ lsof -d ^mem</p>
+</blockquote>
+<h4 id="Given_files/directries">Given files/directries</h4>
+<blockquote>
+<p>$ lsof &lt;file&gt;<br>$ lsof &lt;directory&gt;</p>
+<p>only show PID<br>$ lsof -t &lt;file&gt;</p>
+</blockquote>
+<h2 id="2-_checking_opening_fd_limits">2. checking opening fd limits</h2>
+<p>use <strong>ulimit -n</strong> to check limits, use <strong>ls /proc/*/fd/</strong> to count all fd</p>
+<h2 id="3-_check_server_risk">3. check server risk</h2>
+<p><strong>lsof +L1</strong> shows you all open files that have a link count less than 1<br>This is often (but not always) indicative of an attacker trying to hide file content by unlinking it.</p>
+<blockquote>
+<p>$ lsof +L1</p>
+</blockquote>
+<h2 id="memory_usage_monitor">memory usage monitor</h2>
+<pre><code><span class="attribute">memdump</span>: <span class="string">This  program  dumps system memory to the standard output stream, skipping over holes in memory maps.  By default, the program dumps the contents of physical memory (/dev/mem).</span>
+<span class="attribute">memstat</span>: <span class="string">Identify what's using up virtual memory.</span>
+
+<span class="vim"><span class="keyword">ps</span> aux --<span class="keyword">sor</span><span class="variable">t:</span>-rss</span>
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2014/03/25/2014-03-25-lsof/" data-id="1qfojra59rfwxwri" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/03/26/2014-03-26-boot_time_deug_logging/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          boot_time_deug_logging
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/03/23/2014-03-23-dmverity/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">dmverity</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a><span class="tag-list-count">24</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/java/" style="font-size: NaNpx;">java</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a><span class="archive-list-count">8</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/01/25/2014-03-22-hello-world/">First Blog on Jekyll</a>
+          </li>
+        
+          <li>
+            <a href="/2015/01/25/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2015/01/24/2015-01-24-action_bar/">action_bar</a>
+          </li>
+        
+          <li>
+            <a href="/2015/01/20/2015-01-20-shadow_socks_Proxy/">shadow_socks_Proxy</a>
+          </li>
+        
+          <li>
+            <a href="/2015/01/16/2015-01-16-squid3_defense/">squid3_defense</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2015 cfig<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+
+  </div>
+</body>
+</html>
