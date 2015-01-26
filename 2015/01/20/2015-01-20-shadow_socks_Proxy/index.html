@@ -113,21 +113,28 @@ pip install shadowsocks
 <pre><code><span class="input"><span class="prompt">ssserver -p 123 -k &lt;PWD&gt;</span> --fast-open --workers <span class="number">2</span> -d start</span>
 </code></pre><h2 id="start_client">start client</h2>
 <pre><code><span class="input"><span class="prompt">apt-get install netcat-openbsd
-nohup sslocal --fast-open -p 123 -l 9999 -k &lt;PWD&gt;</span> -s yu.<span class="number">1</span>h1m.net</span>
+nohup sslocal --fast-open -p 123 -l 9999 -k &lt;PWD&gt;</span> -s &lt;<span class="constant">SERVER_ADDRESS</span>&gt;</span>
 </code></pre><h2 id="setup_chrome_plugin">setup chrome plugin</h2>
-<p>install the “proxy swichyOmega” plugin for chrome, set proxy to: type socks5, addr 127.0.0.1, port 9999</p>
-<h2 id="setup_aptitude/apt-get">setup aptitude/apt-get</h2>
+<p>install the “proxy SwitchyOmega” plugin for chrome, set proxy to: type socks5, addr 127.0.0.1, port 9999</p>
+<h2 id="setup_ssh">setup ssh</h2>
+<p>.ssh/config</p>
+<pre><code>host github.com
+  identityfile ~<span class="regexp">/.ssh/hasee</span>
+  ProxyCommand nc -<span class="keyword">x</span> <span class="number">127.0</span>.<span class="number">0</span>.<span class="number">1</span>:<span class="number">9999</span> <span class="variable">%h</span> <span class="variable">%p</span>
+</code></pre><h2 id="setup_aptitude/apt-get">setup aptitude/apt-get</h2>
 <pre><code>apt-get install tsocks
 vim /etc/tsocks.conf
 tsocks apt-get update
 
 
 export http_proxy=http://<span class="tag">&lt;<span class="title">name</span>&gt;</span>:<span class="tag">&lt;<span class="title">pwd</span>&gt;</span>@<span class="tag">&lt;<span class="title">server</span>&gt;</span>:<span class="tag">&lt;<span class="title">port</span>&gt;</span>
+</code></pre><h2 id="setup_git">setup git</h2>
+<pre><code>proxy=<span class="string">"SOCKS 127.0.0.1:9999"</span> git <span class="keyword">clone</span> xxxxx
 </code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cfig.github.io/2015/01/20/2015-01-20-shadow_socks_Proxy/" data-id="x3loiqc4hszjl3cz" class="article-share-link">Share</a>
+      <a data-url="http://cfig.github.io/2015/01/20/2015-01-20-shadow_socks_Proxy/" data-id="465d3k2eufv7srxy" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
@@ -148,9 +155,9 @@ export http_proxy=http://<span class="tag">&lt;<span class="title">name</span>&g
     </a>
   
   
-    <a href="/2015/01/16/2015-01-16-squid3_defense/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2015/01/16/2015-01-16-squid3_on_debian/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">squid3_defense</div>
+      <div class="article-nav-title">squid3_on_debian</div>
     </a>
   
 </nav>
@@ -198,11 +205,11 @@ export http_proxy=http://<span class="tag">&lt;<span class="title">name</span>&g
       <ul>
         
           <li>
-            <a href="/2015/01/25/2014-03-22-hello-world/">First Blog on Jekyll</a>
+            <a href="/2015/01/26/2014-03-22-hello-world/">First Blog on Jekyll</a>
           </li>
         
           <li>
-            <a href="/2015/01/25/hello-world/">Hello World</a>
+            <a href="/2015/01/26/hello-world/">Hello World</a>
           </li>
         
           <li>
@@ -214,7 +221,7 @@ export http_proxy=http://<span class="tag">&lt;<span class="title">name</span>&g
           </li>
         
           <li>
-            <a href="/2015/01/16/2015-01-16-squid3_defense/">squid3_defense</a>
+            <a href="/2015/01/16/2015-01-16-squid3_on_debian/">squid3_on_debian</a>
           </li>
         
       </ul>

@@ -69,8 +69,8 @@
   
     <article id="false-2014-03-22-hello-world" class="article article-type-false" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/01/25/2014-03-22-hello-world/" class="article-date">
-  <time datetime="2015-01-25T14:53:24.000Z" itemprop="datePublished">2015 Jan 25</time>
+    <a href="/2015/01/26/2014-03-22-hello-world/" class="article-date">
+  <time datetime="2015-01-26T04:10:06.000Z" itemprop="datePublished">2015 Jan 26</time>
 </a>
     
   </div>
@@ -81,7 +81,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/01/25/2014-03-22-hello-world/">First Blog on Jekyll</a>
+      <a class="article-title" href="/2015/01/26/2014-03-22-hello-world/">First Blog on Jekyll</a>
     </h1>
   
 
@@ -99,7 +99,7 @@ Thanks to the following guide:
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cfig.github.io/2015/01/25/2014-03-22-hello-world/" data-id="de6lgnkd1bcv28n5" class="article-share-link">Share</a>
+      <a data-url="http://cfig.github.io/2015/01/26/2014-03-22-hello-world/" data-id="yj8824908ia9cpa0" class="article-share-link">Share</a>
       
       
     </footer>
@@ -111,8 +111,8 @@ Thanks to the following guide:
   
     <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/01/25/hello-world/" class="article-date">
-  <time datetime="2015-01-25T03:54:27.000Z" itemprop="datePublished">2015 Jan 25</time>
+    <a href="/2015/01/26/hello-world/" class="article-date">
+  <time datetime="2015-01-26T04:10:06.000Z" itemprop="datePublished">2015 Jan 26</time>
 </a>
     
   </div>
@@ -123,7 +123,7 @@ Thanks to the following guide:
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/01/25/hello-world/">Hello World</a>
+      <a class="article-title" href="/2015/01/26/hello-world/">Hello World</a>
     </h1>
   
 
@@ -153,7 +153,7 @@ Thanks to the following guide:
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cfig.github.io/2015/01/25/hello-world/" data-id="7nuez8zcn9v3r6uk" class="article-share-link">Share</a>
+      <a data-url="http://cfig.github.io/2015/01/26/hello-world/" data-id="vksctv6idlfcxfc2" class="article-share-link">Share</a>
       
       
     </footer>
@@ -249,7 +249,7 @@ Thanks to the following guide:
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cfig.github.io/2015/01/24/2015-01-24-action_bar/" data-id="jnbvx5pztkzn6v9i" class="article-share-link">Share</a>
+      <a data-url="http://cfig.github.io/2015/01/24/2015-01-24-action_bar/" data-id="uddqsdlw1gw4nhxb" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
@@ -291,21 +291,82 @@ pip install shadowsocks
 <pre><code><span class="input"><span class="prompt">ssserver -p 123 -k &lt;PWD&gt;</span> --fast-open --workers <span class="number">2</span> -d start</span>
 </code></pre><h2 id="start_client">start client</h2>
 <pre><code><span class="input"><span class="prompt">apt-get install netcat-openbsd
-nohup sslocal --fast-open -p 123 -l 9999 -k &lt;PWD&gt;</span> -s yu.<span class="number">1</span>h1m.net</span>
+nohup sslocal --fast-open -p 123 -l 9999 -k &lt;PWD&gt;</span> -s &lt;<span class="constant">SERVER_ADDRESS</span>&gt;</span>
 </code></pre><h2 id="setup_chrome_plugin">setup chrome plugin</h2>
-<p>install the “proxy swichyOmega” plugin for chrome, set proxy to: type socks5, addr 127.0.0.1, port 9999</p>
-<h2 id="setup_aptitude/apt-get">setup aptitude/apt-get</h2>
+<p>install the “proxy SwitchyOmega” plugin for chrome, set proxy to: type socks5, addr 127.0.0.1, port 9999</p>
+<h2 id="setup_ssh">setup ssh</h2>
+<p>.ssh/config</p>
+<pre><code>host github.com
+  identityfile ~<span class="regexp">/.ssh/hasee</span>
+  ProxyCommand nc -<span class="keyword">x</span> <span class="number">127.0</span>.<span class="number">0</span>.<span class="number">1</span>:<span class="number">9999</span> <span class="variable">%h</span> <span class="variable">%p</span>
+</code></pre><h2 id="setup_aptitude/apt-get">setup aptitude/apt-get</h2>
 <pre><code>apt-get install tsocks
 vim /etc/tsocks.conf
 tsocks apt-get update
 
 
 export http_proxy=http://<span class="tag">&lt;<span class="title">name</span>&gt;</span>:<span class="tag">&lt;<span class="title">pwd</span>&gt;</span>@<span class="tag">&lt;<span class="title">server</span>&gt;</span>:<span class="tag">&lt;<span class="title">port</span>&gt;</span>
+</code></pre><h2 id="setup_git">setup git</h2>
+<pre><code>proxy=<span class="string">"SOCKS 127.0.0.1:9999"</span> git <span class="keyword">clone</span> xxxxx
 </code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cfig.github.io/2015/01/20/2015-01-20-shadow_socks_Proxy/" data-id="x3loiqc4hszjl3cz" class="article-share-link">Share</a>
+      <a data-url="http://cfig.github.io/2015/01/20/2015-01-20-shadow_socks_Proxy/" data-id="465d3k2eufv7srxy" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2015-01-16-squid3_on_debian" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/01/16/2015-01-16-squid3_on_debian/" class="article-date">
+  <time datetime="2015-01-16T00:00:00.000Z" itemprop="datePublished">2015 Jan 16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/01/16/2015-01-16-squid3_on_debian/">squid3_on_debian</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <meta charset="UTF-8">
+
+<p>创建密码文件</p>
+<pre><code>htpasswd -<span class="keyword">c</span>  /etc/squid3/squid.<span class="keyword">pwd</span> &lt;用户名&gt;
+</code></pre><p>配置认证程序</p>
+<pre><code>auth_param basic program /usr/lib/squid3/ncsa_auth /etc/squid3/squid.<span class="keyword">pwd</span>
+auth_param basic children <span class="number">5</span>
+auth_param basic realm Squid proxy-caching web server
+auth_param basic credentialsttl <span class="number">2</span> hours
+</code></pre><p>允许密码</p>
+<pre><code><span class="title">acl</span> password proxy_auth REQUIRED
+http_access allow password
+</code></pre><p>问题：</p>
+<pre><code><span class="number">1.</span> squid3无法启动：
+查看/<span class="built_in">var</span>/<span class="keyword">log</span>/squid3/<span class="keyword">cache</span><span class="built_in">.</span><span class="keyword">log</span>
+原则上可以把密码文件放在任何位置，但是如果放在/root下，则squid3无法访问该文件。
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2015/01/16/2015-01-16-squid3_on_debian/" data-id="74xqbcjd6yjfatlu" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
@@ -363,61 +424,7 @@ iptables -<span class="constant">I</span> <span class="constant">INPUT</span> -s
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cfig.github.io/2015/01/16/2015-01-16-squid3_defense/" data-id="7czsnptimpx2o7kg" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2015-01-16-squid3_on_debian" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/01/16/2015-01-16-squid3_on_debian/" class="article-date">
-  <time datetime="2015-01-16T00:00:00.000Z" itemprop="datePublished">2015 Jan 16</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/01/16/2015-01-16-squid3_on_debian/">squid3_on_debian</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <meta charset="UTF-8">
-
-<p>创建密码文件</p>
-<pre><code>htpasswd -<span class="keyword">c</span>  /etc/squid3/squid.<span class="keyword">pwd</span> &lt;用户名&gt;
-</code></pre><p>配置认证程序</p>
-<pre><code>auth_param basic program /usr/lib/squid3/ncsa_auth /etc/squid3/squid.<span class="keyword">pwd</span>
-auth_param basic children <span class="number">5</span>
-auth_param basic realm Squid proxy-caching web server
-auth_param basic credentialsttl <span class="number">2</span> hours
-</code></pre><p>允许密码</p>
-<pre><code><span class="title">acl</span> password proxy_auth REQUIRED
-http_access allow password
-</code></pre><p>问题：</p>
-<pre><code><span class="number">1.</span> squid3无法启动：
-查看/<span class="built_in">var</span>/<span class="keyword">log</span>/squid3/<span class="keyword">cache</span><span class="built_in">.</span><span class="keyword">log</span>
-原则上可以把密码文件放在任何位置，但是如果放在/root下，则squid3无法访问该文件。
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://cfig.github.io/2015/01/16/2015-01-16-squid3_on_debian/" data-id="srquz1di1ya6o0l0" class="article-share-link">Share</a>
+      <a data-url="http://cfig.github.io/2015/01/16/2015-01-16-squid3_defense/" data-id="s8jj445rggam7a93" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
@@ -517,7 +524,7 @@ intent.setPackage(): 不设会走到GMS里面，然后会<span class="string">"n
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cfig.github.io/2015/01/15/2015-01-15-storage_access_framework/" data-id="b87sgk4nda3c61au" class="article-share-link">Share</a>
+      <a data-url="http://cfig.github.io/2015/01/15/2015-01-15-storage_access_framework/" data-id="vh163jxu4o682y9v" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
@@ -590,7 +597,7 @@ Date:   Thu Nov <span class="number">13</span> <span class="number">15</span>:<s
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cfig.github.io/2015/01/15/2015-01-15-adb-toolbox/" data-id="6hwiyvzt5vn9ej9t" class="article-share-link">Share</a>
+      <a data-url="http://cfig.github.io/2015/01/15/2015-01-15-adb-toolbox/" data-id="j4c2hzi9asn1lg3x" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
@@ -667,7 +674,7 @@ Date:   Thu Nov <span class="number">13</span> <span class="number">15</span>:<s
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cfig.github.io/2015/01/14/2015-01-14-android_app_Slider/" data-id="ljwanto9rmleoqwt" class="article-share-link">Share</a>
+      <a data-url="http://cfig.github.io/2015/01/14/2015-01-14-android_app_Slider/" data-id="5qddg9hwu3t2c1vc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
@@ -787,7 +794,7 @@ exit <span class="number">0</span></span>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://cfig.github.io/2015/01/07/2015-01-07-VPN_via_pptpd/" data-id="5okb123tvl06vm4l" class="article-share-link">Share</a>
+      <a data-url="http://cfig.github.io/2015/01/07/2015-01-07-VPN_via_pptpd/" data-id="ljph0m0tcni68cx4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
@@ -844,11 +851,11 @@ exit <span class="number">0</span></span>
       <ul>
         
           <li>
-            <a href="/2015/01/25/2014-03-22-hello-world/">First Blog on Jekyll</a>
+            <a href="/2015/01/26/2014-03-22-hello-world/">First Blog on Jekyll</a>
           </li>
         
           <li>
-            <a href="/2015/01/25/hello-world/">Hello World</a>
+            <a href="/2015/01/26/hello-world/">Hello World</a>
           </li>
         
           <li>
@@ -860,7 +867,7 @@ exit <span class="number">0</span></span>
           </li>
         
           <li>
-            <a href="/2015/01/16/2015-01-16-squid3_defense/">squid3_defense</a>
+            <a href="/2015/01/16/2015-01-16-squid3_on_debian/">squid3_on_debian</a>
           </li>
         
       </ul>
