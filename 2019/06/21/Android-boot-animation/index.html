@@ -125,7 +125,7 @@ ga('send', 'pageview');
 </ol>
 </li>
 </ul>
-<h2 id="1-What-is-boot-animation"><a href="#1-What-is-boot-animation" class="headerlink" title="1. What is boot animation"></a>1. What is boot animation</h2><video width="320" height="240" controls><br>  <source src="cfig_video/default.mp4" type="video/mp4"><br></video>
+<h2 id="1-What-is-boot-animation"><a href="#1-What-is-boot-animation" class="headerlink" title="1. What is boot animation"></a>1. What is boot animation</h2><video width="320" height="240" controls><br>  <source src="../../../../cfig_video/default.mp4" type="video/mp4"><br></video>
 
 <h2 id="2-How-is-the-animation-started"><a href="#2-How-is-the-animation-started" class="headerlink" title="2. How is the animation started"></a>2. How is the animation started</h2><p>It’s started as an init service during boot up stage<br>The starter file is /system/etc/init/bootanim.rc</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">service bootanim /system/bin/bootanimation</span><br><span class="line">    class core animation</span><br><span class="line">    user graphics</span><br><span class="line">    group graphics audio</span><br><span class="line">    disabled</span><br><span class="line">    oneshot</span><br><span class="line">    writepid /dev/stune/top-app/tasks</span><br></pre></td></tr></table></figure>
