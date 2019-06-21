@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>security - secure adb | Cool Fish In Glacier</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="CTS case: testUsbDebugging:Android: Lollipop 1. What will happen with secure adbWhen ro.adb.secure=1 : For devices w/o USB gadget driver:(1) vendor key only works for /adb_keys, not for /data/misc/adb">
+<meta name="keywords" content="android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="security - secure adb">
+<meta property="og:url" content="http://cfig.github.io/2015/09/22/secure-adb/index.html">
+<meta property="og:site_name" content="Cool Fish In Glacier">
+<meta property="og:description" content="CTS case: testUsbDebugging:Android: Lollipop 1. What will happen with secure adbWhen ro.adb.secure=1 : For devices w/o USB gadget driver:(1) vendor key only works for /adb_keys, not for /data/misc/adb">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-05-23T02:55:59.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="security - secure adb">
+<meta name="twitter:description" content="CTS case: testUsbDebugging:Android: Lollipop 1. What will happen with secure adbWhen ro.adb.secure=1 : For devices w/o USB gadget driver:(1) vendor key only works for /adb_keys, not for /data/misc/adb">
+  
+    <link rel="alternate" href="/atom.xml" title="Cool Fish In Glacier" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-67906660-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Cool Fish In Glacier</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">叽里咕噜</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://cfig.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-secure-adb" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/09/22/secure-adb/" class="article-date">
+  <time datetime="2015-09-22T06:37:28.000Z" itemprop="datePublished">2015-09-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      security - secure adb
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>CTS case: testUsbDebugging:<br>Android: Lollipop</p>
+<h2 id="1-What-will-happen-with-secure-adb"><a href="#1-What-will-happen-with-secure-adb" class="headerlink" title="1. What will happen with secure adb"></a>1. What will happen with secure adb</h2><p>When ro.adb.secure=1 :</p>
+<h4 id="For-devices-w-o-USB-gadget-driver"><a href="#For-devices-w-o-USB-gadget-driver" class="headerlink" title="For devices w/o USB gadget driver:"></a>For devices w/o USB gadget driver:</h4><p>(1) vendor key only works for /adb_keys, not for /data/misc/adb/adb_keys<br>So if you don’t want to see the confirmation dialog:<br>put ~/.android/adbkey.pub into root directory with name “/adbkeys”.</p>
+<p>(2) key verification process will check username/hostname, so other hosts using the same RSA key doesn’t work. (We can hack host machine to workaround)<br>[ro.build.host]: [my_host]<br>[ro.build.user]: [my_name]</p>
+<p>(3) adb connection via network won’t trigger AUTH confirmation dialog. – This is google bug, we can fix it locally, see EOF.</p>
+<h4 id="For-devices-w-USB-gadget-driver"><a href="#For-devices-w-USB-gadget-driver" class="headerlink" title="For devices w/ USB gadget driver:"></a>For devices w/ USB gadget driver:</h4><p>(1)adb connect will trigger AUTH dialog, then user can decide what to do next.</p>
+<h2 id="2-How-to-enable-secure-adb"><a href="#2-How-to-enable-secure-adb" class="headerlink" title="2. How to enable secure adb"></a>2. How to enable secure adb</h2><p>enable secure adb in config:(product.mk)<br>    ifeq ($(TARGET_BUILD_VARIANT),user)<br>    ADDITIONAL_DEFAULT_PROPERTIES += ro.adb.secure=1<br>    endif</p>
+<p>or:</p>
+<pre><code>ifeq ($(TARGET_BUILD_VARIANT),user)
+PRODUCT_PROPERTY_OVERRIDES += ro.adb.secure=1
+endif
+</code></pre><h2 id="3-for-developers"><a href="#3-for-developers" class="headerlink" title="3. for developers"></a>3. for developers</h2><h4 id="how-to-debug-adb"><a href="#how-to-debug-adb" class="headerlink" title="how to debug adb"></a>how to debug adb</h4><pre><code>/data/adb is used for writing adb debugging information when persist.adb.trace_mask is set.
+</code></pre><h4 id="adb-keygen"><a href="#adb-keygen" class="headerlink" title="adb keygen"></a>adb keygen</h4><hr>
+<pre><code>commit 86c9e5f7e20a3f1712038ce642628c2e1e866434
+Author: Nick Kralevich &lt;nnk@google.com&gt;
+Date:   Thu Nov 13 15:17:29 2014 -0800
+
+    Introduce &quot;adb keygen&quot;
+
+    Introduce the &quot;adb keygen&quot; command.
+
+      Usage: adb keygen &lt;filename&gt;
+
+    This command creates an adb public/private key pair in a user
+    specified file. This can be used to create new adb keys, or rotate
+    existing keys.
+</code></pre><hr>
+<h2 id="Attachment-Workaround-for-network-adb"><a href="#Attachment-Workaround-for-network-adb" class="headerlink" title="Attachment: Workaround for network adb"></a>Attachment: Workaround for network adb</h2><p>File: frameworks/base/services/usb/java/com/android/server/usb/UsbService.java<br>Cause: it will check existence of /sys/class/android_usb, if it doesn’t exist, the daemon listener will not start.</p>
+<p>Fix:</p>
+<pre><code>---
+ services/usb/java/com/android/server/usb/UsbDeviceManager.java | 3 ++-
+ services/usb/java/com/android/server/usb/UsbService.java       | 4 ++--
+ 2 files changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/services/usb/java/com/android/server/usb/UsbDeviceManager.java b/services/usb/java/com/android/server/usb/UsbDeviceManager.java
+index f3fa747..42654c7 100644
+--- a/services/usb/java/com/android/server/usb/UsbDeviceManager.java
++++ b/services/usb/java/com/android/server/usb/UsbDeviceManager.java
+@@ -355,7 +355,8 @@ public class UsbDeviceManager {
+                 }
+
+                 mCurrentFunctions = getDefaultFunctions();
+-                String state = FileUtils.readTextFile(new File(STATE_PATH), 0, null).trim();
++                //String state = FileUtils.readTextFile(new File(STATE_PATH), 0, null).trim();
++                String state = &quot;null_state&quot;;
+                 updateState(state);
+                 mAdbEnabled = containsFunction(mCurrentFunctions, UsbManager.USB_FUNCTION_ADB);
+
+diff --git a/services/usb/java/com/android/server/usb/UsbService.java b/services/usb/java/com/android/server/usb/UsbService.java
+index fd83f92..919ea90 100644
+--- a/services/usb/java/com/android/server/usb/UsbService.java
++++ b/services/usb/java/com/android/server/usb/UsbService.java
+@@ -99,9 +99,9 @@ public class UsbService extends IUsbManager.Stub {
+         if (pm.hasSystemFeature(PackageManager.FEATURE_USB_HOST)) {
+             mHostManager = new UsbHostManager(context);
+         }
+-        if (new File(&quot;/sys/class/android_usb&quot;).exists()) {
++        //if (new File(&quot;/sys/class/android_usb&quot;).exists()) {
+             mDeviceManager = new UsbDeviceManager(context);
+-        }
++        //}
+
+         setCurrentUser(UserHandle.USER_OWNER);
+
+-- 
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2015/09/22/secure-adb/" data-id="cjx5ti7dy004mmvwgnhmqapp9" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/09/22/OTA-diff-and-patch/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          OTA (2) - diff and patch
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/09/22/jgrep-requirement-doc/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">jgrep requirement doc</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/code/">code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/health/">health</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/misc/">misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/net-travel/">net travel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/code/" style="font-size: 12.86px;">code</a> <a href="/tags/health/" style="font-size: 10px;">health</a> <a href="/tags/java/" style="font-size: 17.14px;">java</a> <a href="/tags/linux/" style="font-size: 18.57px;">linux</a> <a href="/tags/misc/" style="font-size: 11.43px;">misc</a> <a href="/tags/net-travel/" style="font-size: 14.29px;">net travel</a> <a href="/tags/web/" style="font-size: 15.71px;">web</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/21/Android-boot-animation/">Make your own Android boot animation</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/06/verified-assembled-manifest/">VINTF: verified assembled manifest</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/compatibility-matrix/">VINTF - compatibility matrix</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/VINTF-manifest-xml/">VINTF: manifest.xml</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/24/Linux-capability-tests/">Linux capability tests</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 cfig
+      <br><br>
+      Enjoy your journey here<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

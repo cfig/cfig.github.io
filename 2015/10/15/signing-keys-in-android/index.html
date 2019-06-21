@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>Android keys - release keys | Cool Fish In Glacier</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Android default keys are located at build/target/product/security/, ROM providers must use OEM keys when building factory images for market products.There are 5 paris of keys in all: (*.pk8 is private">
+<meta name="keywords" content="android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android keys - release keys">
+<meta property="og:url" content="http://cfig.github.io/2015/10/15/signing-keys-in-android/index.html">
+<meta property="og:site_name" content="Cool Fish In Glacier">
+<meta property="og:description" content="Android default keys are located at build/target/product/security/, ROM providers must use OEM keys when building factory images for market products.There are 5 paris of keys in all: (*.pk8 is private">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-05-23T02:55:59.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android keys - release keys">
+<meta name="twitter:description" content="Android default keys are located at build/target/product/security/, ROM providers must use OEM keys when building factory images for market products.There are 5 paris of keys in all: (*.pk8 is private">
+  
+    <link rel="alternate" href="/atom.xml" title="Cool Fish In Glacier" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-67906660-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Cool Fish In Glacier</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">叽里咕噜</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://cfig.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-signing-keys-in-android" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/15/signing-keys-in-android/" class="article-date">
+  <time datetime="2015-10-15T06:15:07.000Z" itemprop="datePublished">2015-10-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android keys - release keys
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Android default keys are located at build/target/product/security/, ROM providers must use OEM keys when building factory images for market products.<br>There are 5 paris of keys in all: (*.pk8 is private key, *.x509.pem is cert)</p>
+<pre><code>testkey (I call it dev key)
+shared
+platform
+media
+verity
+</code></pre><h2 id="1-How-to-specify-OEM-keys"><a href="#1-How-to-specify-OEM-keys" class="headerlink" title="1. How to specify OEM keys"></a>1. How to specify OEM keys</h2><p>config release key location in <product>.mk, example:</product></p>
+<pre><code>PRODUCT_DEFAULT_DEV_CERTIFICATE := /home/xx/release_keys/releasekey
+PRODUCT_OTA_PUBLIC_KEYS=/home/xx/release_keys/otakey.x509.pem
+</code></pre><p>Then system will search for $(PRODUCT_DEFAULT_DEV_CERTIFICATE).pk8 and $(PRODUCT_DEFAULT_DEV_CERTIFICATE).x509.pem for release key.</p>
+<p>$(PRODUCT_OTA_PUBLIC_KEYS) will generate target file META/otakeys.txt with content: “/home/xx/release_keys/otakey.x509.pem”</p>
+<h2 id="2-What-are-the-keys-used-for"><a href="#2-What-are-the-keys-used-for" class="headerlink" title="2. What are the keys used for"></a>2. What are the keys used for</h2><h4 id="2-1-release-key"><a href="#2-1-release-key" class="headerlink" title="2.1 release key"></a>2.1 release key</h4><p>If release key is not specified, it will default to build/target/product/security/testkey<br>This key will be used to:</p>
+<pre><code>- sign normal apk
+- The cert will be save to /system/etc/security/otacerts.zip, which will be used to verify OTA pkg signature
+- sign OTA pkg
+</code></pre><h4 id="2-2-shared-media-platform-keys"><a href="#2-2-shared-media-platform-keys" class="headerlink" title="2.2 shared/media/platform keys"></a>2.2 shared/media/platform keys</h4><p>These keys will be put into the same folder as PRODUCT_DEFAULT_DEV_CERTIFICATE<br>These keys will be used to:</p>
+<pre><code>- sign specific apk
+</code></pre><p>For example:</p>
+<pre><code>LOCAL_CERTIFICATE := shared    eg.: Launcher, Dialer, etc.
+LOCAL_CERTIFICATE := platform  eg.: Settings, Nfc, TelephonyProvider, CertInstaller, etc
+LOCAL_CERTIFICATE := media     eg.: DownloadProvider，MediaProvider， Gallery etc.
+</code></pre><h4 id="2-3-verity-key"><a href="#2-3-verity-key" class="headerlink" title="2.3 verity key"></a>2.3 verity key</h4><p>In Android Lollipop, verity key is set to build/target/product/security/verity.{pk8,x509.pem} in build/target/product/verity.mk. OEM vendors need to define PRODUCT_VERITY_SIGNING_KEY by themselves.<br>verity key will be used to:</p>
+<pre><code>- sign boot.img, 
+  the signature will be verified by bootloader.
+  OEM vendors should build verity pub key inside bootloader, or put the pub key in some other secure storage.
+- sign verity metadata in system.img,
+  the signature will be verified by boot.img,
+  boot.img has the pub key /verity_key in ramdisk.
+</code></pre><h2 id="3-Resign-flow-of-Android"><a href="#3-Resign-flow-of-Android" class="headerlink" title="3. Resign flow of Android"></a>3. Resign flow of Android</h2><p>Build signing guide from google: <a href="https://source.android.com/devices/tech/ota/sign_builds.html" target="_blank" rel="noopener">https://source.android.com/devices/tech/ota/sign_builds.html</a></p>
+<p>Typical re-signing flow: sign boot.img/system.img with verity_key, sign apks with specified keys, manually change META/otacerts.zip if needed.</p>
+<pre><code>./build/tools/releasetools/sign_target_files_apks \
+    --replace_ota_keys \
+    --default_key_mappings /home/xx/release_keys/  \
+    --replace_verity_public_key=/home/xx/release_keys/verity_key \
+    --replace_verity_private_key=/home/xx/release_keys/verity \
+    orig.zip signed-target.zip
+</code></pre><p>Typical OTA package generation: sign with new ota key</p>
+<pre><code>./build/tools/releasetools/ota_from_target_files \
+    -k ~/release_keys/otakey \
+    signed-target.zip \
+    signed-ota_update.zip
+</code></pre><p>‘ota_from_target_files’ needs some scripts in &lt;android_src&gt;/build and some host tools under &lt;android_src&gt;/out/host/linxu-x86, like “SignApk.jar”, “imgdiff” and needed shared libraries.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2015/10/15/signing-keys-in-android/" data-id="cjx5ti7dz004omvwgurrnhbzb" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/10/20/Android-Testing-application/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Android Testing - Instrumentated Unit Tests
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/09/28/Health-Heart/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Health - Heart</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/code/">code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/health/">health</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/misc/">misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/net-travel/">net travel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/code/" style="font-size: 12.86px;">code</a> <a href="/tags/health/" style="font-size: 10px;">health</a> <a href="/tags/java/" style="font-size: 17.14px;">java</a> <a href="/tags/linux/" style="font-size: 18.57px;">linux</a> <a href="/tags/misc/" style="font-size: 11.43px;">misc</a> <a href="/tags/net-travel/" style="font-size: 14.29px;">net travel</a> <a href="/tags/web/" style="font-size: 15.71px;">web</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/21/Android-boot-animation/">Make your own Android boot animation</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/06/verified-assembled-manifest/">VINTF: verified assembled manifest</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/compatibility-matrix/">VINTF - compatibility matrix</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/VINTF-manifest-xml/">VINTF: manifest.xml</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/24/Linux-capability-tests/">Linux capability tests</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 cfig
+      <br><br>
+      Enjoy your journey here<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

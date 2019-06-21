@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>Cool Fish In Glacier</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Cool Fish In Glacier">
+<meta property="og:url" content="http://cfig.github.io/index.html">
+<meta property="og:site_name" content="Cool Fish In Glacier">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Cool Fish In Glacier">
+  
+    <link rel="alternate" href="/atom.xml" title="Cool Fish In Glacier" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-67906660-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Cool Fish In Glacier</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">叽里咕噜</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://cfig.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-Android-boot-animation" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/06/21/Android-boot-animation/" class="article-date">
+  <time datetime="2019-06-21T07:33:39.000Z" itemprop="datePublished">2019-06-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/06/21/Android-boot-animation/">Make your own Android boot animation</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Table-of-Contents"><a href="#Table-of-Contents" class="headerlink" title="Table of Contents"></a>Table of Contents</h1><ul>
+<li><ol>
+<li>What is boot animation</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>How is the animation started</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>How to customize boot animation</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>Try it out</li>
+</ol>
+</li>
+</ul>
+<h2 id="1-What-is-boot-animation"><a href="#1-What-is-boot-animation" class="headerlink" title="1. What is boot animation"></a>1. What is boot animation</h2><video width="320" height="240" controls><br>  <source src="cfig_video/default.mp4" type="video/mp4"><br></video>
+
+<h2 id="2-How-is-the-animation-started"><a href="#2-How-is-the-animation-started" class="headerlink" title="2. How is the animation started"></a>2. How is the animation started</h2><p>It’s started as an init service during boot up stage<br>The starter file is /system/etc/init/bootanim.rc</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">service bootanim /system/bin/bootanimation</span><br><span class="line">    class core animation</span><br><span class="line">    user graphics</span><br><span class="line">    group graphics audio</span><br><span class="line">    disabled</span><br><span class="line">    oneshot</span><br><span class="line">    writepid /dev/stune/top-app/tasks</span><br></pre></td></tr></table></figure>
+<p>‘bootanimation’ application will search for animation resources in specified order, </p>
+<pre><code>/product/media/bootanimation.zip
+/oem/media/bootanimation.zip
+/system/media/bootanimation.zip
+</code></pre><p> the final choice is first match.</p>
+<h2 id="3-How-to-customize-boot-animation"><a href="#3-How-to-customize-boot-animation" class="headerlink" title="3. How to customize boot animation"></a>3. How to customize boot animation</h2><p>Files in bootanimation.zip<br><img src="/images/bootanim1.png"></p>
+<p>Prerequisite<br>A series of animated ‘png’ files</p>
+<h3 id="3-1-descriptor-file"><a href="#3-1-descriptor-file" class="headerlink" title="3.1 descriptor file"></a>3.1 descriptor file</h3><p>Descriptor file - desc.txt<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">800 1280 24 --&gt; header part</span><br><span class="line">p 1 0 Part0 --&gt; body part</span><br><span class="line">p 2 0 Part1 --&gt; body part</span><br></pre></td></tr></table></figure></p>
+<h4 id="header-part"><a href="#header-part" class="headerlink" title="header part"></a>header part</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">800 1280  24</span><br><span class="line"> |   |    +---- FPS</span><br><span class="line"> |   +--------- Height</span><br><span class="line"> +------------- Width</span><br></pre></td></tr></table></figure>
+<h4 id="body-part"><a href="#body-part" class="headerlink" title="body part"></a>body part</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">p   1   0   Part0</span><br><span class="line">p   2   0   Part1</span><br><span class="line">|   |   |     |</span><br><span class="line">|   |   |     +------ directory name for png files</span><br><span class="line">|   |   +------------ number of FRAMES to delay after this part</span><br><span class="line">|   +---------------- iterations to play, 0 for infinite loop</span><br><span class="line">+-------------------- TYPE</span><br></pre></td></tr></table></figure>
+<p>TYPE values:</p>
+<ul>
+<li>‘p’: this part will play unless interrupted by the end of the boot</li>
+<li>‘c’: this part will play to completion, no matter what</li>
+</ul>
+<h4 id="Notes-about-descriptor-file"><a href="#Notes-about-descriptor-file" class="headerlink" title="Notes about descriptor file"></a>Notes about descriptor file</h4><ul>
+<li>Only 1 line in boby part of desc.txt can be marked as infinite loop.</li>
+<li>desc.txt should be in Linux text format, otherwise it may confuse the parser.</li>
+</ul>
+<h3 id="3-2-animation-contents"><a href="#3-2-animation-contents" class="headerlink" title="3.2 animation contents"></a>3.2 animation contents</h3><p>Animation stages are ogranized as directories.<br>Each diredctory matches one line in desc.txt detail part.<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Part 0 \</span><br><span class="line">Part 1  \</span><br><span class="line">Part 2   &gt;-- directories full of PNG frames</span><br><span class="line"> ...    /</span><br><span class="line">Part N /</span><br></pre></td></tr></table></figure></p>
+<p>Then PNG files are played alphabetically.<br><img src="/images/bootanim2.png"></p>
+<h3 id="3-3-pack-everything"><a href="#3-3-pack-everything" class="headerlink" title="3.3 pack everything"></a>3.3 pack everything</h3><p>Finally we should pack the descriptor and PNG files into bootanimation.zip<br>compression method is ‘STORE’, which means no compression.<br>Other compression methods include DEFLATE, BZIP2, LZMA etc, but they are NOT suitable for bootanimation.<br>Command:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">zip ../bootanimation.zip * -0 -r</span><br></pre></td></tr></table></figure></p>
+<h2 id="4-Try-it-out"><a href="#4-Try-it-out" class="headerlink" title="4. Try it out!"></a>4. Try it out!</h2><p>Push the generated file to the platform:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">adb push bootanimation.zip /system/media/bootanimation.zip</span><br></pre></td></tr></table></figure></p>
+<p>Now let’s have a look at what we have achieved:</p>
+<video width="320" height="240" controls><br>  <source src="cfig_video/final.mp4" type="video/mp4"><br></video>
+
+<p>Enjoy!</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2019/06/21/Android-boot-animation/" data-id="cjx5ti7cj001pmvwgd3vmfe97" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-verified-assembled-manifest" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/06/06/verified-assembled-manifest/" class="article-date">
+  <time datetime="2019-06-06T05:44:46.000Z" itemprop="datePublished">2019-06-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/06/06/verified-assembled-manifest/">VINTF: verified assembled manifest</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="verified-assembled-manifest"><a href="#verified-assembled-manifest" class="headerlink" title="verified assembled manifest"></a>verified assembled manifest</h2><p>系统最终生成2个verified assembled manifest, 只在host端，而不放在target板上。包含各种fragments.<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">BUILT_ASSEMBLED_FRAMEWORK_MANIFEST := $(PRODUCT_OUT)/verified_assembled_framework_manifest.xml</span><br><span class="line">BUILT_ASSEMBLED_VENDOR_MANIFEST := $(PRODUCT_OUT)/verified_assembled_vendor_manifest.xml</span><br></pre></td></tr></table></figure></p>
+<p>可以直接make对应的文件, 如<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ make out/target/product/&lt;TARGET_PRODUCT&gt;/verified_assembled_framework_manifest.xml</span><br><span class="line">$ make out/target/product/&lt;TARGET_PRODUCT&gt;/verified_assembled_vendor_manifest.xml</span><br></pre></td></tr></table></figure></p>
+<h3 id="vasm-包含sm-system-fragments-product-fragments-用vm来检查有效性"><a href="#vasm-包含sm-system-fragments-product-fragments-用vm来检查有效性" class="headerlink" title="vasm 包含sm + system fragments + product fragments, 用vm来检查有效性"></a>vasm 包含sm + system fragments + product fragments, 用vm来检查有效性</h3><p>主要步骤如下:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">vasm: export PRODUCT_ENFORCE_VINTF_MANIFEST=true</span><br><span class="line">vasm:</span><br><span class="line">	assemble_vintf \</span><br><span class="line">		-i $(ANDROID_PRODUCT_OUT)/system/etc/vintf/manifest.xml \</span><br><span class="line">		$(addprefix -i ,$(wildcard $(ANDROID_PRODUCT_OUT)/system/etc/vintf/manifest/*.xml) $(wildcard $(ANDROID_PRODUCT_OUT)/product/etc/vintf/manifest/*.xml)) \</span><br><span class="line">		-c $(ANDROID_PRODUCT_OUT)/vendor/etc/vintf/manifest.xml \</span><br><span class="line">		-o verified_assembled_framework_manifest.xml</span><br></pre></td></tr></table></figure></p>
+<h3 id="vsvm-包含vm-vendor-fragments-用sm来检查有效性"><a href="#vsvm-包含vm-vendor-fragments-用sm来检查有效性" class="headerlink" title="vsvm 包含vm + vendor fragments, 用sm来检查有效性"></a>vsvm 包含vm + vendor fragments, 用sm来检查有效性</h3><p>主要步骤如下<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">tmpKernelInfo := $(shell mktemp -d)</span><br><span class="line">.INTERMEDIATE: $(tmpKernelInfo)/kernel_configs.txt</span><br><span class="line">$(tmpKernelInfo)/kernel_configs.txt:</span><br><span class="line">	build/make/tools/extract_kernel.py \</span><br><span class="line">		--input out/target/product/$(TARGET_PRODUCT)/kernel \</span><br><span class="line">		--output-configs $(tmpKernelInfo)/kernel_configs.txt \</span><br><span class="line">		--output-version $(tmpKernelInfo)/kernel_version.txt</span><br><span class="line"></span><br><span class="line"># BUILT_ASSEMBLED_VENDOR_MANIFEST := $(PRODUCT_OUT)/verified_assembled_vendor_manifest.xml</span><br><span class="line">vavm: export PRODUCT_ENFORCE_VINTF_MANIFEST=true</span><br><span class="line">vavm: export VINTF_ENFORCE_NO_UNUSED_HALS=true</span><br><span class="line">vavm:</span><br><span class="line">vavm: $(tmpKernelInfo)/kernel_configs.txt</span><br><span class="line">	assemble_vintf \</span><br><span class="line">		--kernel $(shell cat $(tmpKernelInfo)/kernel_version.txt):$(tmpKernelInfo)/kernel_configs.txt \</span><br><span class="line">		-i $(ANDROID_PRODUCT_OUT)/vendor/etc/vintf/manifest.xml \</span><br><span class="line">		$(addprefix -i ,$(wildcard $(ANDROID_PRODUCT_OUT)/vendor/etc/vintf/manifest/*.xml)) \</span><br><span class="line">		-c $(ANDROID_PRODUCT_OUT)/system/etc/vintf/manifest.xml \</span><br><span class="line">		-o verified_assembled_vendor_manifest.xml</span><br><span class="line">		rm -r $(tmpKernelInfo)</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2019/06/06/verified-assembled-manifest/" data-id="cjx5ti7e6004wmvwg9ed5lc22" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-compatibility-matrix" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/06/05/compatibility-matrix/" class="article-date">
+  <time datetime="2019-06-05T10:09:44.000Z" itemprop="datePublished">2019-06-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/06/05/compatibility-matrix/">VINTF - compatibility matrix</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Compatibility-Matrix-CM"><a href="#Compatibility-Matrix-CM" class="headerlink" title="Compatibility Matrix (CM)"></a>Compatibility Matrix (CM)</h2><h3 id="1-系统共需要3个compatibility-matrix文件"><a href="#1-系统共需要3个compatibility-matrix文件" class="headerlink" title="1. 系统共需要3个compatibility matrix文件"></a>1. 系统共需要3个compatibility matrix文件</h3><ul>
+<li>System Compatibility Matrix (hardware/interfaces/compatibility_matrices/Android.mk), 下文简称scm</li>
+<li>Device Compatibility Matrix (system/libhidl/vintfdata/Android.mk), 下文简称vcm</li>
+<li>Product Compatibility Matrix (hardware/interfaces/compatibility_matrices/Android.mk), 下文简称pcm</li>
+</ul>
+<p>其中scm, vcm是必然要生成的，而pcm则只有在定义了DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE之后才会生成。</p>
+<h4 id="scm"><a href="#scm" class="headerlink" title="scm:"></a>scm:</h4><p>该文件生成比较繁琐，需要多个步骤<br>首先需要生成CM的check文件：<br>-i hardware/interfaces/compatibility_matrices/manifest.empty.xml -o manifest.check.xml<br>需要生成6个实际文件</p>
+<p>compatibility_matrix.1.xml<br>compatibility_matrix.2.xml<br>compatibility_matrix.3.xml<br>compatibility_matrix.4.xml<br>compatibility_matrix.legacy.xml<br>compatibility_matrix.device.xml （FCM）<br>前5个文件定义于hardware/interfaces/compatibility_matrices/Android.bp, 从同文件夹的同名文件加上多个版本的kernel config生成(目前看到对于Oreo是3.18, 4.4, 4.9 等, 对于Q是4.9, 4.14, 4.19等)<br>第6个文件FCM, 从DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE或者compatibility_matrix.empty.xml生成</p>
+<h4 id="vcm"><a href="#vcm" class="headerlink" title="vcm:"></a>vcm:</h4><p>额外需要的变量 REQUIRED_VNDK_VERSION, BOARD_SYSTEMSDK_VERSIONS, 生成的CM带有VDNK版本号和SYSTEMSDK版本号</p>
+<h4 id="pcm"><a href="#pcm" class="headerlink" title="pcm:"></a>pcm:</h4><p>强制check文件为空, 参数增加”-c hardware/interfaces/compatibility_matrices/manifest.empty.xml”</p>
+<h2 id="2-图表总结"><a href="#2-图表总结" class="headerlink" title="2. 图表总结"></a>2. 图表总结</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">+--------+-----------------------------------------+-------------------------------+--------------------------------------------+</span><br><span class="line">|Targets | Makefile Commands                       |output                         | 源文件(input files) |                      |</span><br><span class="line">+--------+-----------------------------------------+-------------------------------+--------------------------------------------+</span><br><span class="line">|scm(fcm)| make                                    |/system/etc/vintf/             | compatibility_matrix.empty.xml             |</span><br><span class="line">|        |framework_compatibility_matrix.device.xml|compatibility_matrix.device.xml|  or                                        |</span><br><span class="line">|        |                                         |                               | DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE |</span><br><span class="line">+--------+-----------------------------------------+-------------------------------+--------------------------------------------+</span><br><span class="line">|scm(all)| make system_compatibility_matrix.xml    | scm + other 5 files           | 同名源文件 + 多个版本的kernel config       |</span><br><span class="line">+--------+-----------------------------------------+-------------------------------+--------------------------------------------+</span><br><span class="line">|vcm     | make device_compatibility_matrix.xml    |/vendor/etc/vintf/             | device_compatibility_matrix.default.xml    |</span><br><span class="line">|        |                                         |compatibility_matrix.xml       |  or DEVICE_MATRIX_FILE                     |</span><br><span class="line">+--------+-----------------------------------------+-------------------------------+--------------------------------------------+</span><br><span class="line">|pcm     | make product_compatibility_matrix.xml   |/product/etc/vintf/            | DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE   |</span><br><span class="line">|        |                                         |compatibility_matrix.xml       |                                            |</span><br><span class="line">+--------+-----------------------------------------+-------------------------------+--------------------------------------------+</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2019/06/05/compatibility-matrix/" data-id="cjx5ti7d60032mvwgfhn3i79q" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-VINTF-manifest-xml" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/06/05/VINTF-manifest-xml/" class="article-date">
+  <time datetime="2019-06-05T09:20:34.000Z" itemprop="datePublished">2019-06-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/06/05/VINTF-manifest-xml/">VINTF: manifest.xml</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="manifests"><a href="#manifests" class="headerlink" title="manifests"></a>manifests</h2><h1 id="1-系统分四个manifest-xml文件"><a href="#1-系统分四个manifest-xml文件" class="headerlink" title="1. 系统分四个manifest.xml文件"></a>1. 系统分四个manifest.xml文件</h1><ul>
+<li>System Manifest (system/libhidl/vintfdata/Android.mk)</li>
+<li>Product Manifest (system/libhidl/vintfdata/Android.mk)</li>
+<li>Device Manifest (build/make/target/board/Android.mk)</li>
+<li>ODM Manifest (build/make/target/board/Android.mk)</li>
+</ul>
+<p>其中System Manifest是必然生成的，而对于Product Manifest等非必选的manifest，都需要定义相应的源文件(input file)才能用assemble_vintf生成manifest, 比如：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ make product_manifest.xml</span><br></pre></td></tr></table></figure></p>
+<p>如果出现<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">FAILED: ninja: unknown target &apos;product_manifest.xml&apos;</span><br></pre></td></tr></table></figure></p>
+<p>说明没有定义PRODUCT_MANIFEST_FILES, 那么此文件不需要生成。<br>如果定义了PRODUCT_MANIFEST_FILES, 那么文件生成方式如下：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pm:</span><br><span class="line">	assemble_vintf \</span><br><span class="line">		-i $(PRODUCT_MANIFEST_FILES) \</span><br><span class="line">		-o product_etc_vintf_manifest.xml</span><br></pre></td></tr></table></figure></p>
+<h1 id="2-图表总结"><a href="#2-图表总结" class="headerlink" title="2. 图表总结"></a>2. 图表总结</h1><table>
+<thead>
+<tr>
+<th>Manifest类型</th>
+<th>Makefile Target</th>
+<th>生成文件</th>
+<th>..</th>
+<th>input files (源文件)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>System Manifest</td>
+<td>make system_manifest.xml</td>
+<td>/system/etc/vintf/manifest.xml</td>
+<td></td>
+<td>DEVICE_FRAMEWORK_MANIFEST_FILE + system/libhidl/vintfdata/manifest.xml</td>
+</tr>
+<tr>
+<td>Product Manifest</td>
+<td>make product_manifest.xml</td>
+<td>/product/etc/vintf/manifest.xml</td>
+<td></td>
+<td>PRODUCT_MANIFEST_FILES</td>
+</tr>
+<tr>
+<td>Device Manifest</td>
+<td>make device_manifest.xml</td>
+<td>/vendor/etc/vintf/manifest.xml</td>
+<td></td>
+<td>DEVICE_MANIFEST_FILE</td>
+</tr>
+<tr>
+<td>ODM Manifest</td>
+<td>make odm_manifest.xml</td>
+<td>/odm/etc/vintf/manifest.xml</td>
+<td></td>
+<td>ODM_MANIFEST_FILES</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2019/06/05/VINTF-manifest-xml/" data-id="cjx5ti7d0002qmvwgtsr7zmtf" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Linux-capability-tests" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/24/Linux-capability-tests/" class="article-date">
+  <time datetime="2019-05-24T02:09:19.000Z" itemprop="datePublished">2019-05-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/24/Linux-capability-tests/">Linux capability tests</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="brief-intro"><a href="#brief-intro" class="headerlink" title="brief intro"></a>brief intro</h3><p>man:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">man capabilities</span><br></pre></td></tr></table></figure></p>
+<p>Useful package:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">libcap</span><br><span class="line">libcap-ng</span><br></pre></td></tr></table></figure></p>
+<p>Tools:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">getcap/setcap</span><br><span class="line">filecap/pscap</span><br></pre></td></tr></table></figure></p>
+<h3 id="capabilities-in-Android"><a href="#capabilities-in-Android" class="headerlink" title="capabilities in Android:"></a>capabilities in Android:</h3><ul>
+<li><p>Android O and before: Use both file cap and process cap<br>example:<br>05-16 09:01:48.161  2824  2824 I XX      : get file cap: [vendor/bin/ampservice]<br>05-16 09:01:48.162  2824  2824 I XX      : vendor/bin/some_service: cap_to_text(): [= cap_sys_nice+ep]</p>
+</li>
+<li><p>Android P and after: mainly use process cap in service init config</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">service mtpd /system/bin/mtpd</span><br><span class="line">    class main</span><br><span class="line">    socket mtpd stream 600 system system</span><br><span class="line">    user vpn</span><br><span class="line">    group vpn inet</span><br><span class="line">    capabilities NET_ADMIN NET_RAW</span><br><span class="line">    disabled</span><br><span class="line">    oneshot</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>Please note that Android external/libcap: it’s obsolete, missing ‘cap_audit_read’ in libcap/cap_names.h</p>
+<h3 id="cap-t-to-from-cap-text"><a href="#cap-t-to-from-cap-text" class="headerlink" title="cap_t to/from cap_text"></a>cap_t to/from cap_text</h3><p>cap_from_text(): cap_text</p>
+<h4 id="a-权限操作符有三种"><a href="#a-权限操作符有三种" class="headerlink" title="(a). 权限操作符有三种= + -"></a>(a). 权限操作符有三种= + -</h4><p>操作符前面为capability list,如果为空，默认是all<br>下面两中写法等价<br>all=p<br>=p</p>
+<h4 id="b-操作符后为flags"><a href="#b-操作符后为flags" class="headerlink" title="(b). 操作符后为flags"></a>(b). 操作符后为flags</h4><p>all=pie<br>=表示所有cap都没有flags, 即空</p>
+<p>举例<br>“all=pie cap_chown-i cap_kill-pie”<br>“=pe cap_chown+eip cap_wake_alarm-pie” 等价于 “=ep cap_chown+i cap_wake_alarm-ep”</p>
+<h4 id="c-合法cap-text限制约束-linux-only-："><a href="#c-合法cap-text限制约束-linux-only-：" class="headerlink" title="(c) 合法cap_text限制约束(linux only)："></a>(c) 合法cap_text限制约束(linux only)：</h4><p>assertEquals(per_state | inh_state, eff_state)</p>
+<h3 id="测试程序"><a href="#测试程序" class="headerlink" title="测试程序"></a>测试程序</h3><p><a href="https://github.com/cfig/linux_tools/tree/master/capability_test" target="_blank" rel="noopener">https://github.com/cfig/linux_tools/tree/master/capability_test</a><br>可以在linux/Android环境下编译</p>
+<h2 id="more-reading-…"><a href="#more-reading-…" class="headerlink" title="more reading …"></a>more reading …</h2><p><a href="https://training.play-with-docker.com/security-capabilities/" target="_blank" rel="noopener">https://training.play-with-docker.com/security-capabilities/</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2019/05/24/Linux-capability-tests/" data-id="cjx5ti7cv002fmvwgwm4nnenw" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-RescueParty" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/23/RescueParty/" class="article-date">
+  <time datetime="2019-05-22T19:17:30.000Z" itemprop="datePublished">2019-05-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/23/RescueParty/">Android RescueParty</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="RescueParty简介"><a href="#RescueParty简介" class="headerlink" title="RescueParty简介"></a>RescueParty简介</h2><p>检测persistent app的crash, 添加于2017年。Google对此的说明是<br>Utilities to help rescue the system from crash loops. Callers are expected to report boot events and persistent app crashes, and if they happen frequently enough this class will slowly escalate through several rescue operations before finally rebooting and prompting the user if they want to wipe data as a last resort.</p>
+<h2 id="分成5个level"><a href="#分成5个level" class="headerlink" title="分成5个level"></a>分成5个level</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">level_none = 0</span><br><span class="line">level_reset_settings_untrusted_defaults</span><br><span class="line">level_reset_settings_untrusted_changes</span><br><span class="line">level_reset_settings_trusted_defaults</span><br><span class="line">level_factory_reset = 4</span><br></pre></td></tr></table></figure>
+<h2 id="不同rescueLevel的处理"><a href="#不同rescueLevel的处理" class="headerlink" title="不同rescueLevel的处理"></a>不同rescueLevel的处理</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">void executeRescueLevelInternal()</span><br><span class="line">    1 - level_reset_settings_untrusted_defaults</span><br><span class="line">        resetAllSettings(reset_mode_untrusted_defaults)</span><br><span class="line">    2 - level_reset_settings_untrusted_changes</span><br><span class="line">        resetAllSettings(reset_mode_untrusted_changes)</span><br><span class="line">    3 - level_reset_settings_trusted_defaults</span><br><span class="line">        resetAllSettings(reset_mode_trusted_defaults)</span><br><span class="line">    4 - level_factory_reset</span><br><span class="line">        RecoverySystem.rebootPromptAndWipeUserData(context, TAG) </span><br><span class="line">        到这里就直接重启到factory reset界面</span><br></pre></td></tr></table></figure>
+<h2 id="如何禁用RescueParty"><a href="#如何禁用RescueParty" class="headerlink" title="如何禁用RescueParty"></a>如何禁用RescueParty</h2><p>如下条件满足其一即可</p>
+<ul>
+<li>persist.sys.enable_rescue = false</li>
+<li>persist.sys.disable_rescue = true</li>
+<li>Build.IS_ENG</li>
+<li>Build.IS_USERDEBUG &amp;&amp; isUsbActive() # 连上usb adb</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2019/05/23/RescueParty/" data-id="cjx5ti7cz002mmvwg3cn7f729" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-charles" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/05/07/charles/" class="article-date">
+  <time datetime="2019-05-07T05:48:09.000Z" itemprop="datePublished">2019-05-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/07/charles/">charles抓包https</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><ul>
+<li>Proxy -&gt;  Windows Proxy:  uncheck</li>
+<li>Help -&gt; SSL Proxying -&gt; Install Charles Root CA: 本机安装根证书</li>
+<li>Help -&gt; SSL Proxying -&gt; Install Charles Root CA on a Mobile Device<ul>
+<li>手机Wifi-&gt; Manual Proxy: 设置代理</li>
+<li>手机浏览器打开<a href="https://chls.pro/ssl" target="_blank" rel="noopener">https://chls.pro/ssl</a>, 下载并安装根证书</li>
+</ul>
+</li>
+<li>Proxy -&gt; SSL Proxying Settings:<ul>
+<li>Enable SSL Proxying: check</li>
+<li>Location: 添加需要proxy的地址，如: githug.com:443, *.github.com:443</li>
+</ul>
+</li>
+</ul>
+<h3 id="测试："><a href="#测试：" class="headerlink" title="测试："></a>测试：</h3><p>手机浏览器访问并登录github<br>URL： <a href="https://github.com/session" target="_blank" rel="noopener">https://github.com/session</a></p>
+<p>解密后的内容为：<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">utf8=%E2%9C%93&amp;authenticity_token=tWwiY8z9B5Ap%2F8sY5tf1urH5qg1diMzqSO4L37kjIy3e8hV8l56pXtf2roNFbnopEM9eA08eRXufY%2FcXbSgeuw%3D%3D&amp;login=ff&amp;password=guufff&amp;return_to=%2Fcfig</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2019/05/07/charles/" data-id="cjx5ti7d4002ymvwg0c3ynepg" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/">web</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-testing_Q_fastbootd" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/24/testing_Q_fastbootd/" class="article-date">
+  <time datetime="2019-04-24T07:38:45.000Z" itemprop="datePublished">2019-04-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/24/testing_Q_fastbootd/">测试Android Q新功能fastbootd</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>测试image：</p>
+<p>Pixel 3 (blueline), Android Q preview</p>
+<p>测试命令:</p>
+<pre><code>$ fastboot -w update image-blueline-qpp2.190228.023.zip --slot b
+</code></pre><p>代码走向</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">FlashAllTool::Flash()</span><br><span class="line">    DumpInfo()</span><br><span class="line">    CheckRequirements()</span><br><span class="line">    set_active(&quot;a&quot; or &quot;b&quot;)</span><br><span class="line">    DetermineSecondarySlot()</span><br><span class="line">    CollectImages(): 有个大表，列出了所有android的image</span><br><span class="line">    FlashImages(boot_images_): 先刷boot相关的image， 可以用bootloader或者fastbootd来烧</span><br><span class="line">    UpdateSuperPartition(): 用fastbootd来烧super分区</span><br><span class="line">    fb-&gt;ResizePartition(partition, &quot;0&quot;): Resize any logical partition to 0</span><br><span class="line">    FlashImages(os_images_) : #Flash OS images, resizing logical partitions as needed</span><br></pre></td></tr></table></figure>
+<p>Console output</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">--------------------------------------------</span><br><span class="line">Bootloader Version...: b1c1-0.2-5260815</span><br><span class="line">Baseband Version.....: g845-00020-190222-B-5330671</span><br><span class="line">Serial Number........: 89UX0GRHP</span><br><span class="line">--------------------------------------------</span><br><span class="line">extracting android-info.txt (0 MB) to RAM...</span><br><span class="line">Checking &apos;product&apos;                                 OKAY [  0.000s]</span><br><span class="line">Checking &apos;version-bootloader&apos;                      OKAY [  0.000s]</span><br><span class="line">Checking &apos;version-baseband&apos;                        OKAY [  0.000s]</span><br><span class="line">Setting current slot to &apos;b&apos;                        OKAY [  0.037s]</span><br><span class="line">extracting boot.img (64 MB) to disk... took 0.315s</span><br><span class="line">archive does not contain &apos;boot.sig&apos;</span><br><span class="line">Sending &apos;boot_b&apos; (65536 KB)                        OKAY [  1.723s]</span><br><span class="line">Writing &apos;boot_b&apos;                                   OKAY [  0.344s]</span><br><span class="line">extracting dtbo.img (8 MB) to disk... took 0.049s</span><br><span class="line">archive does not contain &apos;dtbo.sig&apos;</span><br><span class="line">Sending &apos;dtbo_b&apos; (8192 KB)                         OKAY [  0.218s]</span><br><span class="line">Writing &apos;dtbo_b&apos;                                   OKAY [  0.065s]</span><br><span class="line">archive does not contain &apos;dt.img&apos;</span><br><span class="line">archive does not contain &apos;recovery.img&apos;</span><br><span class="line">extracting vbmeta.img (0 MB) to disk... took 0.000s</span><br><span class="line">archive does not contain &apos;vbmeta.sig&apos;</span><br><span class="line">Sending &apos;vbmeta_b&apos; (4 KB)                          OKAY [  0.001s]</span><br><span class="line">Writing &apos;vbmeta_b&apos;                                 OKAY [  0.002s]</span><br><span class="line">archive does not contain &apos;vbmeta_system.img&apos;</span><br><span class="line">extracting super_empty.img (0 MB) to disk... took 0.000s</span><br><span class="line">Sending &apos;system_b&apos; (4 KB)                          OKAY [  0.001s]</span><br><span class="line">Updating super partition                           OKAY [  0.005s]</span><br><span class="line">Resizing &apos;product_b&apos;                               OKAY [  0.004s]</span><br><span class="line">Resizing &apos;system_b&apos;                                OKAY [  0.004s]</span><br><span class="line">Resizing &apos;vendor_b&apos;                                OKAY [  0.005s]</span><br><span class="line">archive does not contain &apos;boot_other.img&apos;</span><br><span class="line">archive does not contain &apos;odm.img&apos;</span><br><span class="line">extracting product.img (1823 MB) to disk... took 8.553s</span><br><span class="line">archive does not contain &apos;product.sig&apos;</span><br><span class="line">Resizing &apos;product_b&apos;                               OKAY [  0.005s]</span><br><span class="line">Sending sparse &apos;product_b&apos; 1/4 (524284 KB)         OKAY [ 13.236s]</span><br><span class="line">Writing &apos;product_b&apos;                                OKAY [  2.353s]</span><br><span class="line">Sending sparse &apos;product_b&apos; 2/4 (524284 KB)         OKAY [ 13.815s]</span><br><span class="line">Writing &apos;product_b&apos;                                OKAY [  2.375s]</span><br><span class="line">Sending sparse &apos;product_b&apos; 3/4 (524284 KB)         OKAY [ 13.804s]</span><br><span class="line">Writing &apos;product_b&apos;                                OKAY [  2.369s]</span><br><span class="line">Sending sparse &apos;product_b&apos; 4/4 (294892 KB)         OKAY [  7.773s]</span><br><span class="line">Writing &apos;product_b&apos;                                OKAY [  1.441s]</span><br><span class="line">archive does not contain &apos;product_services.img&apos;</span><br><span class="line">extracting system.img (866 MB) to disk... took 3.936s</span><br><span class="line">archive does not contain &apos;system.sig&apos;</span><br><span class="line">Resizing &apos;system_b&apos;                                OKAY [  0.004s]</span><br><span class="line">Sending sparse &apos;system_b&apos; 1/2 (524284 KB)          OKAY [ 13.523s]</span><br><span class="line">Writing &apos;system_b&apos;                                 OKAY [  2.353s]</span><br><span class="line">Sending sparse &apos;system_b&apos; 2/2 (362948 KB)          OKAY [  9.562s]</span><br><span class="line">Writing &apos;system_b&apos;                                 OKAY [  1.712s]</span><br><span class="line">extracting system_other.img (151 MB) to disk... took 0.537s</span><br><span class="line">archive does not contain &apos;system.sig&apos;</span><br><span class="line">Sending &apos;system_a&apos; (154848 KB)                     OKAY [  4.052s]</span><br><span class="line">Writing &apos;system_a&apos;                                 OKAY [  0.760s]</span><br><span class="line">extracting vendor.img (430 MB) to disk... took 1.935s</span><br><span class="line">archive does not contain &apos;vendor.sig&apos;</span><br><span class="line">Resizing &apos;vendor_b&apos;                                OKAY [  0.004s]</span><br><span class="line">Sending &apos;vendor_b&apos; (440364 KB)                     OKAY [ 11.548s]</span><br><span class="line">Writing &apos;vendor_b&apos;                                 OKAY [  2.024s]</span><br><span class="line">archive does not contain &apos;vendor_other.img&apos;</span><br><span class="line">Erasing &apos;userdata&apos;                                 OKAY [  3.760s]</span><br><span class="line">Erase successful, but not automatically formatting.</span><br><span class="line">File system type raw not supported.</span><br><span class="line">Erasing &apos;metadata&apos;                                 OKAY [  0.005s]</span><br><span class="line">Erase successful, but not automatically formatting.</span><br><span class="line">File system type raw not supported.</span><br><span class="line">Rebooting                                          OKAY [  0.000s]</span><br><span class="line">Finished. Total time: 124.375s</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2019/04/24/testing_Q_fastbootd/" data-id="cjx5ti7e5004smvwg5ttyrqju" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Android-boot-up-performance-systrace" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/17/Android-boot-up-performance-systrace/" class="article-date">
+  <time datetime="2019-03-17T14:47:56.000Z" itemprop="datePublished">2019-03-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/17/Android-boot-up-performance-systrace/">Android boot up performance - systrace</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>We can use ‘systrace’ to analyze Android boot up performance</p>
+<h1 id="0-Read-first"><a href="#0-Read-first" class="headerlink" title="0. Read first"></a>0. Read first</h1><p><a href="https://source.android.com/devices/tech/perf/boot-times#systrace" target="_blank" rel="noopener">https://source.android.com/devices/tech/perf/boot-times#systrace</a></p>
+<p>Following steps have been verified under Android AOSP <strong>9.0.0_r30</strong>.</p>
+<h1 id="1-Enable-systrace"><a href="#1-Enable-systrace" class="headerlink" title="1. Enable systrace:"></a>1. Enable systrace:</h1><h2 id="1-1-system-etc-init-atrace-rc"><a href="#1-1-system-etc-init-atrace-rc" class="headerlink" title="1.1 /system/etc/init/atrace.rc"></a>1.1 /system/etc/init/atrace.rc</h2><p>$ adb pull /system/etc/init/atrace.rc</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Change</span><br><span class="line">write /sys/kernel/debug/tracing/tracing_on 0</span><br><span class="line">-&gt;to</span><br><span class="line">write /sys/kernel/debug/tracing/tracing_on 1</span><br></pre></td></tr></table></figure>
+<p>add following to atrace.rc:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">on property:sys.boot_completed=1</span><br><span class="line">    write /d/tracing/tracing_on 0</span><br><span class="line">    write /d/tracing/events/ext4/enable 0</span><br><span class="line">    write /d/tracing/events/block/enable 0</span><br></pre></td></tr></table></figure></p>
+<p>$ adb push atrace.rc /system/etc/init/atrace.rc</p>
+<h2 id="1-2-system-etc-prop-default"><a href="#1-2-system-etc-prop-default" class="headerlink" title="1.2 /system/etc/prop.default"></a>1.2 /system/etc/prop.default</h2><p>$ adb pull /system/etc/prop.default<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">change</span><br><span class="line">debug.atrace.tags.enableflags=0</span><br><span class="line">-&gt;to</span><br><span class="line">debug.atrace.tags.enableflags=802922</span><br></pre></td></tr></table></figure></p>
+<p>$ adb push prop.default /system/etc/prop.default</p>
+<h2 id="1-3-add-kernel-command-line-parameters"><a href="#1-3-add-kernel-command-line-parameters" class="headerlink" title="1.3 add kernel command line parameters"></a>1.3 add kernel command line parameters</h2><p>We can modify <strong>bootloader</strong> or <strong>boot.img</strong> to append following parameters<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">trace_buf_size=64M trace_event=sched_wakeup,sched_switch,sched_blocked_reason,sched_cpu_hotplug</span><br></pre></td></tr></table></figure></p>
+<h1 id="2-Fetch-and-analyze-systrace"><a href="#2-Fetch-and-analyze-systrace" class="headerlink" title="2. Fetch and analyze systrace:"></a>2. Fetch and analyze systrace:</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git clone https://github.com/catapult-project/catapult.git --depth=10</span><br><span class="line">$ cd catapult</span><br><span class="line">$ adb pull /d/tracing/trace</span><br><span class="line">$ ./trace2html  trace</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2019/03/17/Android-boot-up-performance-systrace/" data-id="cjx5ti7cl001tmvwgw8kglmwo" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-alpine-works" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/06/alpine-works/" class="article-date">
+  <time datetime="2019-03-06T03:07:12.000Z" itemprop="datePublished">2019-03-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/06/alpine-works/">alpine_works</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>wifi<br><a href="https://wiki.alpinelinux.org/wiki/Connecting_to_a_wireless_access_point" target="_blank" rel="noopener">https://wiki.alpinelinux.org/wiki/Connecting_to_a_wireless_access_point</a></p>
+<h3 id="Portaudio"><a href="#Portaudio" class="headerlink" title="Portaudio:"></a>Portaudio:</h3><ol>
+<li><p>download</p>
+<p> <a href="http://www.portaudio.com/download.html" target="_blank" rel="noopener">http://www.portaudio.com/download.html</a><br> <a href="http://www.portaudio.com/archives/pa_stable_v190600_20161030.tgz" target="_blank" rel="noopener">http://www.portaudio.com/archives/pa_stable_v190600_20161030.tgz</a></p>
+</li>
+<li><p>config portaudio and make</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ./configure --prefix=<span class="variable">$HOME</span>/.programs/portaudio/ --<span class="built_in">enable</span>-cxx --with-oss --<span class="built_in">enable</span>-debug-output</span><br><span class="line">$ make</span><br><span class="line">$ make install</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>lib在lib/.libs/libportaudio.a</p>
+<h3 id="AVS-sdk"><a href="#AVS-sdk" class="headerlink" title="AVS sdk"></a>AVS sdk</h3><ol>
+<li>Download<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/alexa/avs-device-sdk.git --depth=10 -b v1.12</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>Build guide can be found at <a href="https://github.com/alexa/avs-device-sdk/wiki/Linux-Reference-Guide" target="_blank" rel="noopener">https://github.com/alexa/avs-device-sdk/wiki/Linux-Reference-Guide</a></p>
+<ol start="2">
+<li><p>patch code to eliminate compiler warning “Missing sentinel in function call”, change the last param of var_args from NULL to nullptr fixes this.</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">g_object_set(m_pipeline.audioSink, <span class="string">"sync"</span>, FALSE, <span class="literal">NULL</span>);</span><br><span class="line">-&gt;</span><br><span class="line">g_object_set(m_pipeline.audioSink, <span class="string">"sync"</span>, FALSE, <span class="literal">nullptr</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>config and make</p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="built_in">export</span> a=12345678</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$a</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;a:2&#125;</span></span><br><span class="line">/my_volume/build <span class="comment"># cat 1.sh</span></span><br><span class="line">PA_INCLUDE=`pkgconf --cflags-only-I portaudiocpp`</span><br><span class="line">PA_LIBS=`pkgconf --libs-only-L portaudiocpp`</span><br><span class="line">PA_INC_PATH=<span class="variable">$&#123;PA_INCLUDE:2&#125;</span></span><br><span class="line">PA_LIB_PATH=`<span class="built_in">echo</span> <span class="variable">$&#123;PA_LIBS:2&#125;</span>/libportaudio.a | sed <span class="string">"s/ //g"</span>`</span><br><span class="line">cmake ../avs-device-sdk \</span><br><span class="line">    -DSENSORY_KEY_WORD_DETECTOR=OFF \</span><br><span class="line">    -DGSTREAMER_MEDIA_PLAYER=ON \</span><br><span class="line">    -DPORTAUDIO=ON \</span><br><span class="line">    -DPORTAUDIO_LIB_PATH=<span class="variable">$&#123;PA_LIB_PATH&#125;</span> \</span><br><span class="line">    -DPORTAUDIO_INCLUDE_DIR=<span class="variable">$&#123;PA_INC_PATH&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="Sensory-alexa-rpi"><a href="#Sensory-alexa-rpi" class="headerlink" title="Sensory/alexa-rpi"></a>Sensory/alexa-rpi</h3><pre><code>git clone https://github.com/Sensory/alexa-rpi.git
+</code></pre><h3 id="OpenBLAS"><a href="#OpenBLAS" class="headerlink" title="OpenBLAS"></a>OpenBLAS</h3><pre><code>git clone https://github.com/xianyi/OpenBLAS.git -b v0.3.5 --depth=10
+</code></pre><h3 id="Snowboy"><a href="#Snowboy" class="headerlink" title="Snowboy"></a>Snowboy</h3><pre><code>git clone https://github.com/Kitt-AI/snowboy.git
+</code></pre><p>程序的静态库<br>gcc -c snprintf_chk.c<br>ar -rcs libmissing.a snprintf_chk.o</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2019/03/06/alpine-works/" data-id="cjx5ti7d3002wmvwgk08srnms" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/2/">__('next') &raquo;</a>
+  </nav>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/code/">code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/health/">health</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/misc/">misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/net-travel/">net travel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/code/" style="font-size: 12.86px;">code</a> <a href="/tags/health/" style="font-size: 10px;">health</a> <a href="/tags/java/" style="font-size: 17.14px;">java</a> <a href="/tags/linux/" style="font-size: 18.57px;">linux</a> <a href="/tags/misc/" style="font-size: 11.43px;">misc</a> <a href="/tags/net-travel/" style="font-size: 14.29px;">net travel</a> <a href="/tags/web/" style="font-size: 15.71px;">web</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/21/Android-boot-animation/">Make your own Android boot animation</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/06/verified-assembled-manifest/">VINTF: verified assembled manifest</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/compatibility-matrix/">VINTF - compatibility matrix</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/VINTF-manifest-xml/">VINTF: manifest.xml</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/24/Linux-capability-tests/">Linux capability tests</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 cfig
+      <br><br>
+      Enjoy your journey here<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

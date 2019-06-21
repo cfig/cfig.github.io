@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>compiling opencv for Java | Cool Fish In Glacier</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1. 参考文档install in linux and machttp://docs.opencv.org/2.4/doc/tutorials/introduction/linux_install/linux_install.htmljavahttp://docs.opencv.org/2.4/doc/tutorials/introduction/desktop_java/java_dev_int">
+<meta name="keywords" content="java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="compiling opencv for Java">
+<meta property="og:url" content="http://cfig.github.io/2017/12/22/compiling-opencv-for-Java/index.html">
+<meta property="og:site_name" content="Cool Fish In Glacier">
+<meta property="og:description" content="1. 参考文档install in linux and machttp://docs.opencv.org/2.4/doc/tutorials/introduction/linux_install/linux_install.htmljavahttp://docs.opencv.org/2.4/doc/tutorials/introduction/desktop_java/java_dev_int">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-05-23T02:55:59.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="compiling opencv for Java">
+<meta name="twitter:description" content="1. 参考文档install in linux and machttp://docs.opencv.org/2.4/doc/tutorials/introduction/linux_install/linux_install.htmljavahttp://docs.opencv.org/2.4/doc/tutorials/introduction/desktop_java/java_dev_int">
+  
+    <link rel="alternate" href="/atom.xml" title="Cool Fish In Glacier" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-67906660-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Cool Fish In Glacier</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">叽里咕噜</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://cfig.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-compiling-opencv-for-Java" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/22/compiling-opencv-for-Java/" class="article-date">
+  <time datetime="2017-12-22T15:34:12.000Z" itemprop="datePublished">2017-12-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      compiling opencv for Java
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1-参考文档"><a href="#1-参考文档" class="headerlink" title="1. 参考文档"></a>1. 参考文档</h3><p>install in linux and mac<br><a href="http://docs.opencv.org/2.4/doc/tutorials/introduction/linux_install/linux_install.html" target="_blank" rel="noopener">http://docs.opencv.org/2.4/doc/tutorials/introduction/linux_install/linux_install.html</a><br>java<br><a href="http://docs.opencv.org/2.4/doc/tutorials/introduction/desktop_java/java_dev_intro.html" target="_blank" rel="noopener">http://docs.opencv.org/2.4/doc/tutorials/introduction/desktop_java/java_dev_intro.html</a><br><a href="http://docs.opencv.org/trunk/d7/d9f/tutorial_linux_install.html" target="_blank" rel="noopener">http://docs.opencv.org/trunk/d7/d9f/tutorial_linux_install.html</a></p>
+<h3 id="2-linux编译要点"><a href="#2-linux编译要点" class="headerlink" title="2. linux编译要点"></a>2. linux编译要点</h3><h4 id="cmake配置"><a href="#cmake配置" class="headerlink" title="cmake配置"></a>cmake配置</h4><pre><code>cmake -D CMAKE_BUILD_TYPE=RELEASE \
+    -D CMAKE_INSTALL_PREFIX=/home/yu/.programs/opencv \
+    -DBUILD_SHARED_LIBS=OFF \
+    BUILD_EXAMPLES=OFF \
+    BUILD_TESTS=OFF \
+    BUILD_PERF_TESTS=OFF ..
+</code></pre><h4 id="编译安装"><a href="#编译安装" class="headerlink" title="编译安装"></a>编译安装</h4><pre><code>make -j32
+make install
+</code></pre><h4 id="为动态库配置路径"><a href="#为动态库配置路径" class="headerlink" title="为动态库配置路径"></a>为动态库配置路径</h4><p>opencv: pkg-config</p>
+<pre><code>export PKG_CONFIG_PATH=/home/yu/.programs/opencv/lib/pkgconfig
+</code></pre><p>opencv: dylib</p>
+<pre><code>export LD_LIBRARY_PATH=/home/yu/.programs/opencv/share/OpenCV/java
+</code></pre><h3 id="3-mac编译要点"><a href="#3-mac编译要点" class="headerlink" title="3. mac编译要点"></a>3. mac编译要点</h3><h4 id="cmake配置-1"><a href="#cmake配置-1" class="headerlink" title="cmake配置"></a>cmake配置</h4><pre><code>cmake -D CMAKE_BUILD_TYPE=RELEASE -D \
+    CMAKE_INSTALL_PREFIX=/Users/yu/.programs/opencv/ \
+    -DBUILD_SHARED_LIBS=OFF ..
+</code></pre><h4 id="编译安装-1"><a href="#编译安装-1" class="headerlink" title="编译安装"></a>编译安装</h4><pre><code>make -j32
+make install
+</code></pre><p>安装后只有一个dylib: ./share/OpenCV/java/libopencv_java320.dylib， 其余都为.a</p>
+<h4 id="配置路径"><a href="#配置路径" class="headerlink" title="配置路径"></a>配置路径</h4><p>opencv: pkg-config</p>
+<pre><code>export PKG_CONFIG_PATH=/Users/yu/.programs/opencv/lib/pkgconfig/
+</code></pre><p>opencv: dylib</p>
+<pre><code>export DYLD_LIBRARY_PATH=/Users/yu/.programs/opencv/share/OpenCV/java
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2017/12/22/compiling-opencv-for-Java/" data-id="cjx5ti7d80037mvwgd4m5wkjc" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/12/23/java-keystore-and-apk-signature/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          java keystore和apk签名
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/12/20/Bug-dev-input-eventX-事件阻碍kernel-suspend-flow/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Bug: /dev/input/eventX 事件阻碍kernel suspend flow</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/code/">code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/health/">health</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/misc/">misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/net-travel/">net travel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/code/" style="font-size: 12.86px;">code</a> <a href="/tags/health/" style="font-size: 10px;">health</a> <a href="/tags/java/" style="font-size: 17.14px;">java</a> <a href="/tags/linux/" style="font-size: 18.57px;">linux</a> <a href="/tags/misc/" style="font-size: 11.43px;">misc</a> <a href="/tags/net-travel/" style="font-size: 14.29px;">net travel</a> <a href="/tags/web/" style="font-size: 15.71px;">web</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/21/Android-boot-animation/">Make your own Android boot animation</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/06/verified-assembled-manifest/">VINTF: verified assembled manifest</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/compatibility-matrix/">VINTF - compatibility matrix</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/VINTF-manifest-xml/">VINTF: manifest.xml</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/24/Linux-capability-tests/">Linux capability tests</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 cfig
+      <br><br>
+      Enjoy your journey here<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

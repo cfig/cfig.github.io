@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>Make your own Android boot animation | Cool Fish In Glacier</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Table of Contents  What is boot animation    How is the animation started    How to customize boot animation    Try it out    1. What is boot animation    2. How is the animation startedIt’s started a">
+<meta name="keywords" content="android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Make your own Android boot animation">
+<meta property="og:url" content="http://cfig.github.io/2019/06/21/Android-boot-animation/index.html">
+<meta property="og:site_name" content="Cool Fish In Glacier">
+<meta property="og:description" content="Table of Contents  What is boot animation    How is the animation started    How to customize boot animation    Try it out    1. What is boot animation    2. How is the animation startedIt’s started a">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://cfig.github.io/images/bootanim1.png">
+<meta property="og:image" content="http://cfig.github.io/images/bootanim2.png">
+<meta property="og:updated_time" content="2019-06-21T08:12:27.664Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Make your own Android boot animation">
+<meta name="twitter:description" content="Table of Contents  What is boot animation    How is the animation started    How to customize boot animation    Try it out    1. What is boot animation    2. How is the animation startedIt’s started a">
+<meta name="twitter:image" content="http://cfig.github.io/images/bootanim1.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Cool Fish In Glacier" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-67906660-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Cool Fish In Glacier</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">叽里咕噜</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://cfig.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Android-boot-animation" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/06/21/Android-boot-animation/" class="article-date">
+  <time datetime="2019-06-21T07:33:39.000Z" itemprop="datePublished">2019-06-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Make your own Android boot animation
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Table-of-Contents"><a href="#Table-of-Contents" class="headerlink" title="Table of Contents"></a>Table of Contents</h1><ul>
+<li><ol>
+<li>What is boot animation</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>How is the animation started</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>How to customize boot animation</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>Try it out</li>
+</ol>
+</li>
+</ul>
+<h2 id="1-What-is-boot-animation"><a href="#1-What-is-boot-animation" class="headerlink" title="1. What is boot animation"></a>1. What is boot animation</h2><video width="320" height="240" controls><br>  <source src="cfig_video/default.mp4" type="video/mp4"><br></video>
+
+<h2 id="2-How-is-the-animation-started"><a href="#2-How-is-the-animation-started" class="headerlink" title="2. How is the animation started"></a>2. How is the animation started</h2><p>It’s started as an init service during boot up stage<br>The starter file is /system/etc/init/bootanim.rc</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">service bootanim /system/bin/bootanimation</span><br><span class="line">    class core animation</span><br><span class="line">    user graphics</span><br><span class="line">    group graphics audio</span><br><span class="line">    disabled</span><br><span class="line">    oneshot</span><br><span class="line">    writepid /dev/stune/top-app/tasks</span><br></pre></td></tr></table></figure>
+<p>‘bootanimation’ application will search for animation resources in specified order, </p>
+<pre><code>/product/media/bootanimation.zip
+/oem/media/bootanimation.zip
+/system/media/bootanimation.zip
+</code></pre><p> the final choice is first match.</p>
+<h2 id="3-How-to-customize-boot-animation"><a href="#3-How-to-customize-boot-animation" class="headerlink" title="3. How to customize boot animation"></a>3. How to customize boot animation</h2><p>Files in bootanimation.zip<br><img src="/images/bootanim1.png"></p>
+<p>Prerequisite<br>A series of animated ‘png’ files</p>
+<h3 id="3-1-descriptor-file"><a href="#3-1-descriptor-file" class="headerlink" title="3.1 descriptor file"></a>3.1 descriptor file</h3><p>Descriptor file - desc.txt<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">800 1280 24 --&gt; header part</span><br><span class="line">p 1 0 Part0 --&gt; body part</span><br><span class="line">p 2 0 Part1 --&gt; body part</span><br></pre></td></tr></table></figure></p>
+<h4 id="header-part"><a href="#header-part" class="headerlink" title="header part"></a>header part</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">800 1280  24</span><br><span class="line"> |   |    +---- FPS</span><br><span class="line"> |   +--------- Height</span><br><span class="line"> +------------- Width</span><br></pre></td></tr></table></figure>
+<h4 id="body-part"><a href="#body-part" class="headerlink" title="body part"></a>body part</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">p   1   0   Part0</span><br><span class="line">p   2   0   Part1</span><br><span class="line">|   |   |     |</span><br><span class="line">|   |   |     +------ directory name for png files</span><br><span class="line">|   |   +------------ number of FRAMES to delay after this part</span><br><span class="line">|   +---------------- iterations to play, 0 for infinite loop</span><br><span class="line">+-------------------- TYPE</span><br></pre></td></tr></table></figure>
+<p>TYPE values:</p>
+<ul>
+<li>‘p’: this part will play unless interrupted by the end of the boot</li>
+<li>‘c’: this part will play to completion, no matter what</li>
+</ul>
+<h4 id="Notes-about-descriptor-file"><a href="#Notes-about-descriptor-file" class="headerlink" title="Notes about descriptor file"></a>Notes about descriptor file</h4><ul>
+<li>Only 1 line in boby part of desc.txt can be marked as infinite loop.</li>
+<li>desc.txt should be in Linux text format, otherwise it may confuse the parser.</li>
+</ul>
+<h3 id="3-2-animation-contents"><a href="#3-2-animation-contents" class="headerlink" title="3.2 animation contents"></a>3.2 animation contents</h3><p>Animation stages are ogranized as directories.<br>Each diredctory matches one line in desc.txt detail part.<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Part 0 \</span><br><span class="line">Part 1  \</span><br><span class="line">Part 2   &gt;-- directories full of PNG frames</span><br><span class="line"> ...    /</span><br><span class="line">Part N /</span><br></pre></td></tr></table></figure></p>
+<p>Then PNG files are played alphabetically.<br><img src="/images/bootanim2.png"></p>
+<h3 id="3-3-pack-everything"><a href="#3-3-pack-everything" class="headerlink" title="3.3 pack everything"></a>3.3 pack everything</h3><p>Finally we should pack the descriptor and PNG files into bootanimation.zip<br>compression method is ‘STORE’, which means no compression.<br>Other compression methods include DEFLATE, BZIP2, LZMA etc, but they are NOT suitable for bootanimation.<br>Command:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">zip ../bootanimation.zip * -0 -r</span><br></pre></td></tr></table></figure></p>
+<h2 id="4-Try-it-out"><a href="#4-Try-it-out" class="headerlink" title="4. Try it out!"></a>4. Try it out!</h2><p>Push the generated file to the platform:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">adb push bootanimation.zip /system/media/bootanimation.zip</span><br></pre></td></tr></table></figure></p>
+<p>Now let’s have a look at what we have achieved:</p>
+<video width="320" height="240" controls><br>  <source src="cfig_video/final.mp4" type="video/mp4"><br></video>
+
+<p>Enjoy!</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2019/06/21/Android-boot-animation/" data-id="cjx5ti7cj001pmvwgd3vmfe97" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/06/06/verified-assembled-manifest/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">VINTF: verified assembled manifest</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/code/">code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/health/">health</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/misc/">misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/net-travel/">net travel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/code/" style="font-size: 12.86px;">code</a> <a href="/tags/health/" style="font-size: 10px;">health</a> <a href="/tags/java/" style="font-size: 17.14px;">java</a> <a href="/tags/linux/" style="font-size: 18.57px;">linux</a> <a href="/tags/misc/" style="font-size: 11.43px;">misc</a> <a href="/tags/net-travel/" style="font-size: 14.29px;">net travel</a> <a href="/tags/web/" style="font-size: 15.71px;">web</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/21/Android-boot-animation/">Make your own Android boot animation</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/06/verified-assembled-manifest/">VINTF: verified assembled manifest</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/compatibility-matrix/">VINTF - compatibility matrix</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/VINTF-manifest-xml/">VINTF: manifest.xml</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/24/Linux-capability-tests/">Linux capability tests</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 cfig
+      <br><br>
+      Enjoy your journey here<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,46 @@
+diff --git a/themes/landscape/_config.yml b/themes/landscape/_config.yml
+index befa050..0060289 100644
+--- a/themes/landscape/_config.yml
++++ b/themes/landscape/_config.yml
+@@ -19,6 +19,7 @@ widgets:
+ 
+ # Miscellaneous
+ google_analytics: UA-67906660-1
++baidu_analytics: 568836034fd4ed91b979c934de77a79d
+ favicon: /favicon.png
+ twitter:
+ google_plus:
+diff --git a/themes/landscape/layout/_partial/baidu-analytics.ejs b/themes/landscape/layout/_partial/baidu-analytics.ejs
+new file mode 100644
+index 0000000..d4afdd3
+--- /dev/null
++++ b/themes/landscape/layout/_partial/baidu-analytics.ejs
+@@ -0,0 +1,16 @@
++<% if (theme.baidu_analytics){ %>
++
++<!-- Baidu Analytics -->
++<script>
++var _hmt = _hmt || [];
++(function() {
++  var hm = document.createElement("script");
++  hm.src = "//hm.baidu.com/hm.js?<%= theme.baidu_analytics%>";
++  var s = document.getElementsByTagName("script")[0]; 
++  s.parentNode.insertBefore(hm, s);
++})();
++</script>
++<!-- End Baidu Analytics -->
++
++<% } %>
++
+diff --git a/themes/landscape/layout/_partial/head.ejs b/themes/landscape/layout/_partial/head.ejs
+index 27f0d07..d91da3d 100644
+--- a/themes/landscape/layout/_partial/head.ejs
++++ b/themes/landscape/layout/_partial/head.ejs
+@@ -31,4 +31,5 @@
+   <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+   <%- css('css/style') %>
+   <%- partial('google-analytics') %>
+-</head>
+\ No newline at end of file
++  <%- partial('baidu-analytics') %>
++</head>

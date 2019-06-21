@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>db Documentation | Cool Fish In Glacier</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="What is “db” ?简单来说，用此工具集成vim+cscope+ctags，可以把vim作为一个IDE来用，特别是你只有console的时候。用cscope来看20G的Android源代码毫无压力。db is a wrapper tool to manage cscope and ctags projects.You will love ctags+cscope+vim with this">
+<meta name="keywords" content="linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="db Documentation">
+<meta property="og:url" content="http://cfig.github.io/2015/11/24/db-tool/index.html">
+<meta property="og:site_name" content="Cool Fish In Glacier">
+<meta property="og:description" content="What is “db” ?简单来说，用此工具集成vim+cscope+ctags，可以把vim作为一个IDE来用，特别是你只有console的时候。用cscope来看20G的Android源代码毫无压力。db is a wrapper tool to manage cscope and ctags projects.You will love ctags+cscope+vim with this">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-05-23T02:55:59.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="db Documentation">
+<meta name="twitter:description" content="What is “db” ?简单来说，用此工具集成vim+cscope+ctags，可以把vim作为一个IDE来用，特别是你只有console的时候。用cscope来看20G的Android源代码毫无压力。db is a wrapper tool to manage cscope and ctags projects.You will love ctags+cscope+vim with this">
+  
+    <link rel="alternate" href="/atom.xml" title="Cool Fish In Glacier" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-67906660-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Cool Fish In Glacier</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">叽里咕噜</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://cfig.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-db-tool" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/11/24/db-tool/" class="article-date">
+  <time datetime="2015-11-24T13:04:58.000Z" itemprop="datePublished">2015-11-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      db Documentation
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="What-is-“db”"><a href="#What-is-“db”" class="headerlink" title="What is “db” ?"></a>What is “db” ?</h1><p>简单来说，用此工具集成vim+cscope+ctags，可以把vim作为一个IDE来用，特别是你只有console的时候。用cscope来看20G的Android源代码毫无压力。<br>db is a wrapper tool to manage <a href="http://cscope.sourceforge.net" target="_blank" rel="noopener">cscope</a> and <a href="http://ctags.sourceforge.net/" target="_blank" rel="noopener">ctags</a> projects.<br>You will love ctags+cscope+vim with this tool.</p>
+<h1 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h1><h3 id="0-Requirements"><a href="#0-Requirements" class="headerlink" title="0. Requirements"></a>0. Requirements</h3><p>Installing “db” tool is easy. However, you do need a couple of other things installed first.</p>
+<ul>
+<li>ctags</li>
+<li>cscope</li>
+<li>git</li>
+<li>gradle</li>
+</ul>
+<h3 id="1-fetch-code"><a href="#1-fetch-code" class="headerlink" title="1. fetch code"></a>1. fetch code</h3><pre><code>git clone https://github.com/cfig/utils
+</code></pre><h3 id="2-make-and-install"><a href="#2-make-and-install" class="headerlink" title="2. make and install"></a>2. make and install</h3><pre><code>$ cd db_tool
+$ gradle install
+</code></pre><h3 id="3-let-vim-load-cscope-ctags-database-automatically"><a href="#3-let-vim-load-cscope-ctags-database-automatically" class="headerlink" title="3. let vim load cscope/ctags database automatically"></a>3. let vim load cscope/ctags database automatically</h3><p>modify .vimrc as follows:</p>
+<pre><code>&quot;taglist
+if $SELECT_PROJECT_DB != &quot;&quot;
+    if filereadable(expand(&quot;~/.proj_db/$SELECT_PROJECT_DB/tags&quot;))
+        set tags=~/.proj_db/$SELECT_PROJECT_DB/tags;
+    endif
+    if filereadable(expand(&quot;$HOME/.proj_db/$SELECT_PROJECT_DB/cscope.out&quot;))
+        &quot; for M$ compatible
+        cd $HOME
+        cs add .proj_db/$SELECT_PROJECT_DB/cscope.out
+        cd -
+    endif
+else
+    set tags=tags; &quot; the &apos;;&apos; is a must!
+endif
+</code></pre><h1 id="Getting-started"><a href="#Getting-started" class="headerlink" title="Getting started"></a>Getting started</h1><h3 id="1-create-project"><a href="#1-create-project" class="headerlink" title="1. create project"></a>1. create project</h3><pre><code>$ db init my_project my_project2
+</code></pre><p>This will create empty projects with name “my_project” and “my_project2” in ~/.proj_db/</p>
+<h3 id="2-check-all-projects-you-just-created"><a href="#2-check-all-projects-you-just-created" class="headerlink" title="2. check all projects you just created."></a>2. check all projects you just created.</h3><pre><code>yu@mint ~ $ db list
+1 - my_project
+2 - my_project2
+yu@mint ~ $ 
+</code></pre><h3 id="3-choose-a-project-as-“current”-active-project"><a href="#3-choose-a-project-as-“current”-active-project" class="headerlink" title="3. choose a project as “current” active project"></a>3. choose a project as “current” active project</h3><pre><code>$ dbc 1
+</code></pre><h3 id="4-add-directories-into-current-project"><a href="#4-add-directories-into-current-project" class="headerlink" title="4. add directories into current project"></a>4. add directories into current project</h3><pre><code>$ cd &lt;your_source_directory&gt;
+$ db +
+</code></pre><p>repeat these steps, until you add them all. You can check which directories are added into current project by “db show”.</p>
+<h3 id="5-generate-cscope-ctags"><a href="#5-generate-cscope-ctags" class="headerlink" title="5. generate cscope/ctags"></a>5. generate cscope/ctags</h3><pre><code>$ db make
+</code></pre><p>This may take some time if your project is huge. It takes up to 40 min for my whole Android source tree.</p>
+<h3 id="6-once-the-index-is-ready-you-can-open-vim-and-search-anything-you-wanted"><a href="#6-once-the-index-is-ready-you-can-open-vim-and-search-anything-you-wanted" class="headerlink" title="6. once the index is ready, you can open vim, and search anything you wanted."></a>6. once the index is ready, you can open vim, and search anything you wanted.</h3><p>Don’t know how to search with <a href="http://cscope.sourceforge.net/" target="_blank" rel="noopener">cscope</a> ?<br>Check this <a href="http://cscope.sourceforge.net/cscope_vim_tutorial.html" target="_blank" rel="noopener">http://cscope.sourceforge.net/cscope_vim_tutorial.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2015/11/24/db-tool/" data-id="cjx5ti7d90039mvwg0ojcqx4x" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/01/01/code-serialization/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          code_serialization
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/10/20/Android-Testing-application/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Android Testing - Instrumentated Unit Tests</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/code/">code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/health/">health</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/misc/">misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/net-travel/">net travel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/code/" style="font-size: 12.86px;">code</a> <a href="/tags/health/" style="font-size: 10px;">health</a> <a href="/tags/java/" style="font-size: 17.14px;">java</a> <a href="/tags/linux/" style="font-size: 18.57px;">linux</a> <a href="/tags/misc/" style="font-size: 11.43px;">misc</a> <a href="/tags/net-travel/" style="font-size: 14.29px;">net travel</a> <a href="/tags/web/" style="font-size: 15.71px;">web</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/21/Android-boot-animation/">Make your own Android boot animation</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/06/verified-assembled-manifest/">VINTF: verified assembled manifest</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/compatibility-matrix/">VINTF - compatibility matrix</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/VINTF-manifest-xml/">VINTF: manifest.xml</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/24/Linux-capability-tests/">Linux capability tests</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 cfig
+      <br><br>
+      Enjoy your journey here<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

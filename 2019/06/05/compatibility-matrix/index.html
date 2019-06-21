@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>VINTF - compatibility matrix | Cool Fish In Glacier</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Compatibility Matrix (CM)1. 系统共需要3个compatibility matrix文件 System Compatibility Matrix (hardware/interfaces/compatibility_matrices/Android.mk), 下文简称scm Device Compatibility Matrix (system/libhidl/vintf">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VINTF - compatibility matrix">
+<meta property="og:url" content="http://cfig.github.io/2019/06/05/compatibility-matrix/index.html">
+<meta property="og:site_name" content="Cool Fish In Glacier">
+<meta property="og:description" content="Compatibility Matrix (CM)1. 系统共需要3个compatibility matrix文件 System Compatibility Matrix (hardware/interfaces/compatibility_matrices/Android.mk), 下文简称scm Device Compatibility Matrix (system/libhidl/vintf">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-06-06T03:18:45.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="VINTF - compatibility matrix">
+<meta name="twitter:description" content="Compatibility Matrix (CM)1. 系统共需要3个compatibility matrix文件 System Compatibility Matrix (hardware/interfaces/compatibility_matrices/Android.mk), 下文简称scm Device Compatibility Matrix (system/libhidl/vintf">
+  
+    <link rel="alternate" href="/atom.xml" title="Cool Fish In Glacier" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-67906660-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Cool Fish In Glacier</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">叽里咕噜</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://cfig.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-compatibility-matrix" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/06/05/compatibility-matrix/" class="article-date">
+  <time datetime="2019-06-05T10:09:44.000Z" itemprop="datePublished">2019-06-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      VINTF - compatibility matrix
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Compatibility-Matrix-CM"><a href="#Compatibility-Matrix-CM" class="headerlink" title="Compatibility Matrix (CM)"></a>Compatibility Matrix (CM)</h2><h3 id="1-系统共需要3个compatibility-matrix文件"><a href="#1-系统共需要3个compatibility-matrix文件" class="headerlink" title="1. 系统共需要3个compatibility matrix文件"></a>1. 系统共需要3个compatibility matrix文件</h3><ul>
+<li>System Compatibility Matrix (hardware/interfaces/compatibility_matrices/Android.mk), 下文简称scm</li>
+<li>Device Compatibility Matrix (system/libhidl/vintfdata/Android.mk), 下文简称vcm</li>
+<li>Product Compatibility Matrix (hardware/interfaces/compatibility_matrices/Android.mk), 下文简称pcm</li>
+</ul>
+<p>其中scm, vcm是必然要生成的，而pcm则只有在定义了DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE之后才会生成。</p>
+<h4 id="scm"><a href="#scm" class="headerlink" title="scm:"></a>scm:</h4><p>该文件生成比较繁琐，需要多个步骤<br>首先需要生成CM的check文件：<br>-i hardware/interfaces/compatibility_matrices/manifest.empty.xml -o manifest.check.xml<br>需要生成6个实际文件</p>
+<p>compatibility_matrix.1.xml<br>compatibility_matrix.2.xml<br>compatibility_matrix.3.xml<br>compatibility_matrix.4.xml<br>compatibility_matrix.legacy.xml<br>compatibility_matrix.device.xml （FCM）<br>前5个文件定义于hardware/interfaces/compatibility_matrices/Android.bp, 从同文件夹的同名文件加上多个版本的kernel config生成(目前看到对于Oreo是3.18, 4.4, 4.9 等, 对于Q是4.9, 4.14, 4.19等)<br>第6个文件FCM, 从DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE或者compatibility_matrix.empty.xml生成</p>
+<h4 id="vcm"><a href="#vcm" class="headerlink" title="vcm:"></a>vcm:</h4><p>额外需要的变量 REQUIRED_VNDK_VERSION, BOARD_SYSTEMSDK_VERSIONS, 生成的CM带有VDNK版本号和SYSTEMSDK版本号</p>
+<h4 id="pcm"><a href="#pcm" class="headerlink" title="pcm:"></a>pcm:</h4><p>强制check文件为空, 参数增加”-c hardware/interfaces/compatibility_matrices/manifest.empty.xml”</p>
+<h2 id="2-图表总结"><a href="#2-图表总结" class="headerlink" title="2. 图表总结"></a>2. 图表总结</h2><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">+--------+-----------------------------------------+-------------------------------+--------------------------------------------+</span><br><span class="line">|Targets | Makefile Commands                       |output                         | 源文件(input files) |                      |</span><br><span class="line">+--------+-----------------------------------------+-------------------------------+--------------------------------------------+</span><br><span class="line">|scm(fcm)| make                                    |/system/etc/vintf/             | compatibility_matrix.empty.xml             |</span><br><span class="line">|        |framework_compatibility_matrix.device.xml|compatibility_matrix.device.xml|  or                                        |</span><br><span class="line">|        |                                         |                               | DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE |</span><br><span class="line">+--------+-----------------------------------------+-------------------------------+--------------------------------------------+</span><br><span class="line">|scm(all)| make system_compatibility_matrix.xml    | scm + other 5 files           | 同名源文件 + 多个版本的kernel config       |</span><br><span class="line">+--------+-----------------------------------------+-------------------------------+--------------------------------------------+</span><br><span class="line">|vcm     | make device_compatibility_matrix.xml    |/vendor/etc/vintf/             | device_compatibility_matrix.default.xml    |</span><br><span class="line">|        |                                         |compatibility_matrix.xml       |  or DEVICE_MATRIX_FILE                     |</span><br><span class="line">+--------+-----------------------------------------+-------------------------------+--------------------------------------------+</span><br><span class="line">|pcm     | make product_compatibility_matrix.xml   |/product/etc/vintf/            | DEVICE_PRODUCT_COMPATIBILITY_MATRIX_FILE   |</span><br><span class="line">|        |                                         |compatibility_matrix.xml       |                                            |</span><br><span class="line">+--------+-----------------------------------------+-------------------------------+--------------------------------------------+</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2019/06/05/compatibility-matrix/" data-id="cjx5ti7d60032mvwgfhn3i79q" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/06/06/verified-assembled-manifest/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          VINTF: verified assembled manifest
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/06/05/VINTF-manifest-xml/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">VINTF: manifest.xml</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/code/">code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/health/">health</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/misc/">misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/net-travel/">net travel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/code/" style="font-size: 12.86px;">code</a> <a href="/tags/health/" style="font-size: 10px;">health</a> <a href="/tags/java/" style="font-size: 17.14px;">java</a> <a href="/tags/linux/" style="font-size: 18.57px;">linux</a> <a href="/tags/misc/" style="font-size: 11.43px;">misc</a> <a href="/tags/net-travel/" style="font-size: 14.29px;">net travel</a> <a href="/tags/web/" style="font-size: 15.71px;">web</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/21/Android-boot-animation/">Make your own Android boot animation</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/06/verified-assembled-manifest/">VINTF: verified assembled manifest</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/compatibility-matrix/">VINTF - compatibility matrix</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/VINTF-manifest-xml/">VINTF: manifest.xml</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/24/Linux-capability-tests/">Linux capability tests</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 cfig
+      <br><br>
+      Enjoy your journey here<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

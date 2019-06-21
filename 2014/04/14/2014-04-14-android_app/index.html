@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>android_app | Cool Fish In Glacier</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="android appset up eclipse Download Android SDK.http://developer.android.com/sdk/index.html#ExistingIDE  Insall ADT plugin for Eclipse. http://developer.android.com/sdk/installing/installing-adt.html">
+<meta name="keywords" content="android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="android_app">
+<meta property="og:url" content="http://cfig.github.io/2014/04/14/2014-04-14-android_app/index.html">
+<meta property="og:site_name" content="Cool Fish In Glacier">
+<meta property="og:description" content="android appset up eclipse Download Android SDK.http://developer.android.com/sdk/index.html#ExistingIDE  Insall ADT plugin for Eclipse. http://developer.android.com/sdk/installing/installing-adt.html">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-05-23T02:55:59.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="android_app">
+<meta name="twitter:description" content="android appset up eclipse Download Android SDK.http://developer.android.com/sdk/index.html#ExistingIDE  Insall ADT plugin for Eclipse. http://developer.android.com/sdk/installing/installing-adt.html">
+  
+    <link rel="alternate" href="/atom.xml" title="Cool Fish In Glacier" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-67906660-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Cool Fish In Glacier</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">叽里咕噜</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://cfig.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2014-04-14-android_app" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/04/14/2014-04-14-android_app/" class="article-date">
+  <time datetime="2014-04-14T00:00:00.000Z" itemprop="datePublished">2014-04-14</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      android_app
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="android-app"><a href="#android-app" class="headerlink" title="android app"></a>android app</h1><h2 id="set-up-eclipse"><a href="#set-up-eclipse" class="headerlink" title="set up eclipse"></a>set up eclipse</h2><ol>
+<li><p>Download Android SDK.<br><a href="http://developer.android.com/sdk/index.html#ExistingIDE" target="_blank" rel="noopener">http://developer.android.com/sdk/index.html#ExistingIDE</a></p>
+</li>
+<li><p>Insall ADT plugin for Eclipse. <a href="http://developer.android.com/sdk/installing/installing-adt.html" target="_blank" rel="noopener">http://developer.android.com/sdk/installing/installing-adt.html</a></p>
+</li>
+</ol>
+<h2 id="First-Android-app"><a href="#First-Android-app" class="headerlink" title="First Android app"></a>First Android app</h2><p>Add the following into first Android app:  </p>
+<pre><code>@Override
+public boolean onCreateOptionsMenu(Menu menu) {
+
+    // Inflate the menu; this adds items to the action bar if it is present.
+    getMenuInflater().inflate(R.menu.main, menu);
+
+    final Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+    intent.addCategory(Intent.CATEGORY_OPENABLE);
+    intent.setType(&quot;image/*&quot;);
+    startActivityForResult(intent, 0);
+
+    return true;
+}
+</code></pre><p>This example will demonstrate the usage of <strong>Storage Access Framework(SAF)</strong>.<br>More details, see <a href="https://developer.android.com/guide/topics/providers/document-provider.html#client" target="_blank" rel="noopener">https://developer.android.com/guide/topics/providers/document-provider.html#client</a></p>
+<h2 id="PreferenceFragment"><a href="#PreferenceFragment" class="headerlink" title="PreferenceFragment"></a>PreferenceFragment</h2><p>Create a java class which extends <strong>PreferenceFragment</strong>, </p>
+<p>String resources: valus/strings.xml  </p>
+<p>Array resources: values/arrays.xml  </p>
+<pre><code>&lt;string-array name=&quot;list_provinces&quot;&gt;
+    &lt;item &gt;Shang Hai&lt;/item&gt;
+    &lt;item &gt;Bei Jing&lt;/item&gt;
+    &lt;item &gt;Hang Zhou&lt;/item&gt;
+&lt;/string-array&gt;
+</code></pre><p>AndroidManifest.xml  </p>
+<pre><code>&lt;application
+    android:allowBackup=&quot;true&quot;
+    android:icon=&quot;@drawable/ic_launcher&quot;
+    android:label=&quot;@string/app_name&quot;
+    android:theme=&quot;@style/AppTheme&quot; &gt;
+    &lt;activity
+        android:name=&quot;org.cfig.a1.MainActivity&quot;
+        android:label=&quot;@string/app_name&quot; &gt;
+        &lt;intent-filter&gt;
+            &lt;action android:name=&quot;android.intent.action.MAIN&quot; /&gt;
+
+            &lt;category android:name=&quot;android.intent.category.LAUNCHER&quot; /&gt;
+        &lt;/intent-filter&gt;
+    &lt;/activity&gt;
+&lt;/application&gt;
+</code></pre><p>application has 1 <strong>activity</strong>, this <strong>activity</strong> will be started firstly when enter this app.</p>
+<p>create preference screen xml: xml/pref.xml  </p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;PreferenceScreen xmlns:holo=&quot;http://schemas.android.com/apk/res-auto&quot;
+    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; &gt;
+
+    &lt;PreferenceCategory android:title=&quot;Province&quot; &gt;
+        &lt;CheckBoxPreference
+            android:key=&quot;@string/k_province_sh&quot;
+            android:summary=&quot;City of Magics&quot;
+            android:title=&quot;Shang Hai&quot; /&gt;
+        &lt;CheckBoxPreference
+            android:key=&quot;@string/k_province_bj&quot;
+            android:summary=&quot;City of Kings&quot;
+            android:title=&quot;Bei Jing&quot; /&gt;
+
+        &lt;SwitchPreference
+            android:key=&quot;key_switch&quot;
+            android:title=&quot;Switch&quot; /&gt;
+    &lt;/PreferenceCategory&gt;
+    &lt;PreferenceCategory android:title=&quot;Select Province&quot; &gt;
+        &lt;ListPreference
+            android:entries=&quot;@array/list_provinces&quot;
+            android:entryValues=&quot;@array/list_provinces_value&quot;
+            android:key=&quot;@string/k_province_select&quot;
+            android:title=&quot;Province&quot; /&gt;
+    &lt;/PreferenceCategory&gt;
+
+    &lt;Preference android:key=&quot;k_a&quot; android:title=&quot;Start PowerSettings&quot; &gt;
+        &lt;intent android:action=&quot;org.cfig.powersettings.POWER_SETTING&quot; /&gt;
+    &lt;/Preference&gt;
+
+&lt;/PreferenceScreen&gt;
+</code></pre><h2 id="BOOT-COMPLETED-receiver"><a href="#BOOT-COMPLETED-receiver" class="headerlink" title="BOOT_COMPLETED receiver"></a>BOOT_COMPLETED receiver</h2><h2 id="Eclipse-for-platform-development"><a href="#Eclipse-for-platform-development" class="headerlink" title="Eclipse for platform development"></a>Eclipse for platform development</h2><p><a href="http://source.android.com/source/using-eclipse.html" target="_blank" rel="noopener">http://source.android.com/source/using-eclipse.html</a></p>
+<p>Intent fullscreenIntent = new Intent(this, FullscreenActivity.class);<br>mContext.startActivity(fullscreenIntent);</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2014/04/14/2014-04-14-android_app/" data-id="cjx5ti7c0000tmvwggsvezpyy" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/06/16/OTA_edify/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          OTA (1) - edify
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/04/10/2014-04-10-android_init/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">android_init</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/code/">code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/health/">health</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/misc/">misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/net-travel/">net travel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/code/" style="font-size: 12.86px;">code</a> <a href="/tags/health/" style="font-size: 10px;">health</a> <a href="/tags/java/" style="font-size: 17.14px;">java</a> <a href="/tags/linux/" style="font-size: 18.57px;">linux</a> <a href="/tags/misc/" style="font-size: 11.43px;">misc</a> <a href="/tags/net-travel/" style="font-size: 14.29px;">net travel</a> <a href="/tags/web/" style="font-size: 15.71px;">web</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/21/Android-boot-animation/">Make your own Android boot animation</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/06/verified-assembled-manifest/">VINTF: verified assembled manifest</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/compatibility-matrix/">VINTF - compatibility matrix</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/VINTF-manifest-xml/">VINTF: manifest.xml</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/24/Linux-capability-tests/">Linux capability tests</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 cfig
+      <br><br>
+      Enjoy your journey here<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

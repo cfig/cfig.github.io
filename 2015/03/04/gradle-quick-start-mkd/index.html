@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>Gradle quick start | Cool Fish In Glacier</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="What is GradleTo me, i use it to replace ‘make’ and ‘autotools’. Download/InstallDownload and Install/Java Quick Start.Then configure it in .bashrc: export GRADLE_OPTS=&amp;quot;-DsocksProxyHost=127.0.0.1">
+<meta name="keywords" content="java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gradle quick start">
+<meta property="og:url" content="http://cfig.github.io/2015/03/04/gradle-quick-start-mkd/index.html">
+<meta property="og:site_name" content="Cool Fish In Glacier">
+<meta property="og:description" content="What is GradleTo me, i use it to replace ‘make’ and ‘autotools’. Download/InstallDownload and Install/Java Quick Start.Then configure it in .bashrc: export GRADLE_OPTS=&amp;quot;-DsocksProxyHost=127.0.0.1">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-05-23T02:55:59.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Gradle quick start">
+<meta name="twitter:description" content="What is GradleTo me, i use it to replace ‘make’ and ‘autotools’. Download/InstallDownload and Install/Java Quick Start.Then configure it in .bashrc: export GRADLE_OPTS=&amp;quot;-DsocksProxyHost=127.0.0.1">
+  
+    <link rel="alternate" href="/atom.xml" title="Cool Fish In Glacier" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-67906660-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Cool Fish In Glacier</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">叽里咕噜</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://cfig.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-gradle-quick-start-mkd" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/03/04/gradle-quick-start-mkd/" class="article-date">
+  <time datetime="2015-03-04T14:21:41.000Z" itemprop="datePublished">2015-03-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Gradle quick start
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="What-is-Gradle"><a href="#What-is-Gradle" class="headerlink" title="What is Gradle"></a>What is <a href="http://gradle.org/" target="_blank" rel="noopener">Gradle</a></h2><p>To me, i use it to replace ‘make’ and ‘autotools’.</p>
+<h2 id="Download-Install"><a href="#Download-Install" class="headerlink" title="Download/Install"></a>Download/Install</h2><p><a href="https://gradle.org/get-started" target="_blank" rel="noopener">Download</a> and <a href="https://gradle.org/docs/current/userguide/tutorials.html" target="_blank" rel="noopener">Install/Java Quick Start</a>.<br>Then configure it in .bashrc:</p>
+<pre><code>export GRADLE_OPTS=&quot;-DsocksProxyHost=127.0.0.1 -DsocksProxyPort=9999&quot;
+#export GRADLE_OPTS=-Dorg.gradle.daemon=true
+export GRADLE_HOME=/home/y/.programs/gradle-2.5
+export PATH=$GRADLE_HOME/bin:$PATH
+</code></pre><h2 id="gradle-directory-structure"><a href="#gradle-directory-structure" class="headerlink" title="gradle directory structure"></a>gradle directory structure</h2><h3 id="default"><a href="#default" class="headerlink" title="default"></a>default</h3><p>By default Gradle uses standard Maven project structure.<br>Reference:<br><a href="https://maven.apache.org/guides/introduction/introduction-to-the-standard-directory-layout.html" target="_blank" rel="noopener">https://maven.apache.org/guides/introduction/introduction-to-the-standard-directory-layout.html</a><br><a href="https://docs.gradle.org/current/userguide/java_plugin.html" target="_blank" rel="noopener">https://docs.gradle.org/current/userguide/java_plugin.html</a></p>
+<pre><code>src/main/java --&gt; java source code
+src/main/resources --&gt; other files needed, like logback.xml and log4j.properties
+src/test/java --&gt; unit tests
+</code></pre><p>After “gradle build”, a directory “build” will appear, jar file is in build/libs.</p>
+<p>get resource file in code:</p>
+<pre><code>File f1 = new File(getClass().getClassLoader().getResource(&quot;binary_tree_1.ser&quot;).getFile());
+</code></pre><h3 id="改变默认src-res位置"><a href="#改变默认src-res位置" class="headerlink" title="改变默认src/res位置"></a>改变默认src/res位置</h3><p>如果是android project，sourceSets需要放到android object里面</p>
+<pre><code>sourceSets {
+    main {
+        java {
+            srcDir &apos;src&apos;
+        }  
+        res {
+            srcDir &apos;res&apos;
+        }  
+        resources {
+            srcDir &apos;src&apos;
+        }
+        assets {
+            srcDir &apos;assets&apos;
+        }
+        manifest {
+            srcFile &apos;AndroidManifest.xml&apos;
+        }
+    }//main
+}//sourceSets
+</code></pre><h2 id="Gradle-support-in-vim-IDE"><a href="#Gradle-support-in-vim-IDE" class="headerlink" title="Gradle support in vim/IDE"></a>Gradle support in vim/IDE</h2><p>gradle support in VIM:(it needs pathogen.vim) by <a href="https://github.com/tfnico/vim-gradle" target="_blank" rel="noopener">vim-gradle</a></p>
+<p>gradle is also supported in Intellij.</p>
+<h2 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h2><p>google提供的配置android的gradle<br><a href="https://developer.android.com/tools/building/configuring-gradle.html" target="_blank" rel="noopener">https://developer.android.com/tools/building/configuring-gradle.html</a></p>
+<h2 id="常用配置"><a href="#常用配置" class="headerlink" title="常用配置"></a>常用配置</h2><h4 id="配置静态变量"><a href="#配置静态变量" class="headerlink" title="配置静态变量"></a>配置静态变量</h4><pre><code>buildTypes {
+    debug {
+        buildConfig &quot;public final static boolean HAS_PROTOTYPE_FEATURE = true;&quot;
+    }
+    release {
+        buildConfig &quot;public final static boolean HAS_PROTOTYPE_FEATURE = false;&quot;
+    }
+}
+</code></pre><h4 id="配置依赖项目"><a href="#配置依赖项目" class="headerlink" title="配置依赖项目"></a>配置依赖项目</h4><pre><code>dependencies {
+    compile project(&apos;:library&apos;)
+}
+</code></pre><h4 id="配置依赖jar目录"><a href="#配置依赖jar目录" class="headerlink" title="配置依赖jar目录"></a>配置依赖jar目录</h4><pre><code>dependencies {
+    compile fileTree(include: [&apos;*.jar&apos;], dir: &apos;libs&apos;)
+}
+</code></pre><h4 id="配置依赖jar文件"><a href="#配置依赖jar文件" class="headerlink" title="配置依赖jar文件"></a>配置依赖jar文件</h4><pre><code>dependencies {
+    compile files (
+        &apos;libs/gcm.jar&apos;,
+        &apos;...more-jar-files...&apos;
+    )
+}
+</code></pre><h4 id="配置gradle-run"><a href="#配置gradle-run" class="headerlink" title="配置gradle run"></a>配置gradle run</h4><p>可执行任务gradle run相当于java -jar xxx</p>
+<pre><code>task pack_clear(type: JavaExec, dependsOn:[&apos;:pack_ramdisk_and_gz&apos;, &apos;build&apos;]) {
+    description &apos;运行指定main函数的java&apos;
+    classpath = sourceSets.main.runtimeClasspath
+    main = &quot;cfig.bootimg.repack_with_cmd&quot;
+    args rootProject.outClearIMg, rootProject.rootWorkDir, rootProject.mkbootimgBin
+}
+</code></pre><p>对于gradle, 如果mai在src/main/groovy/cfig/exec.groovy, 则main = “cfig.exec”</p>
+<h4 id="指定gradle版本"><a href="#指定gradle版本" class="headerlink" title="指定gradle版本"></a>指定gradle版本</h4><pre><code>buildscript {
+    repositories {
+          mavenCentral()
+    }
+    dependencies {
+          classpath &apos;com.android.tools.build:gradle:1.3.1&apos;
+    }
+}
+</code></pre><h4 id="两步编译jar"><a href="#两步编译jar" class="headerlink" title="两步编译jar"></a>两步编译jar</h4><p>load进plugin</p>
+<pre><code>apply plugin: &apos;java&apos;
+</code></pre><p>指定main class</p>
+<pre><code>jar {
+    manifest {
+        attributes &apos;Main-Class&apos;: &apos;org.cfig.gradle.Hi&apos;
+    }
+}
+</code></pre><p>或者定制更多:</p>
+<pre><code>jar() {
+    from {configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }}
+    archivesBaseName = &quot;Hi&quot;
+    manifest {
+        attributes &apos;Implementation-Title&apos;: &apos;Good Day&apos;,
+                   &apos;Implementation-Version&apos;: &apos;1.0&apos;,
+                   &apos;Main-Class&apos;: &apos;cfig.Hi&apos;,
+                   &apos;BUILD_TIME&apos;: &apos;2015.11.11&apos;
+    }
+}
+</code></pre><p>或者创建类型为Jar的task</p>
+<pre><code>task mkbootimg(type: Jar, dependsOn:[&apos;build&apos;]) {
+    from files(sourceSets.main.output.classesDir)
+    from configurations.runtime.asFileTree.files.collect { zipTree(it) }
+    baseName = &apos;mkbootimg&apos;
+    manifest {
+        attributes &apos;Main-Class&apos;: &apos;cfig.bootimg.mkbootimg&apos;
+    }
+}
+</code></pre><h4 id="using-gradlew"><a href="#using-gradlew" class="headerlink" title="using gradlew"></a>using gradlew</h4><p>read <a href="https://spring.io/guides/gs/gradle" target="_blank" rel="noopener">this</a> first.<br>add the following block to the bottom of your build.gradle</p>
+<pre><code>task wrapper(type: Wrapper) {
+    gradleVersion = &apos;4.0&apos;
+}
+</code></pre><p>Run the following command to download and initialize the wrapper scripts:</p>
+<pre><code>gradle wrapper
+</code></pre><h4 id="enable-stdout-in-test"><a href="#enable-stdout-in-test" class="headerlink" title="enable stdout in test"></a>enable stdout in test</h4><pre><code>test {
+    testLogging {
+        showStandardStreams = true
+    }
+}
+</code></pre><h3 id="forece-a-test-task-even-everything-is-UP-TO-DATE"><a href="#forece-a-test-task-even-everything-is-UP-TO-DATE" class="headerlink" title="forece a test task even everything is UP-TO-DATE"></a>forece a test task even everything is UP-TO-DATE</h3><pre><code>gradle test --rerun-tasks
+</code></pre><h4 id="init-gradle-project"><a href="#init-gradle-project" class="headerlink" title="init gradle project"></a>init gradle project</h4><pre><code>gradle init --type basic
+gradle init --type groovy-library
+gradle init --type java-library
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2015/03/04/gradle-quick-start-mkd/" data-id="cjx5ti7dj003tmvwggcevqzfm" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/09/22/polipo/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          polipo
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/02/13/intellij-idea-shortcuts/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">intellij idea tips</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/code/">code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/health/">health</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/misc/">misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/net-travel/">net travel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/code/" style="font-size: 12.86px;">code</a> <a href="/tags/health/" style="font-size: 10px;">health</a> <a href="/tags/java/" style="font-size: 17.14px;">java</a> <a href="/tags/linux/" style="font-size: 18.57px;">linux</a> <a href="/tags/misc/" style="font-size: 11.43px;">misc</a> <a href="/tags/net-travel/" style="font-size: 14.29px;">net travel</a> <a href="/tags/web/" style="font-size: 15.71px;">web</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/21/Android-boot-animation/">Make your own Android boot animation</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/06/verified-assembled-manifest/">VINTF: verified assembled manifest</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/compatibility-matrix/">VINTF - compatibility matrix</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/VINTF-manifest-xml/">VINTF: manifest.xml</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/24/Linux-capability-tests/">Linux capability tests</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 cfig
+      <br><br>
+      Enjoy your journey here<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

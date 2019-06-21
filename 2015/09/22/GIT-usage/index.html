@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>git - distributed version control | Cool Fish In Glacier</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Git常用操作命令收集： Administration:git init Starting …git clone –progress -v git://github.com/jquery/jquery.git jquerygit fetch -agit fetch –tags Configuration: .gitconfiggit config –global user.name “xx”git">
+<meta name="keywords" content="linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git - distributed version control">
+<meta property="og:url" content="http://cfig.github.io/2015/09/22/GIT-usage/index.html">
+<meta property="og:site_name" content="Cool Fish In Glacier">
+<meta property="og:description" content="Git常用操作命令收集： Administration:git init Starting …git clone –progress -v git://github.com/jquery/jquery.git jquerygit fetch -agit fetch –tags Configuration: .gitconfiggit config –global user.name “xx”git">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-05-23T02:55:59.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="git - distributed version control">
+<meta name="twitter:description" content="Git常用操作命令收集： Administration:git init Starting …git clone –progress -v git://github.com/jquery/jquery.git jquerygit fetch -agit fetch –tags Configuration: .gitconfiggit config –global user.name “xx”git">
+  
+    <link rel="alternate" href="/atom.xml" title="Cool Fish In Glacier" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-67906660-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Cool Fish In Glacier</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">叽里咕噜</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://cfig.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-GIT-usage" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/09/22/GIT-usage/" class="article-date">
+  <time datetime="2015-09-22T05:52:03.000Z" itemprop="datePublished">2015-09-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      git - distributed version control
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Git常用操作命令收集：</p>
+<p>Administration:<br>git init</p>
+<p>Starting …<br>git clone –progress -v git://github.com/jquery/jquery.git jquery<br>git fetch -a<br>git fetch –tags</p>
+<p>Configuration: .gitconfig<br>git config –global user.name “xx”<br>git config –global user.email “<a href="mailto:xx@xx.com" target="_blank" rel="noopener">xx@xx.com</a>“<br>git config –global alias.co checkout<br>git config –global alias.b branch<br>git config –global alias.br branch -r<br>git config –global alias.ci commit<br>git config –global alias.st status<br>git config –global alias.unstage ‘reset HEAD –’<br>git config –global alias.last ‘log -1 HEAD’<br>git config –global core.autocrlf false<br>git config –global alias.logs ‘log –color –graph –decorate=short –all –date-order’<br>git config –global core.ignorecase false<br>git config –global mergetool.fugitive.cmd ‘gvim -f -c “Gdiff” “$MERGED”‘<br>git config –global merge.tool fugitive</p>
+<p>单个project的git配置位于.git/config<br>可以用如下命令搞定：<br>git config user.name “xx”<br>git config user.email “<a href="mailto:xx@xx.com" target="_blank" rel="noopener">xx@xx.com</a>“ </p>
+<p>Configuration: .gitignore<br>.gitignore<br>target<br>bin<br><em>.db
+</em>.[oa]<br>*~<br>!lib.a<br>/TODO</p>
+<p>Git Insight:<br>Log:<br>git log  –graph –decorate –branches<br>git log  –graph –decorate –all<br>git log -[n]<br>git log –pretty=format:”%h - %an, %ar : %s”         </p>
+<p>Remote<br>查看远程仓库：$ git remote -v<br>添加远程仓库：$ git remote add [name] [url]<br>删除远程仓库：$ git remote rm [name]</p>
+<p>拉取远程仓库：$ git pull [remoteName] [localBranchName]<br>推送远程仓库：$ git push [remoteName] [localBranchName]<br>查看远程branch: git branch -r<br>把远程分支check到本地: git checkout -b alpha origin/alpha<br>check出远程的一个tag:  git checkout -b alpha1.1.1 1.1.1.20110501_alpha</p>
+<p>Branch:<br>查看本地分支：$ git branch<br>查看远程分支：$ git branch -r<br>创建本地分支：$ git branch [name] –&gt; 切换分支：$ git checkout [name]<br>创建新分支并立即切换到新分支：$ git checkout –track -b [name]<br>删除分支：$ git branch -d/-D [name]</p>
+<p>Merge:<br>git merge –no-commit –no-ff [name] 执行merge，但是不做本地修改<br>git merge [name]</p>
+<p>Push:<br>本地分支push到远程 $ git push origin [name]<br>本地版本push到远程 $ git push origin [name],<br>                    $ git push origin refs/tags/tagname </p>
+<p>删除远程版本：     $ git push origin :refs/tags/[name]<br>                    $ git push origin :[name]<br>删除远程分支：     $ git push origin :heads/[name]<br>                    $ git push origin :[name]</p>
+<p>Tag:<br>查看版本：$ git tag<br>创建版本：$ git tag [name]<br>创建annoted tag：git tag -a v1.2 -m “This is tag v1.2”<br>删除版本：$ git tag -d [name]</p>
+<p>Cherry-pick:<br>The advantage is commit log will be linear and clean</p>
+<p>git clean -xdf</p>
+<p>git mergetool<br>–&gt;manually edit, save</p>
+<p>Best Work flow practiSe:<br>     clone the remote repo<br>     git checkout -b my_new_feature<br>     ..work and commit some stuff<br>     git rebase master<br>     ..work and commit some stuff<br>     git rebase master<br>     ..finish the feature<br>     git checkout master<br>     git merge –squash my_new_feature<br>     git branch -D my_new_feature<br>In fact, our workflow is a little different, as we tend to do squash merges instead of raw merges. This allows us to turn our entire feature branch into a single commit on master. Then we delete our feature branch. This allows us to logically structure our commits on master, even if they’re a little messy on our branches.</p>
+<p>git-bisect - Find by binary search the change that introduced a bug</p>
+<p>git rebase <upstream> [<branch>]</branch></upstream></p>
+<p><branch>: git checkout <branch>, then …<br>git log <upstream>..HEAD &gt; temp<br>git reset –hard <upstream><br>git reset –hard <newbase> , with –onto</newbase></upstream></upstream></branch></branch></p>
+<p>“git reset” means “git reset –mixed”</p>
+<p>git rebase master<br>git rebase master topic = git checkout topic, git rebase master<br>git rebase –onto master E topic</p>
+<p>git gc –auto一般不做事，除非have around 7,000 loose objects or more than 50 packfiles<br>git gc –aggressive –prune 可以清理,<br>git count-objects -v 查看有多少object<br>git fsck –strict 检查git</p>
+<p>git blame 查看谁在那个commit改了什么内容<br>git blame <file> -L 23,44<br>git blame <file> -L 23,+10</file></file></p>
+<h2 id="HOW-TO-USE-SUBMODULE"><a href="#HOW-TO-USE-SUBMODULE" class="headerlink" title="HOW TO USE SUBMODULE"></a>HOW TO USE SUBMODULE</h2><p>添加submodule<br>git submodule add git://github.com/chneukirchen/rack.git rack<br>git commit -m ‘first commit with submodule rack’<br>获取submodule<br>git submodule init 如果找不到iconv2,需要手动复制过去<br>git submodule update<br>更新submodule：<br>进入子目录进行更新<br>在git中更新submodule：<br>进入submodule, git merge origin/master<br>git submodule update</p>
+<p>git clone …<br>git submodule update –init –recursive</p>
+<p>清理垃圾：<br>git gc –prune=now<br>git gc –prune=<date> defaults to prune objects older than two weeks ago.</date></p>
+<p>让git区分大小写<br>git config  –global core.ignorecase false<br>强制修改文件大小写<br>git mv -f name.java Name.java</p>
+<h2 id="HOW-TO-EDIT-LAST-COMMIT"><a href="#HOW-TO-EDIT-LAST-COMMIT" class="headerlink" title="HOW TO EDIT LAST COMMIT:"></a>HOW TO EDIT LAST COMMIT:</h2><p>Suppose you just made a commit, and you’re working on some more changes, when you realize you made a mistake in the previous commit. Here’s how you can go back and fix it, without losing any of the new work you’ve done since you commited:</p>
+<p>1.Save your work so far.<br>2.Stash your changes away for now: git stash<br>3.Now your working copy is clean at the state of your last commit.<br>4.Make the fixes. (If you just want to change the log, skip this step.)<br>5.Commit the changes in “amend” mode: git commit –all –amend<br>6.Your editor will come up asking for a log message (by default, the old log message). Save and quit the editor when you’re happy with it.<br>7.The new changes are added on to the old commit. See for yourself with git log and git diff HEAD^<br>8.Re-apply your stashed changes: git stash apply<br>9.Continue happily with your life.</p>
+<h2 id="HOW-TO-EDIT-HISTORY-COMMIT-we-rewrite-the-history"><a href="#HOW-TO-EDIT-HISTORY-COMMIT-we-rewrite-the-history" class="headerlink" title="HOW TO EDIT HISTORY COMMIT: we rewrite the history"></a>HOW TO EDIT HISTORY COMMIT: we rewrite the history</h2><p>1.Save and stash your work so far.<br>2.copy the commit you want to edit onto your clipboard.<br>3.Start the interactive rebase process, git rebase –interactive ID^, with the ^ to refer to the parent of that commit<br>3.Your editor will come up with several lines like pick d3adb33 Commit message, one line for each commit since the older one.<br>4.Change the word “pick” to “edit” in front of the commit you want to change.<br>5.Save and quit.<br>6.Edit your project files to make the correction, then run git commit –all –amend.<br>7.After you’ve committed the fixed version, do git rebase –continue.<br>8.Git will do its magic, recreating all the commits since then.<br>You might need to resolve some conflicts, if the change you made affected later commits. Follow Git’s instructions to resolve those.<br>9.Once the rebase is done, re-apply the stash and continue happily with your life.</p>
+<p>echo ‘<em>.zip -delta’ &gt; .gitattributes<br>echo ‘</em>.tar -delta’ &gt; .gitattributes<br>echo ‘<em>.bz2 -delta’ &gt; .gitattributes<br>echo ‘</em>.tar -delta’ &gt; .gitattributes<br>echo ‘<em>.a   -delta’ &gt; .gitattributes<br>echo ‘</em>.so  -delta’ &gt; .gitattributes<br>echo ‘<em>.gz  -delta’ &gt; .gitattributes<br>echo ‘</em>.bmp -delta’ &gt; .gitattributes<br>echo ‘<em>.jpg -delta’ &gt; .gitattributes<br>echo ‘</em>.png -delta’ &gt; .gitattributes<br>echo ‘*.zip -delta’ &gt; .gitattributes</p>
+<p>web浏览git代码:<br>git instaweb<br>只能浏览代码</p>
+<p>gitweb</p>
+<p>git reset –soft HEAD^^<br>回到前两个commit，然后修改，commit可以悔2步棋</p>
+<p>搭建git://服务器:<br>(0)准备git<br>/home/yu/t/code.git是一个真正的bare git<br>(1)apt-get install git-daemon-run<br>(2)修改/etc/sv/git-daemon/run<br>注意base-path名字后面不能加/,否则出错，git-daemon很蠢<br>加入–syslog就可以查看详细log，便于debug<br>加入–export-all可以不用给每个git都加入whitelist<br>git-daemon –verbose –syslog –reuseaddr –export-all –base-path=/home/yu/t /home/yu/t/code.git<br>(3)运行<br>sv down git-daemon<br>sv up   git-daemon<br>(4)测试<br>git clone git://IP/code</p>
+<p>查看2个commit之间的ancestor关系:<br>    git merge-base –is-ancestor <commit> <commit><br>查看n个commit的所有merge-base(best common ancestor):可能不止一个(criss-cross merges)<br>    git merge-base -a –octopus <commit>…<br>merge-base(best common ancestor):可能不止一个(criss-cross merges like this:</commit></commit></commit></p>
+<pre><code>---1---o---A
+    \ /
+     X
+    / \
+---2---o---o---B
+</code></pre><h2 id="Performance"><a href="#Performance" class="headerlink" title="Performance"></a>Performance</h2><p>测试速度<br>time git status<br>查看调用了多少次lstat<br>strace git status 2&gt;&amp;1 1&gt;/dev/null | grep lstat | wc -l<br>清除disk cash<br>sudo sh -c “sync; echo 3 &gt; /proc/sys/vm/drop_caches”<br>sudo sh -c “sync; echo 0 &gt; /proc/sys/vm/drop_caches”</p>
+<p>track HTTP requests:<br>GIT_CURL_VERBOSE=1.  GIT_TRACE_PACKET=1</p>
+<p>查看所有包含refs/for的refs:<br>git for-each-ref refs/for</p>
+<p>删除所有refs/for的refs:<br>for n in $(git for-each-ref –format=’%(refname)’ refs/for);<br>do<br>    git update-ref -d $n;<br>done</p>
+<h2 id="patch"><a href="#patch" class="headerlink" title="patch"></a>patch</h2><p>(1)create: git format-patch 3553e4ca0cf2cd..cbd9946fd591f8 –cover-letter –output-directory out<br>(2)apply : git apply xx.patch<br>(3)revert: patch -p1 -R &lt; xxx/1.diff</p>
+<p>(1)create: git diff xx yy &gt; 1.diff<br>(2)apply : patch -p1 &lt; 1.diff<br>(3)revert: git apply -R xxx/1.diff</p>
+<p>重写commit的email<br>git commit –amend –reset-author</p>
+<p>cherry-pick range:<br>    git cherry-pick A..B<br>but it’s not the best, git rebase -i has better sequencing control</p>
+<p>清理git历史<br>bfg repo cleaner<br>git filter-branch</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2015/09/22/GIT-usage/" data-id="cjx5ti7ed004zmvwg0l8u71vt" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/09/22/email-notification/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          email notification tools
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/09/22/GPG-usage/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">GPG usage</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/code/">code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/health/">health</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/misc/">misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/net-travel/">net travel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/code/" style="font-size: 12.86px;">code</a> <a href="/tags/health/" style="font-size: 10px;">health</a> <a href="/tags/java/" style="font-size: 17.14px;">java</a> <a href="/tags/linux/" style="font-size: 18.57px;">linux</a> <a href="/tags/misc/" style="font-size: 11.43px;">misc</a> <a href="/tags/net-travel/" style="font-size: 14.29px;">net travel</a> <a href="/tags/web/" style="font-size: 15.71px;">web</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/21/Android-boot-animation/">Make your own Android boot animation</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/06/verified-assembled-manifest/">VINTF: verified assembled manifest</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/compatibility-matrix/">VINTF - compatibility matrix</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/VINTF-manifest-xml/">VINTF: manifest.xml</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/24/Linux-capability-tests/">Linux capability tests</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 cfig
+      <br><br>
+      Enjoy your journey here<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

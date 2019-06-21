@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>Cool Fish In Glacier</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Cool Fish In Glacier">
+<meta property="og:url" content="http://cfig.github.io/page/3/index.html">
+<meta property="og:site_name" content="Cool Fish In Glacier">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Cool Fish In Glacier">
+  
+    <link rel="alternate" href="/atom.xml" title="Cool Fish In Glacier" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-67906660-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Cool Fish In Glacier</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">叽里咕噜</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://cfig.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-thinkPHP-on-apache" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/09/23/thinkPHP-on-apache/" class="article-date">
+  <time datetime="2017-09-22T16:04:48.000Z" itemprop="datePublished">2017-09-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/23/thinkPHP-on-apache/">thinkPHP on apache and nginx</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-1-apache-site-config"><a href="#1-1-apache-site-config" class="headerlink" title="1.1 apache site config"></a>1.1 apache site config</h2><p>add the following into /etc/apache2/sites-enabled/php_82.conf</p>
+<pre><code>&lt;VirtualHost *:82&gt;
+    ServerAdmin webmaster@localhost
+    DocumentRoot /home/spring/p2phunter_cn
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+    &lt;Directory &quot;/home/spring/p2phunter_cn&quot;&gt;
+        Options Indexes FollowSymLinks MultiViews Includes ExecCGI
+        AddHandler cgi-script .cgi
+        AllowOverride all
+        Require all granted
+        AddType text/html .html
+        AddOutputFilter INCLUDES .html
+        DirectoryIndex index.php
+    &lt;/Directory&gt;
+&lt;/VirtualHost&gt;
+</code></pre><h2 id="1-2-apache2-behind-nginx"><a href="#1-2-apache2-behind-nginx" class="headerlink" title="1.2 apache2 behind nginx"></a>1.2 apache2 behind nginx</h2><p>needs to start apache2 with the same user as nginx.<br>Open /etc/apache2/envvars and set:</p>
+<pre><code>export APACHE_RUN_USER=nginx
+export APACHE_RUN_GROUP=nginx
+</code></pre><h2 id="2-1-php-site-config"><a href="#2-1-php-site-config" class="headerlink" title="2.1 php site config"></a>2.1 php site config</h2><p>add .htaccess to php site root dir, this will handle url rewrite. See <a href="http://document.thinkphp.cn/manual_3_2.html#url" target="_blank" rel="noopener">thinkphp help</a></p>
+<pre><code>&lt;IfModule mod_rewrite.c&gt;
+ RewriteEngine on
+ RewriteCond %{REQUEST_FILENAME} !-d
+ RewriteCond %{REQUEST_FILENAME} !-f
+ RewriteRule ^(.*)$ index.php?s=/$1 [QSA,PT,L]
+&lt;/IfModule&gt;
+</code></pre><h2 id="2-2-php-fpm-behind-apache2"><a href="#2-2-php-fpm-behind-apache2" class="headerlink" title="2.2 php-fpm behind apache2"></a>2.2 php-fpm behind apache2</h2><p>If we “grep ‘user’ /etc/nginx/nginx.conf”, we found nginx is started as user ‘nginx’.<br>Let’s modify “/etc/php5/fpm/pool.d/<a href="http://www.conf&quot;" target="_blank" rel="noopener">www.conf&quot;</a> as this:</p>
+<pre><code>listen.owner = nginx
+listen.group = nginx
+listen.mode = 0660
+</code></pre><p>Then restart php-fpm</p>
+<pre><code>service php5-fpm restart
+</code></pre><p>Finally confirm the sock file has correct file attributes:</p>
+<pre><code>ls -l /var/run/php5-fpm.sock
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2017/09/23/thinkPHP-on-apache/" data-id="cjx5ti7e5004umvwgefout9pw" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/">web</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-java-performance-monitoring" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/05/18/java-performance-monitoring/" class="article-date">
+  <time datetime="2017-05-18T03:21:17.000Z" itemprop="datePublished">2017-05-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/18/java-performance-monitoring/">jvm performance monitoring</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="I-tools"><a href="#I-tools" class="headerlink" title="I. tools"></a>I. tools</h2><h3 id="1-jps"><a href="#1-jps" class="headerlink" title="1. jps"></a>1. jps</h3><p>check running jvm instances</p>
+<pre><code>jps -lvm
+</code></pre><h3 id="2-VisualVM-JVisualVM"><a href="#2-VisualVM-JVisualVM" class="headerlink" title="2. VisualVM (JVisualVM)"></a>2. VisualVM (JVisualVM)</h3><p><a href="https://visualvm.github.io/" target="_blank" rel="noopener">https://visualvm.github.io/</a> has latest tool. An alternative is the JVisualVM tool distributed with your JDK.</p>
+<h3 id="2-1-enable-remote-debug"><a href="#2-1-enable-remote-debug" class="headerlink" title="2.1 enable remote debug"></a>2.1 enable remote debug</h3><p>Enable remote debugging, anonymous access</p>
+<pre><code>-Dcom.sun.management.jmxremote.port=8897 \
+-Dcom.sun.management.jmxremote.authenticate=false \
+-Dcom.sun.management.jmxremote.ssl=false \
+-Djava.rmi.server.hostname=192.168.31.121
+</code></pre><p>Enable remote debugging, password access</p>
+<pre><code>-Dcom.sun.management.jmxremote.port=8897 \
+-Dcom.sun.management.jmxremote.password.file=jmx.passwd \
+-Dcom.sun.management.jmxremote.ssl=false \
+-Djava.rmi.server.hostname=192.168.31.121
+</code></pre><p>Edit jmx.passwd file:</p>
+<pre><code>monitorRole good
+controlRole bad
+</code></pre><p>More documents available at: <a href="http://docs.oracle.com/javase/8/docs/technotes/guides/management/agent.html" target="_blank" rel="noopener">http://docs.oracle.com/javase/8/docs/technotes/guides/management/agent.html</a></p>
+<h3 id="3-jstatd"><a href="#3-jstatd" class="headerlink" title="3. jstatd"></a>3. jstatd</h3><p>All-in-one script to start jstatd:</p>
+<pre><code>#!/bin/sh
+set -x
+policy=${HOME}/.jstatd.all.policy
+[ -r ${policy} ] || cat &gt;${policy} &lt;&lt;&apos;POLICY&apos;
+grant codebase &quot;file:${java.home}/../lib/tools.jar&quot; {
+  permission java.security.AllPermission;
+};
+POLICY
+
+jstatd -J-Djava.security.policy=${policy}
+</code></pre><p>With jstatd running, ‘jvisualvm’ can activate ‘Visual GC’ plugin.</p>
+<h3 id="4-jcmd"><a href="#4-jcmd" class="headerlink" title="4. jcmd"></a>4. jcmd</h3><pre><code>jcmd &lt;PID&gt; VM.command_line
+jcmd &lt;PID&gt; VM.flags
+</code></pre><h3 id="5-jmap"><a href="#5-jmap" class="headerlink" title="5. jmap"></a>5. jmap</h3><pre><code>jmap -dump:format=b,file=&lt;name.hprof&gt;
+jmap -dump:live,file=&lt;live_heap.bin&gt;
+</code></pre><p>For analyzing memory leaks just live objects are good enough.</p>
+<h2 id="II-Useful-JVM-flags"><a href="#II-Useful-JVM-flags" class="headerlink" title="II. Useful JVM flags"></a>II. Useful JVM flags</h2><h4 id="dump-on-OOME"><a href="#dump-on-OOME" class="headerlink" title="dump on OOME"></a>dump on OOME</h4><pre><code>-XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/logs/heapdump
+</code></pre><h4 id="native-memory-tracking"><a href="#native-memory-tracking" class="headerlink" title="native memory tracking"></a>native memory tracking</h4><p>Enable native memory tracking by</p>
+<pre><code>-XX:NativeMemoryTracking=summary
+</code></pre><p>or</p>
+<pre><code>-XX:NativeMemoryTracking=detail
+</code></pre><p>Then issue the following command:</p>
+<pre><code>jcmd &lt;pid&gt; VM.native_memory baseline
+</code></pre><p>and then</p>
+<pre><code>jcmd &lt;pid&gt; VM.native_memory detail.diff
+</code></pre><h2 id="III-Appendix"><a href="#III-Appendix" class="headerlink" title="III. Appendix"></a>III. Appendix</h2><p>Execute runnable jar with following wrapper</p>
+<pre><code>#!/bin/bash
+if [ $# -ne 1 ]; then
+    echo &quot;Usage: ${0} &lt;path_to_jar&gt;&quot;
+    exit 1
+fi
+
+ts=`date +%Y.%m.%d.%H.%M.%S`
+logfile=&quot;console_${ts}.log&quot;
+set -x
+java \
+    -Dcom.sun.management.jmxremote.port=8897 \
+    -Dcom.sun.management.jmxremote.password.file=jmx.passwd \
+    -Dcom.sun.management.jmxremote.ssl=false \
+    -Djava.rmi.server.hostname=10.37.116.86 \
+    -XX:+HeapDumpOnOutOfMemoryError \
+    -XX:NativeMemoryTracking=detail \
+    -jar $1 \
+    &gt;&gt; ${logfile} 2&gt;&amp;1 \
+    &amp;
+set +x
+sleep 1
+echo &quot;console log written to ${logfile}&quot;
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2017/05/18/java-performance-monitoring/" data-id="cjx5ti7dn0041mvwg6f46r4yq" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Bring-up-Android-A-B-system-Part2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/06/Bring-up-Android-A-B-system-Part2/" class="article-date">
+  <time datetime="2017-04-06T03:31:16.000Z" itemprop="datePublished">2017-04-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/06/Bring-up-Android-A-B-system-Part2/">Bring up Android A/B system (Part 2)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="trouble-shooting"><a href="#trouble-shooting" class="headerlink" title="trouble shooting"></a>trouble shooting</h2><h3 id="if-your-previous-symlink-doesn’t-work-anymore"><a href="#if-your-previous-symlink-doesn’t-work-anymore" class="headerlink" title="if your previous symlink doesn’t work anymore"></a>if your previous symlink doesn’t work anymore</h3><p>With A/B system, previous mkdir/symlink may not work, in such case we need to create such folders/links at build time.</p>
+<pre><code>BOARD_ROOT_EXTRA_FOLDERS := customer_data
+BOARD_ROOT_EXTRA_SYMLINKS := /customer_data:/customer
+</code></pre><h3 id="if-you-can-not-find-the-boot-device"><a href="#if-you-can-not-find-the-boot-device" class="headerlink" title="if you can not find the boot device"></a>if you can not find the boot device</h3><p><strong>printk_all_partitions()</strong> from $linux/block/genhd.c can print a full list of all partitions, intended for places where the root filesystem can’t be mounted and thus to give the victim some idea of what went wrong.</p>
+<pre><code>[    1.993936] List of all partitions:
+[    1.997553] 0100            8192 ram0  (driver?)
+[    2.002335] b300         7471104 mmcblk0  driver: mmcblk
+[    2.007837]   b301            1024 mmcblk0p1 b2285256-164b-4ab5-dcb9-699f7b7bb600
+[    2.015581]   b302            1024 mmcblk0p2 b2285256-164b-4ab5-dcb9-699f7b7bb600
+[    2.023317]   b303            7168 mmcblk0p3 b2285256-164b-4ab5-dcb9-699f7b7bb600
+[    2.031061]   b304            7168 mmcblk0p4 b2285256-164b-4ab5-dcb9-699f7b7bb600
+[    2.038804]   b305            8192 mmcblk0p5 b2285256-164b-4ab5-dcb9-699f7b7bb600
+[    2.054833]   b306            8192 mmcblk0p6 b2285256-164b-4ab5-dcb9-699f7b7bb600
+[    2.062570]   b307           16384 mmcblk0p7 b2285256-164b-4ab5-dcb9-699f7b7bb600
+[    2.070310]   b308           16384 mmcblk0p8 b2285256-164b-4ab5-dcb9-699f7b7bb600
+[    2.078052]   b309           16384 mmcblk0p9 b2285256-164b-4ab5-dcb9-699f7b7bb600
+[    2.085793]   b30a           16384 mmcblk0p10 b2285256-164b-4ab5-dcb9-699f7b7bb600
+[    2.093618]   b30b           16384 mmcblk0p11 b2285256-164b-4ab5-dcb9-699f7b7bb600
+[    2.101450]   b30c           16384 mmcblk0p12 b2285256-164b-4ab5-dcb9-699f7b7bb600
+[    2.109278]   b30d           16384 mmcblk0p13 b2285256-164b-4ab5-dcb9-699f7b7bb600
+[    2.117110]   b30e           16384 mmcblk0p14 b2285256-164b-4ab5-dcb9-699f7b7bb600
+[    2.124939]   b30f           16384 mmcblk0p15 b2285256-164b-4ab5-dcb9-699f7b7bb600
+[    2.132765]   b310           16384 mmcblk0p16 b2285256-164b-4ab5-dcb9-699f7b7bb600
+[    2.140596]   b311           16384 mmcblk0p17 b2285256-164b-4ab5-dcb9-699f7b7bb600
+[    2.148426]   b312           16384 mmcblk0p18 b2285256-164b-4ab5-dcb9-699f7b7bb600
+[    2.156256]   b313           32768 mmcblk0p19 b2285256-164b-4ab5-dcb9-699f7b7bb600
+[    2.164081]   103:00000      32768 mmcblk0p20 b2285256-164b-4ab5-dcb9-699f7b7bb600
+[    2.171911]   103:00001     950272 mmcblk0p21 b2285256-164b-4ab5-dcb9-699f7b7bb600
+[    2.179742]   103:00002     950272 mmcblk0p22 b2285256-164b-4ab5-dcb9-699f7b7bb600
+[    2.187573]   103:00003      16384 mmcblk0p23 b2285256-164b-4ab5-dcb9-699f7b7bb600
+[    2.195404]   103:00004      16384 mmcblk0p24 b2285256-164b-4ab5-dcb9-699f7b7bb600
+</code></pre><p>Supposing your /system partition resides on p21 of mmcblk0, your bootloader should set root=/dev/mmcblk0p21.</p>
+<h3 id="if-you-can-start-shell-but-Android-didn’t-start-WTF"><a href="#if-you-can-start-shell-but-Android-didn’t-start-WTF" class="headerlink" title="if you can start shell, but Android didn’t start, WTF?"></a>if you can start shell, but Android didn’t start, WTF?</h3><p>You may need to parse your init.xx.rc, and check which stage you are at.<br>Android will be started in class “main” of init.</p>
+<h3 id="if-you-find-BCB-data-is-cleared-unexpectedly-please-blame-Google-…"><a href="#if-you-find-BCB-data-is-cleared-unexpectedly-please-blame-Google-…" class="headerlink" title="if you find BCB data is cleared unexpectedly, please blame Google …"></a>if you find BCB data is cleared unexpectedly, please blame Google …</h3><p>There is “bootable/recovery/uncrypt/uncrypt.rc”, which will be put at “/system/etc/init/uncrypt.rc”, it will clear BCB on start up, which clears ‘active_slot’ too.</p>
+<pre><code>service clear-bcb /system/bin/uncrypt --clear-bcb
+    class main
+    socket uncrypt stream 600 system system
+    disabled
+    oneshot
+</code></pre><p>But sadly, Android N 7.0 doesn’t have the right code to handle such cases. To fix this issue, you can either do some hacks to disable this BCB clear actions, or upgrade latest AOSP, which has defined “bootloader_message_ab” to match newer A/B styled Android.</p>
+<h3 id="bootloader-message-struct"><a href="#bootloader-message-struct" class="headerlink" title="bootloader_message struct"></a>bootloader_message struct</h3><p>bootloader_message (1088 bytes)</p>
+<pre><code>char command[32]
+char status[32]
+char recovery[768]
+char stage[32]
+char slot_suffix[32]
+char reserved[192]
+</code></pre><p>BrilloSlotInfo (4 bytes)</p>
+<pre><code>uint8_t bootable : 1;
+uint8_t reserved[3];
+</code></pre><p>BrilloBootInfo (32 bytes)</p>
+<pre><code>char bootctrl_suffix[4];
+uint8_t magic[3]; //&quot;BCc&quot;
+uint8_t version;
+uint8_t active_slot;
+BrilloSlotInfo slot_info[2];
+uint8_t reserved[15];
+</code></pre><h3 id="bootloader-message-ab-struct"><a href="#bootloader-message-ab-struct" class="headerlink" title="bootloader_message_ab struct"></a>bootloader_message_ab struct</h3><p>(2 KB) bootloader_message</p>
+<pre><code>char command[32]
+char status[32]
+char recovery[768]
+char stage[32]
+char reserved[1184]
+</code></pre><p>(2 KB)</p>
+<pre><code>char slot_suffix[32]
+char reserved[2016]
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2017/04/06/Bring-up-Android-A-B-system-Part2/" data-id="cjx5ti7cm001vmvwg1uvfynq2" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Bring-up-Android-A-B-system" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/28/Bring-up-Android-A-B-system/" class="article-date">
+  <time datetime="2017-03-28T11:03:53.000Z" itemprop="datePublished">2017-03-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/28/Bring-up-Android-A-B-system/">Bring up Android A/B system (Part 1)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-Prepatation"><a href="#1-Prepatation" class="headerlink" title="1. Prepatation"></a>1. Prepatation</h1><p>Before you start, be sure to read Google’s official guide first: <a href="https://source.android.com/devices/tech/ota/ab_updates.html" target="_blank" rel="noopener">https://source.android.com/devices/tech/ota/ab_updates.html</a> and <a href="https://source.android.com/devices/tech/ota/ab_implement" target="_blank" rel="noopener">https://source.android.com/devices/tech/ota/ab_implement</a>.</p>
+<p>This post will introduce a sample Android A/B system update implementation which stores information in /misc partition, similar as Intel reference product <a href="https://android.googlesource.com/platform/hardware/bsp/intel/+/android-7.0.0_r35/soc/common/bootctrl" target="_blank" rel="noopener">https://android.googlesource.com/platform/hardware/bsp/intel/+/android-7.0.0_r35/soc/common/bootctrl</a></p>
+<p>You can also save such misc information in any other tamper-evident storage.</p>
+<h3 id="1-1-Requirement-for-kernel"><a href="#1-1-Requirement-for-kernel" class="headerlink" title="1.1 Requirement for kernel"></a>1.1 Requirement for kernel</h3><p>Make sure your kernel support A/B features as described in the guide.</p>
+<h3 id="1-2-Requirement-for-bootloader"><a href="#1-2-Requirement-for-bootloader" class="headerlink" title="1.2 Requirement for bootloader"></a>1.2 Requirement for bootloader</h3><ul>
+<li>bootloader read active_slot from /misc partition(value is 0 or 1), then translates the value to _a or _b,</li>
+</ul>
+<p>Newer android has updated the BCB data structure from bootloader_message to bootloader_message_ab.</p>
+<pre><code>bootloader_message_ab -&gt; slot_suffix(BrilloBootInfo) -&gt; active_slot
+</code></pre><ul>
+<li>bootloader locates partitions for /system_a or /system_b as /dev/XX, assemble kernel command line, then load kernel from partition /boot_a or /boot_b.</li>
+</ul>
+<p>Kernel command line should have this such info:</p>
+<pre><code>ro root=/dev/XX skip_initramfs
+</code></pre><ul>
+<li>kernel boots up w/o ramdisk inside boot partition, instead it will run with rootfs at /dev/XX. fs_mgr then reads /misc for active_slot, and mounts /system_a or /system_b to /.</li>
+</ul>
+<h1 id="2-make-the-change-on-Android"><a href="#2-make-the-change-on-Android" class="headerlink" title="2. make the change on Android"></a>2. make the change on Android</h1><h3 id="2-1-update-partition-table"><a href="#2-1-update-partition-table" class="headerlink" title="2.1 update partition table"></a>2.1 update partition table</h3><p>All partitions which need to support A/B must be named in the new style, like boot_a, boot_b, vendor_a, vendor_b, vendor1_a, vendor1_b etc.</p>
+<h3 id="2-2-update-makefiles-and-config-files"><a href="#2-2-update-makefiles-and-config-files" class="headerlink" title="2.2 update makefiles and config files"></a>2.2 update makefiles and config files</h3><h3 id="BoardConfig-mk"><a href="#BoardConfig-mk" class="headerlink" title="BoardConfig.mk"></a>BoardConfig.mk</h3><pre><code>-BOARD_KERNEL_CMDLINE := root=/dev/ram0
++BOARD_KERNEL_CMDLINE := ro root=/dev/mmcblk0p18 skip_initramfs
+
+-BOARD_RECOVERYIMAGE_PARTITION_SIZE := 33554432
+-BOARD_CACHEIMAGE_PARTITION_SIZE := 536870912
+-BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
+-BOARD_USES_FULL_RECOVERY_IMAGE := true
+</code></pre><p>/cache and /recovery is osbolete, remove then both.</p>
+<h3 id="fstab-ro-hardware"><a href="#fstab-ro-hardware" class="headerlink" title="fstab.{ro.hardware}"></a>fstab.{ro.hardware}</h3><pre><code>-/dev/block/by-name/system /system ext4 ro wait
++/dev/block/by-name/system /       ext4 ro,barrier=1,discard wait,slotselect
+-/dev/block/by-name/cache  /cache  ext4 noatime,nosuid,nodev,rw  check
+</code></pre><h3 id="device-mk"><a href="#device-mk" class="headerlink" title="device.mk"></a>device.mk</h3><pre><code>AB_OTA_UPDATER := true
+BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
+BOARD_USES_RECOVERY_AS_BOOT := true
+TARGET_NO_RECOVERY := true
+</code></pre><p>makefile won’t generate recovery.img, instead boot.img contains recovery mode ramdisk.</p>
+<pre><code>AB_OTA_PARTITIONS += \
+    boot \
+    system
+</code></pre><p>boot.img and system.img have A/B slots.</p>
+<pre><code>PRODUCT_PACKAGES += \
+    update_engine \
+    update_engine_sideload
+</code></pre><p>“update_engine” is a daemon manipulating background updates,</p>
+<p>“update_engine_sideload “ is a static binary equivalent to update_engine daemon that installs an update from a local file directly instead of running in the background.</p>
+<pre><code>PRODUCT_PACKAGES_DEBUG += \
+    update_engine_client
+</code></pre><p>“update_engine_client” is update_engine console client</p>
+<pre><code>PRODUCT_PACKAGES += \
+    update_verifier
+</code></pre><p>“update_verifier” checks the integrity of the updated system and vendor partitions on the first boot post an A/B OTA update. It marks the current slot as having booted successfully if it passes the verification.</p>
+<pre><code># bootctrl HAL
+PRODUCT_PACKAGES += \
+    bootctrl.default \
+    bootctrl.$(TARGET_BOARD_PLATFORM)
+    bootctl
+</code></pre><p>bootctrl.$(TARGET_BOARD_PLATFORM) is bootctrl HAL, “bootctl” is Command-line wrapper for boot_control HAL. bootctrl.default is only a reference which should never appear in production images.</p>
+<pre><code># A/B OTA post actions
+PRODUCT_PACKAGES += cfigPostInstall
+AB_OTA_POSTINSTALL_CONFIG += \
+    RUN_POSTINSTALL_system=true \
+    POSTINSTALL_PATH_system=bin/cfigPostInstall \
+    FILESYSTEM_TYPE_system=ext4 \
+    POSTINSTALL_OPTIONAL_system=true
+
+# App compilation in background
+PRODUCT_PACKAGES += otapreopt_script
+AB_OTA_POSTINSTALL_CONFIG += \
+  RUN_POSTINSTALL_system=true \
+  POSTINSTALL_PATH_system=system/bin/otapreopt_script \
+  FILESYSTEM_TYPE_system=ext4 \
+  POSTINSTALL_OPTIONAL_system=true
+</code></pre><h1 id="3-output"><a href="#3-output" class="headerlink" title="3. output"></a>3. output</h1><p>With all the changes, you can get your production images and OTA packages with “make dist”.</p>
+<p>I will explain the details of OTA packages later.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2017/03/28/Bring-up-Android-A-B-system/" data-id="cjx5ti7cn001xmvwgoojw7pxh" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-spring-session" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/12/27/spring-session/" class="article-date">
+  <time datetime="2016-12-27T15:44:56.000Z" itemprop="datePublished">2016-12-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/12/27/spring-session/">spring-session</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1-spring-session-for-browswer-token-in-HttpSession"><a href="#1-spring-session-for-browswer-token-in-HttpSession" class="headerlink" title="1. spring-session for browswer (token in HttpSession)"></a>1. spring-session for browswer (token in HttpSession)</h3><p>Enable Redis HttpSession,</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@EnableRedisHttpSession</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HttpSessionConfig</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-spring-session-for-REST-token-in-header"><a href="#2-spring-session-for-REST-token-in-header" class="headerlink" title="2. spring-session for REST (token in header)"></a>2. spring-session for REST (token in header)</h3><p>Enable Redis HttpSession, and use HTTP headers to convey session info.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@EnableRedisHttpSession</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HttpSessionConfig</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> HttpSessionStrategy <span class="title">httpSessionStrategy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//use HTTP headers to convey the current session information instead of cookies</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> HeaderHttpSessionStrategy();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Enable Web Security</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@EnableWebSecurity</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SecurityConfig</span> <span class="keyword">extends</span> <span class="title">WebSecurityConfigurerAdapter</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">configureGlobal</span><span class="params">(AuthenticationManagerBuilder auth)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        auth.inMemoryAuthentication().withUser(<span class="string">"admin"</span>).password(<span class="string">"pwd"</span>).roles(<span class="string">"USER"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(HttpSecurity http)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        http</span><br><span class="line">                .authorizeRequests()</span><br><span class="line">                .anyRequest().authenticated()</span><br><span class="line">                .and()</span><br><span class="line">                .requestCache()</span><br><span class="line">                .requestCache(<span class="keyword">new</span> NullRequestCache())</span><br><span class="line">                .and()</span><br><span class="line">                .httpBasic();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>build.gradle</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">compile(&quot;org.springframework.boot:spring-boot-starter-web&quot;)</span><br><span class="line">compile(&quot;org.springframework.boot:spring-boot-starter-security&quot;)</span><br><span class="line">compile(&quot;org.springframework.session:spring-session-data-redis&quot;)</span><br></pre></td></tr></table></figure>
+<p>operation w/o token will result in 401(UnAuth):</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">curl -v http://localhost:8080/</span><br></pre></td></tr></table></figure>
+<p>login with:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">curl -v http://localhost:8080/ -u admin:<span class="built_in">pwd</span></span><br></pre></td></tr></table></figure>
+<p>resp will has header:</p>
+<figure class="highlight html"><table><tr><td class="code"><pre><span class="line">x-auth-token: 0dc1f6e1-c7f1-41ac-8ce2-32b6b3e57aa3</span><br></pre></td></tr></table></figure>
+<p>all later operations need to set “x-auth-token” in header</p>
+<pre><code>curl -v http://localhost:8080/ -H &quot;x-auth-token: ${token}&quot;
+</code></pre><p>logout will invalidate the session</p>
+<pre><code>curl -v http://localhost:8080/logout -H &quot;x-auth-token: ${token}&quot;
+</code></pre><h2 id="3-class-and-packages"><a href="#3-class-and-packages" class="headerlink" title="3. class and packages"></a>3. class and packages</h2><p>org.springframework.session</p>
+<ul>
+<li>(C)HeaderHttpSessionStrategy</li>
+<li>@EnableRedisHttpSession</li>
+</ul>
+<p>org.springframework.security</p>
+<ul>
+<li>@EnableWebSecurity</li>
+<li>(C)WebSecurityConfigurerAdapter </li>
+</ul>
+<p>org.springframework.web</p>
+<ul>
+<li>@RestController</li>
+<li>@RequestMapping</li>
+</ul>
+<p>javax.servlet.http (inside <em>spring-boot-starter-web</em>)</p>
+<ul>
+<li>(C)HttpSession</li>
+</ul>
+<p>org.springframework.data.redis (needed by reflection, inside <em>spring-boot-starter-redis</em> or <em>spring-session-data-redis</em>)</p>
+<ul>
+<li>(I) RedisSerializer</li>
+</ul>
+<h2 id="4-packages"><a href="#4-packages" class="headerlink" title="4. packages"></a>4. packages</h2><h4 id="“spring-boot-starter-redis”-includes"><a href="#“spring-boot-starter-redis”-includes" class="headerlink" title="“spring-boot-starter-redis” includes"></a>“spring-boot-starter-redis” includes</h4><pre><code>\--- org.springframework.boot:spring-boot-starter-redis: -&gt; 1.4.2.RELEASE
+     +--- org.springframework.boot:spring-boot-starter:1.4.2.RELEASE
+     +--- org.springframework.data:spring-data-redis:1.7.5.RELEASE
+     \--- redis.clients:jedis:2.8.2
+</code></pre><h4 id="“spring-session”-is-atom-package"><a href="#“spring-session”-is-atom-package" class="headerlink" title="“spring-session” is atom package"></a>“spring-session” is atom package</h4><pre><code>\--- org.springframework.session:spring-session: -&gt; 1.2.2.RELEASE
+</code></pre><h4 id="“spring-session-data-redis”-includes"><a href="#“spring-session-data-redis”-includes" class="headerlink" title="“spring-session-data-redis” includes"></a>“spring-session-data-redis” includes</h4><pre><code>\--- org.springframework.session:spring-session-data-redis: -&gt; 1.2.2.RELEASE
+     +--- org.apache.commons:commons-pool2:2.4.2
+     +--- org.springframework.data:spring-data-redis:1.7.1.RELEASE -&gt; 1.7.5.RELEASE
+     +--- org.springframework.session:spring-session:1.2.2.RELEASE
+     \--- redis.clients:jedis:2.8.1 -&gt; 2.8.2
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2016/12/27/spring-session/" data-id="cjx5ti7e0004qmvwg0arei2gj" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-nginx-configuration-examples" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/12/22/nginx-configuration-examples/" class="article-date">
+  <time datetime="2016-12-22T05:05:11.000Z" itemprop="datePublished">2016-12-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/12/22/nginx-configuration-examples/">nginx configuration examples</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="default-http-service"><a href="#default-http-service" class="headerlink" title="default http service"></a>default http service</h3><pre><code>server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    root /var/www/html;
+
+    index index.html index.htm index.nginx-debian.html;
+
+    server_name _;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
+</code></pre><h3 id="https-service"><a href="#https-service" class="headerlink" title="https service"></a>https service</h3><pre><code>server {
+    listen 443;
+    server_name cfig.me;
+
+    root /var/www/html;
+    index index.html index.htm index.nginx-debian.html;
+
+    ssl on;
+    ssl_certificate 2017/213964558630897.pem;
+    ssl_certificate_key 2017/213964558630897.key;
+    ssl_session_timeout 5m;
+    ssl_protocols SSLv3 TLSv1;
+    ssl_ciphers ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv3:+EXP;
+    ssl_prefer_server_ciphers on;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
+</code></pre><h3 id="reverse-proxy-for-localhost-8080"><a href="#reverse-proxy-for-localhost-8080" class="headerlink" title="reverse-proxy for localhost:8080"></a>reverse-proxy for localhost:8080</h3><p>nginx handles https and redirects all requests to local service listening on 8080.</p>
+<pre><code>upstream api_node_js {
+    server    127.0.0.1:8080;
+}
+server {
+    listen 443;
+    server_name api.cfig.me;
+
+    root /var/www/html;
+    index index.html index.htm index.nginx-debian.html;
+
+    ssl on;
+    ssl_certificate 2017_api_cfig_me/213972664770897.pem;
+    ssl_certificate_key 2017_api_cfig_me/213972664770897.key;
+
+    ssl_session_timeout 5m;
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    ssl_ciphers AESGCM:ALL:!DH:!EXPORT:!RC4:+HIGH:!MEDIUM:!LOW:!aNULL:!eNULL;
+    ssl_prefer_server_ciphers on;
+
+    location / {
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header Host $http_host;
+        proxy_set_header X-NginX-Proxy true;
+        proxy_pass http://api_node_js;
+        proxy_redirect off;
+    }
+}
+</code></pre><p>‘proxy_set_header’ will change http headers passed to local 8080, ‘X-Real-IP’ and ‘X-Forwarded-For’ now has the real src IP as shown below:</p>
+<img src="/images/nginx_set_header.png">
+<h3 id="file-service"><a href="#file-service" class="headerlink" title="file service"></a>file service</h3><pre><code>server {
+    listen 4573 default_server;
+    listen [::]:4573 default_server;
+    server_name _;
+
+    root /var/download;
+    autoindex on;
+    autoindex_exact_size on;
+    autoindex_localtime on;
+
+    index index.html index.htm index.nginx-debian.html;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
+</code></pre><h3 id="https-gerrit-with-basic-http-auth"><a href="#https-gerrit-with-basic-http-auth" class="headerlink" title="https gerrit with basic http auth"></a>https gerrit with basic http auth</h3><pre><code>server {
+    listen 80;
+    server_name g.cf1g.com;
+    return    301 https://$server_name$request_uri;
+}
+
+server {
+    listen 443;
+    server_name g.cf1g.com;
+
+    location / {
+        auth_basic              &quot;Gerrit 2.12&quot;;
+        auth_basic_user_file    /etc/nginx/htpwd.conf;
+        proxy_pass              http://localhost:8081;
+        proxy_set_header        X-Forwarded-For $remote_addr;
+        proxy_set_header        Host $host;
+    }
+
+    ssl on;
+    ssl_certificate 2016/1_cf1g.com_bundle.crt;
+    ssl_certificate_key 2016/cf1g.rsa;
+
+    ssl_session_timeout 5m;
+
+    ssl_protocols SSLv3 TLSv1;
+    ssl_ciphers ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv3:+EXP;
+    ssl_prefer_server_ciphers on;
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2016/12/22/nginx-configuration-examples/" data-id="cjx5ti7ds004bmvwg25o53vms" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-gradle-spring" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/12/10/gradle-spring/" class="article-date">
+  <time datetime="2016-12-10T14:10:23.000Z" itemprop="datePublished">2016-12-10</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/12/10/gradle-spring/">gradle-springboot</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="springboot-use-jetty-instead-of-tomcat"><a href="#springboot-use-jetty-instead-of-tomcat" class="headerlink" title="springboot use jetty instead of tomcat:"></a>springboot use jetty instead of tomcat:</h3><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">configurations &#123;</span><br><span class="line">    compile.exclude <span class="keyword">module</span>: <span class="string">'spring-boot-starter-tomcat'</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">dependencies &#123;</span><br><span class="line">    compile(<span class="string">"org.springframework.boot:spring-boot-starter-web"</span>)</span><br><span class="line">    compile(<span class="string">"org.springframework.boot:spring-boot-starter-jetty"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="generate-deployable-war-for-jetty"><a href="#generate-deployable-war-for-jetty" class="headerlink" title="generate deployable war for jetty:"></a>generate deployable war for jetty:</h3><p>build.gradle</p>
+<pre><code>apply plugin: &apos;war&apos;
+</code></pre><p>WarApplication.java</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.boot.web.support.SpringBootServletInitializer;</span><br><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WarApplication</span> <span class="keyword">extends</span> <span class="title">SpringBootServletInitializer</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		SpringApplication.run(WarApplication.class, args);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2016/12/10/gradle-spring/" data-id="cjx5ti7dk003vmvwgkoriou5s" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Gerrit-notes" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/10/12/Gerrit-notes/" class="article-date">
+  <time datetime="2016-10-12T05:28:11.000Z" itemprop="datePublished">2016-10-12</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/10/12/Gerrit-notes/">Gerrit notes</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <body bgcolor="#F3FFFF"><br></body>
+
+<h2 id="1-安装"><a href="#1-安装" class="headerlink" title="1. 安装"></a>1. 安装</h2><p>Download from <a href="https://www.gerritcodereview.com/" target="_blank" rel="noopener">https://www.gerritcodereview.com/</a></p>
+<p>Install guide: <a href="https://gerrit-review.googlesource.com/Documentation/install.html" target="_blank" rel="noopener">https://gerrit-review.googlesource.com/Documentation/install.html</a></p>
+<h2 id="2-gerrit-nginx反向代理配置"><a href="#2-gerrit-nginx反向代理配置" class="headerlink" title="2. gerrit/nginx反向代理配置"></a>2. gerrit/nginx反向代理配置</h2><p>反向代理结构 <a href="http://g.cf1g.com" target="_blank" rel="noopener">http://g.cf1g.com</a> –(301)–&gt; <a href="https://g.cf1g.com" target="_blank" rel="noopener">https://g.cf1g.com</a> ==(auth)==&gt;&gt; proxy-<a href="http://127.0.0.1:8081" target="_blank" rel="noopener">http://127.0.0.1:8081</a></p>
+<h3 id="2-1-gerrit-config"><a href="#2-1-gerrit-config" class="headerlink" title="2.1 gerrit.config"></a>2.1 <a href="/2016/09/20/gerrit-config/">gerrit.config</a></h3><p>httpd.listenUrl: proxy-<a href="https://127.0.0.1:8081/" target="_blank" rel="noopener">https://127.0.0.1:8081/</a> 配置gerrit http只接受local 8081端口请求<br>sshd.listenAddress: *:29418 配置gerrit ssh接受所有29418端口请求</p>
+<h3 id="2-2-etc-nginx-sites-available-gerrit"><a href="#2-2-etc-nginx-sites-available-gerrit" class="headerlink" title="2.2 /etc/nginx/sites-available/gerrit"></a>2.2 <a href="/2016/09/20/nginx-site-gerrit/">/etc/nginx/sites-available/gerrit</a></h3><p>auth_basic_user_file: http密码文件<br>ssl_certificate: ssl证书, 相对于/etc/nginx/的路径<br>ssl_certificate_key: ssl私钥(RSA key), 相对于/etc/nginx/的路径</p>
+<h3 id="2-3-etc-nginx-sites-available-default"><a href="#2-3-etc-nginx-sites-available-default" class="headerlink" title="2.3 /etc/nginx/sites-available/default"></a>2.3 <a href="/2016/09/20/nginx-site-default/">/etc/nginx/sites-available/default</a></h3><p>server:80<br>root: 站点的root<br>server:443<br>同样需要指定</p>
+<h2 id="3-设置邮件服务器"><a href="#3-设置邮件服务器" class="headerlink" title="3. 设置邮件服务器"></a>3. 设置邮件服务器</h2><p>apt-get install nginx apache2-utils fcgiwrap<br>apt-get install sendmail sendmail-bin<br><a href="https://major.io/2007/03/27/setting-the-hostname-in-sendmail/" target="_blank" rel="noopener">https://major.io/2007/03/27/setting-the-hostname-in-sendmail/</a></p>
+<p>更详细的邮件设置: <a href="http://cfig.github.io/2015/09/22/email-notification/">http://cfig.github.io/2015/09/22/email-notification/</a></p>
+<h2 id="4-协同github"><a href="#4-协同github" class="headerlink" title="4. 协同github"></a>4. 协同github</h2><h3 id="4-1-github插件"><a href="#4-1-github插件" class="headerlink" title="4.1 github插件"></a>4.1 github插件</h3><p><a href="https://gerrit.googlesource.com/plugins/github" target="_blank" rel="noopener">https://gerrit.googlesource.com/plugins/github</a><br>在github的pull request之前使用gerrit评审代码<br>参考步骤 <a href="https://github.com/xuanmingyi/blog/blob/master/content/GerritWithGithub.md" target="_blank" rel="noopener">https://github.com/xuanmingyi/blog/blob/master/content/GerritWithGithub.md</a></p>
+<h3 id="4-2-github登陆插件"><a href="#4-2-github登陆插件" class="headerlink" title="4.2 github登陆插件"></a>4.2 github登陆插件</h3><p><a href="https://github.com/davido/gerrit-oauth-provider" target="_blank" rel="noopener">https://github.com/davido/gerrit-oauth-provider</a></p>
+<h3 id="4-3-github-oauth配置"><a href="#4-3-github-oauth配置" class="headerlink" title="4.3 github oauth配置"></a>4.3 github oauth配置</h3><p>homepage:<br><a href="http://10.37.116.86:8080" target="_blank" rel="noopener">http://10.37.116.86:8080</a><br>auth callback URL<br><a href="http://10.37.116.86:8080/oauth" target="_blank" rel="noopener">http://10.37.116.86:8080/oauth</a></p>
+<h2 id="5-LDAP登录"><a href="#5-LDAP登录" class="headerlink" title="5. LDAP登录"></a>5. LDAP登录</h2><pre><code>[auth]
+        type = LDAP
+[httpd]
+        listenUrl = http://*:8080/
+[ldap]
+        server = ldap://XX-ldap.XX.com
+        username = me@xx.com
+        accountBase = OU=Workers,dc=XX,dc=com
+        groupBase = OU=Workers,dc=XX,dc=com
+</code></pre><h2 id="misc"><a href="#misc" class="headerlink" title="misc"></a>misc</h2><pre><code>w3m https://g.cf1g.com/ssh_info
+curl https://yu@g.cf1g.com/ssh_info -k -u yu
+ssh -p 29418 g.cf1g.com
+scp -P 29418 g.cf1g.com:hooks/commit-msg .git/hooks/
+remember https password: add to .netrc
+remember ssh password: .ssh/config
+</code></pre><p> Add gits</p>
+<pre><code>ssh -p29418 name@example.com gerrit flush-caches --cache project_list
+</code></pre><p>What if you got “self-signed key issue reported by git”:</p>
+<pre><code>workaround: 
+git config --global http.sslVerify false
+</code></pre><h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><p><a href="http://my.oschina.net/zhongl/blog/33017" target="_blank" rel="noopener">http://my.oschina.net/zhongl/blog/33017</a><br><a href="http://openwares.net/linux/gerrit2\_setup.html" target="_blank" rel="noopener">http://openwares.net/linux/gerrit2\_setup.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2016/10/12/Gerrit-notes/" data-id="cjx5ti7cs0029mvwgcpx7anz2" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/">web</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-nginx-site-default" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/09/20/nginx-site-default/" class="article-date">
+  <time datetime="2016-09-20T12:26:31.000Z" itemprop="datePublished">2016-09-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/20/nginx-site-default/">nginx_site_default</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <pre><code>server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+
+    root /var/www/html;
+
+    index index.html index.htm index.nginx-debian.html;
+
+    server_name _;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
+
+# HTTPS server
+#
+server {
+    listen 443;
+    server_name cf1g.com;
+
+    root /var/www/html;
+    index index.html index.htm index.nginx-debian.html;
+
+    ssl on;
+    ssl_certificate 2016/1_cf1g.com_bundle.crt;
+    ssl_certificate_key 2016/cf1g.rsa;
+
+    ssl_session_timeout 5m;
+
+    ssl_protocols SSLv3 TLSv1;
+    ssl_ciphers ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv3:+EXP;
+    ssl_prefer_server_ciphers on;
+
+    location / {
+        try_files $uri $uri/ =404;
+    }
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2016/09/20/nginx-site-default/" data-id="cjx5ti7dt004dmvwgn97mlapz" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/code/">code</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-nginx-site-gerrit" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/09/20/nginx-site-gerrit/" class="article-date">
+  <time datetime="2016-09-20T12:09:12.000Z" itemprop="datePublished">2016-09-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/20/nginx-site-gerrit/">nginx_site_gerrit</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>/etc/nginx/sites-available/gerrit</p>
+<pre><code>server {
+    listen 80;
+    server_name g.cf1g.com;
+    return    301 https://$server_name$request_uri;
+}
+
+server {
+    listen 443;
+    server_name g.cf1g.com;
+
+    location / {
+        auth_basic              &quot;Gerrit 2.12&quot;;
+        auth_basic_user_file    /etc/nginx/htpwd.conf;
+        proxy_pass              http://localhost:8081;
+        proxy_set_header        X-Forwarded-For $remote_addr;
+        proxy_set_header        Host $host;
+    }
+
+    ssl on;
+    ssl_certificate 2016/1_cf1g.com_bundle.crt;
+    ssl_certificate_key 2016/cf1g.rsa;
+
+    ssl_session_timeout 5m;
+
+    ssl_protocols SSLv3 TLSv1;
+    ssl_ciphers ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv3:+EXP;
+    ssl_prefer_server_ciphers on;
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2016/09/20/nginx-site-gerrit/" data-id="cjx5ti7du004emvwgijyh6zio" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/code/">code</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/page/2/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/4/">__('next') &raquo;</a>
+  </nav>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/code/">code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/health/">health</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/misc/">misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/net-travel/">net travel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/code/" style="font-size: 12.86px;">code</a> <a href="/tags/health/" style="font-size: 10px;">health</a> <a href="/tags/java/" style="font-size: 17.14px;">java</a> <a href="/tags/linux/" style="font-size: 18.57px;">linux</a> <a href="/tags/misc/" style="font-size: 11.43px;">misc</a> <a href="/tags/net-travel/" style="font-size: 14.29px;">net travel</a> <a href="/tags/web/" style="font-size: 15.71px;">web</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/21/Android-boot-animation/">Make your own Android boot animation</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/06/verified-assembled-manifest/">VINTF: verified assembled manifest</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/compatibility-matrix/">VINTF - compatibility matrix</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/VINTF-manifest-xml/">VINTF: manifest.xml</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/24/Linux-capability-tests/">Linux capability tests</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 cfig
+      <br><br>
+      Enjoy your journey here<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

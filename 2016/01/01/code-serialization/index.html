@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>code_serialization | Cool Fish In Glacier</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Totally 4 files src/main/groovy/org/cfig/learn/CommitInfo.groovysrc/main/groovy/org/cfig/learn/CommitInfo2.groovysrc/main/groovy/org/cfig/learn/Serializer.groovysrc/test/groovy/org/cfig/learn/CommitIn">
+<meta name="keywords" content="code">
+<meta property="og:type" content="article">
+<meta property="og:title" content="code_serialization">
+<meta property="og:url" content="http://cfig.github.io/2016/01/01/code-serialization/index.html">
+<meta property="og:site_name" content="Cool Fish In Glacier">
+<meta property="og:description" content="Totally 4 files src/main/groovy/org/cfig/learn/CommitInfo.groovysrc/main/groovy/org/cfig/learn/CommitInfo2.groovysrc/main/groovy/org/cfig/learn/Serializer.groovysrc/test/groovy/org/cfig/learn/CommitIn">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-05-23T02:55:59.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="code_serialization">
+<meta name="twitter:description" content="Totally 4 files src/main/groovy/org/cfig/learn/CommitInfo.groovysrc/main/groovy/org/cfig/learn/CommitInfo2.groovysrc/main/groovy/org/cfig/learn/Serializer.groovysrc/test/groovy/org/cfig/learn/CommitIn">
+  
+    <link rel="alternate" href="/atom.xml" title="Cool Fish In Glacier" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-67906660-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Cool Fish In Glacier</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">叽里咕噜</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://cfig.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-code-serialization" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/01/01/code-serialization/" class="article-date">
+  <time datetime="2015-12-31T16:00:00.000Z" itemprop="datePublished">2016-01-01</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      code_serialization
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Totally 4 files</p>
+<p><a href="#CommitInfo">src/main/groovy/org/cfig/learn/CommitInfo.groovy</a><br><a href="#CommitInfo2">src/main/groovy/org/cfig/learn/CommitInfo2.groovy</a><br><a href="#Serializer">src/main/groovy/org/cfig/learn/Serializer.groovy</a><br><a href="#CommitInfoTest">src/test/groovy/org/cfig/learn/CommitInfoTest.groovy</a></p>
+<p><a name="CommitInfo"></a></p>
+<h2 id="src-main-groovy-org-cfig-learn-CommitInfo-groovy"><a href="#src-main-groovy-org-cfig-learn-CommitInfo-groovy" class="headerlink" title="src/main/groovy/org/cfig/learn/CommitInfo.groovy"></a>src/main/groovy/org/cfig/learn/CommitInfo.groovy</h2><pre><code>package org.cfig.learn
+
+import groovy.transform.ToString
+
+/**
+ * Created by yu on 1/13/16.
+ */
+@ToString(includeNames = true)
+class CommitInfo implements Serializable {
+    private static final long serialVersionUID = 42L;
+
+    String author;
+    transient String email;
+    String message;
+    transient String password;
+
+    //public CommitInfo() //unreachable
+
+    private void writeObject(java.io.ObjectOutputStream out) throws IOException {
+        println(this.class.name + &quot;.writeObject()&quot;);
+        out.defaultWriteObject();
+        out.writeUTF(email);
+    }
+
+    private void readObject(java.io.ObjectInputStream inputStream) throws IOException, ClassNotFoundException {
+        println(this.class.name + &quot;.readObject()&quot;);
+        inputStream.defaultReadObject();
+        email = inputStream.readUTF();
+    }
+
+}
+</code></pre><p><a name="CommitInfo2"></a>  </p>
+<h2 id="src-main-groovy-org-cfig-learn-CommitInfo2-groovy"><a href="#src-main-groovy-org-cfig-learn-CommitInfo2-groovy" class="headerlink" title="src/main/groovy/org/cfig/learn/CommitInfo2.groovy"></a>src/main/groovy/org/cfig/learn/CommitInfo2.groovy</h2><pre><code>package org.cfig.learn
+
+import groovy.transform.ToString
+
+/**
+ * Created by yu on 1/13/16.
+ */
+@ToString(includeNames = true)
+class CommitInfo2 implements Externalizable {
+    private static final long serialVersionUID = 5923267531712419764L;
+
+    String author;
+    transient String email;
+    String message;
+    transient password;
+
+    CommitInfo2() {
+        println(this.class.name + &quot;.constructor&quot;);
+    }
+
+    @Override
+    void writeExternal(ObjectOutput objectOutput) throws IOException {
+        println(this.class.name + &quot;.writeExternal()&quot;)
+        objectOutput.writeObject(author)
+        objectOutput.writeObject(email)
+        objectOutput.writeObject(message)
+        objectOutput.writeObject(&quot;***&quot;)
+    }
+
+    @Override
+    void readExternal(ObjectInput objectInput)
+            throws IOException, ClassNotFoundException {
+        println(this.class.name + &quot;.readExternal()&quot;)
+        author = objectInput.readObject()
+        email = objectInput.readObject()
+        message = objectInput.readObject()
+        password = &quot;###&quot;
+    }
+
+    //private void writeObject(java.io.ObjectOutputStream out) //unreachable
+    //private void readObject(java.io.ObjectInputStream inputStream) //unreachable
+}
+</code></pre><p><a name="Serializer"></a></p>
+<h2 id="src-main-groovy-org-cfig-learn-Serializer-groovy"><a href="#src-main-groovy-org-cfig-learn-Serializer-groovy" class="headerlink" title="src/main/groovy/org/cfig/learn/Serializer.groovy"></a>src/main/groovy/org/cfig/learn/Serializer.groovy</h2><pre><code>package org.cfig.learn
+
+/**
+ * Created by yu on 1/13/16.
+ */
+class Serializer {
+    public byte[] serialize(Object inObj) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(baos);
+        oos.writeObject(inObj);
+        return baos.toByteArray();
+    }
+
+    public Object deserialize(byte[] inBytes) {
+        ByteArrayInputStream bais = new ByteArrayInputStream(inBytes);
+        ObjectInputStream ois = new ObjectInputStream(bais);
+        return ois.readObject();
+    }
+    public void serialToFile(Object inObj, String inFile) {
+        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(inFile));
+        oos.writeObject(inObj);
+        oos.close()
+    }
+
+    public Object deserializeFromFile(String inFile) {
+        ObjectInputStream ois = new ObjectInputStream(new FileInputStream(inFile));
+        return ois.readObject();
+    }
+}
+</code></pre><p><a name="CommitInfoTest"></a>  </p>
+<h2 id="src-test-groovy-org-cfig-learn-CommitInfoTest"><a href="#src-test-groovy-org-cfig-learn-CommitInfoTest" class="headerlink" title="src/test/groovy/org/cfig/learn/CommitInfoTest"></a>src/test/groovy/org/cfig/learn/CommitInfoTest</h2><pre><code>package org.cfig.learn
+
+import org.junit.Before;
+import org.junit.Test;
+
+/**
+ * Created by yu on 1/13/16.
+ */
+public class CommitInfoTest {
+    CommitInfo ci = new CommitInfo();
+    CommitInfo2 ci2 = new CommitInfo2();
+
+    @Before
+    public void setUp() throws Exception {
+        ci.author = &quot;good&quot;;
+        ci.email = &quot;me@good.com&quot;
+        ci.message = &quot;some message&quot;;
+        ci.password = &quot;123456&quot;;
+
+        ci2.author = &quot;bad&quot;;
+        ci2.email = &quot;it@bad.com&quot;
+        ci2.message = &quot;other message&quot;;
+        ci2.password = &quot;654321&quot;;
+    }
+
+    @Test
+    public void testSerializableFile() throws Exception {
+        //file
+        Serializer sz = new Serializer();
+        sz.serialToFile(ci, &quot;out.file&quot;);
+        def ci12 = sz.deserializeFromFile(&quot;out.file&quot;);
+        println(this.class.name + &quot;.testSerializable(), read back: &quot; + ci12);
+    }
+
+    @Test
+    public void testSerializableBytes() throws Exception {
+        //bytes
+        Serializer sz = new Serializer();
+        byte[] aBytes = sz.serialize(ci);
+        def ci13 = sz.deserialize(aBytes);
+        println(this.class.name + &quot;.testSerializable(), read back: &quot; + ci13);
+    }
+
+    @Test
+    public void testExternalizable() throws Exception {
+        println(&quot;Original c2: &quot; + ci2);
+        //file
+        Serializer sz = new Serializer();
+        //bytes
+        byte[] aBytes = sz.serialize(ci2);
+        def ci21 = sz.deserialize(aBytes);
+        println(&quot;Read back c2: &quot; + ci21);
+    }
+}
+</code></pre><h2 id="build-gradle"><a href="#build-gradle" class="headerlink" title="build.gradle"></a>build.gradle</h2><pre><code>apply plugin: &apos;groovy&apos;
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile &apos;org.codehaus.groovy:groovy-all:2.4.4&apos;
+    testCompile &apos;junit:junit:4.12&apos;
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2016/01/01/code-serialization/" data-id="cjx5ti7d50030mvwgpdfcyekm" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/code/">code</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/01/02/WebServlet-handling-difference-between-tomcat-and-jetty/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          @WebServlet handling difference between tomcat and jetty
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/11/24/db-tool/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">db Documentation</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/code/">code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/health/">health</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/misc/">misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/net-travel/">net travel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/code/" style="font-size: 12.86px;">code</a> <a href="/tags/health/" style="font-size: 10px;">health</a> <a href="/tags/java/" style="font-size: 17.14px;">java</a> <a href="/tags/linux/" style="font-size: 18.57px;">linux</a> <a href="/tags/misc/" style="font-size: 11.43px;">misc</a> <a href="/tags/net-travel/" style="font-size: 14.29px;">net travel</a> <a href="/tags/web/" style="font-size: 15.71px;">web</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/21/Android-boot-animation/">Make your own Android boot animation</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/06/verified-assembled-manifest/">VINTF: verified assembled manifest</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/compatibility-matrix/">VINTF - compatibility matrix</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/VINTF-manifest-xml/">VINTF: manifest.xml</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/24/Linux-capability-tests/">Linux capability tests</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 cfig
+      <br><br>
+      Enjoy your journey here<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

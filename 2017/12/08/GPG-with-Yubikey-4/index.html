@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>GPG with Yubikey 4 | Cool Fish In Glacier</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="0. PreBefore you proceed, make sure you fully understand following jargons: open GPG, GPG master key and sub keys, Yubi Key by Yubico.Reference info can be found at: http://cfig.github.io/2015/09/22/G">
+<meta name="keywords" content="linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GPG with Yubikey 4">
+<meta property="og:url" content="http://cfig.github.io/2017/12/08/GPG-with-Yubikey-4/index.html">
+<meta property="og:site_name" content="Cool Fish In Glacier">
+<meta property="og:description" content="0. PreBefore you proceed, make sure you fully understand following jargons: open GPG, GPG master key and sub keys, Yubi Key by Yubico.Reference info can be found at: http://cfig.github.io/2015/09/22/G">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-05-23T02:55:59.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="GPG with Yubikey 4">
+<meta name="twitter:description" content="0. PreBefore you proceed, make sure you fully understand following jargons: open GPG, GPG master key and sub keys, Yubi Key by Yubico.Reference info can be found at: http://cfig.github.io/2015/09/22/G">
+  
+    <link rel="alternate" href="/atom.xml" title="Cool Fish In Glacier" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-67906660-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Cool Fish In Glacier</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">叽里咕噜</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://cfig.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-GPG-with-Yubikey-4" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/12/08/GPG-with-Yubikey-4/" class="article-date">
+  <time datetime="2017-12-08T09:13:25.000Z" itemprop="datePublished">2017-12-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      GPG with Yubikey 4
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="0-Pre"><a href="#0-Pre" class="headerlink" title="0. Pre"></a>0. Pre</h2><p>Before you proceed, make sure you fully understand following jargons: open GPG, GPG master key and sub keys, Yubi Key by Yubico.<br>Reference info can be found at:</p>
+<p><a href="http://cfig.github.io/2015/09/22/GPG-usage/">http://cfig.github.io/2015/09/22/GPG-usage/</a> describes basic operations of GPG<br><a href="https://www.yubico.com/product/yubikey-4-black-and-white-bundle" target="_blank" rel="noopener">Yubikey 4</a>, which can be bought at Amazon.<br>Others: <a href="https://lmy441900.github.io/security/yubikey/2016/09/10/about-yubikey-4.html" target="_blank" rel="noopener">https://lmy441900.github.io/security/yubikey/2016/09/10/about-yubikey-4.html</a></p>
+<p>This guide has been tested on Debian(Jessie).</p>
+<h2 id="1-Set-up-Yubikey4-env-for-Debian"><a href="#1-Set-up-Yubikey4-env-for-Debian" class="headerlink" title="1. Set up Yubikey4 env for Debian"></a>1. Set up Yubikey4 env for Debian</h2><p>First, please read <a href="https://wiki.debian.org/Smartcards/YubiKey4" target="_blank" rel="noopener">https://wiki.debian.org/Smartcards/YubiKey4</a> carefully.</p>
+<pre><code># apt-get install scdaemon gnupg2 dirmngr
+</code></pre><p>We need to enable normal user(not only root!) to use YubiKey4 on Debian by adding udev rules as <strong>/etc/udev/rules.d/99-yubikeys.rules</strong></p>
+<pre><code># YubiKey 4 OTP+U2F+CCID
+SUBSYSTEMS==&quot;usb&quot;, ATTRS{idVendor}==&quot;1050&quot;, ATTRS{idProduct}==&quot;0407&quot;, GROUP=&quot;plugdev&quot;, TAG+=&quot;uaccess&quot;
+</code></pre><p>Then reboot system to let it take effect. Verify smart card status:</p>
+<pre><code>$ gpg2 --card-status
+</code></pre><h2 id="2-Move-sign-encrypt-authenticate-subkeys-to-smartcard"><a href="#2-Move-sign-encrypt-authenticate-subkeys-to-smartcard" class="headerlink" title="2. Move sign/encrypt/authenticate subkeys to smartcard"></a>2. Move sign/encrypt/authenticate subkeys to smartcard</h2><p>What we should work on is always subkey. Master key is always stored at some safe airgapped media.<br>Assuming you have sign/encrypt/authenticate private subkeys locally.</p>
+<pre><code>$ gpg2 --edit-key $KEYID
+$ toggle
+gpg&gt; key 1
+gpg&gt; keytocard
+</code></pre><p>Finally verify the smart card status as:</p>
+<pre><code>$ gpg2 --card-status
+</code></pre><p>We can see “Signature key”, “Encryption key”, “Authentication key” should have valid values.</p>
+<h2 id="3-Set-up-misc-values-for-Yubikey4"><a href="#3-Set-up-misc-values-for-Yubikey4" class="headerlink" title="3. Set up misc values for Yubikey4"></a>3. Set up misc values for Yubikey4</h2><p>After we push pubkey to server like this, </p>
+<pre><code>gpg --keyserver hkp://pgp.mit.edu --send-keys 1370401F
+</code></pre><p>We can search our keys at:</p>
+<pre><code>http://pgp.mit.edu/pks/lookup?op=get&amp;search=0xD6F140FF1370401F
+</code></pre><p>Then we should edit our Yubikey4 as:</p>
+<pre><code>$ gpg2 --card-edit
+admin
+url
+http://pgp.mit.edu/pks/lookup?op=get&amp;search=0xD6F140FF1370401F
+quit
+</code></pre><h2 id="4-Try-out-Yubikey4-on-another-machine"><a href="#4-Try-out-Yubikey4-on-another-machine" class="headerlink" title="4. Try out Yubikey4 on another machine:"></a>4. Try out Yubikey4 on another machine:</h2><p>Or if you are using the same machine for testing, you can delete all pub/priv keys manually before testing.</p>
+<h5 id="get-pubkey-from-server"><a href="#get-pubkey-from-server" class="headerlink" title="get pubkey from server"></a>get pubkey from server</h5><pre><code>gpg2 --card-edit
+fetch
+quit
+</code></pre><h5 id="get-private-key-stub"><a href="#get-private-key-stub" class="headerlink" title="get private key stub"></a>get private key stub</h5><pre><code>gpg2 --card-status
+</code></pre><h5 id="Verify-key-status"><a href="#Verify-key-status" class="headerlink" title="Verify key status"></a>Verify key status</h5><pre><code>gpg2 -K
+gpg2 -k
+</code></pre><h2 id="5-Using-GPG-for-SSH-login"><a href="#5-Using-GPG-for-SSH-login" class="headerlink" title="5. Using GPG for SSH login"></a>5. Using GPG for SSH login</h2><p>I am using GnuPG 2.1.<br>Generate gpg-agent config</p>
+<pre><code>echo enable-ssh-support &gt; ~/.gnupg/gpg-agent.conf
+</code></pre><p>Add this to .bashrc, which will tell ssh to ask for gpg-agent:</p>
+<pre><code>#GPG
+export GPG_TTY=&quot;$(tty)&quot;
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+gpg-connect-agent updatestartuptty /bye
+#GPG - END
+</code></pre><p>Logout and login, check status:</p>
+<pre><code>ssh-add -l
+ssh-add -L
+</code></pre><p>Copy and paste the key to remote .ssh/authorized_keys<br>Then have a try with ‘ssh <hostname>‘.</hostname></p>
+<h2 id="6-misc-references"><a href="#6-misc-references" class="headerlink" title="6. misc references"></a>6. misc references</h2><p><a href="https://demo.yubico.com/u2f.php" target="_blank" rel="noopener">https://demo.yubico.com/u2f.php</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2017/12/08/GPG-with-Yubikey-4/" data-id="cjx5ti7cr0027mvwg436dvkr3" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/12/20/Build-AOSP-image-for-Nexus-Player/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Build AOSP image for Nexus Player
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/09/23/thinkPHP-on-apache/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">thinkPHP on apache and nginx</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/code/">code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/health/">health</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/misc/">misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/net-travel/">net travel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/code/" style="font-size: 12.86px;">code</a> <a href="/tags/health/" style="font-size: 10px;">health</a> <a href="/tags/java/" style="font-size: 17.14px;">java</a> <a href="/tags/linux/" style="font-size: 18.57px;">linux</a> <a href="/tags/misc/" style="font-size: 11.43px;">misc</a> <a href="/tags/net-travel/" style="font-size: 14.29px;">net travel</a> <a href="/tags/web/" style="font-size: 15.71px;">web</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/21/Android-boot-animation/">Make your own Android boot animation</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/06/verified-assembled-manifest/">VINTF: verified assembled manifest</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/compatibility-matrix/">VINTF - compatibility matrix</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/VINTF-manifest-xml/">VINTF: manifest.xml</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/24/Linux-capability-tests/">Linux capability tests</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 cfig
+      <br><br>
+      Enjoy your journey here<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

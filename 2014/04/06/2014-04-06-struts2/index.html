@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>struts2 | Cool Fish In Glacier</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1. Prepare struts2 files and setup Eclipse1.1 Install web server(GlassFish) for EclipseInstall “GlassFish Tools for Kepler” in “Eclipse Marketplace”. When installation succeed, a “GlassFish” icon will">
+<meta name="keywords" content="web">
+<meta property="og:type" content="article">
+<meta property="og:title" content="struts2">
+<meta property="og:url" content="http://cfig.github.io/2014/04/06/2014-04-06-struts2/index.html">
+<meta property="og:site_name" content="Cool Fish In Glacier">
+<meta property="og:description" content="1. Prepare struts2 files and setup Eclipse1.1 Install web server(GlassFish) for EclipseInstall “GlassFish Tools for Kepler” in “Eclipse Marketplace”. When installation succeed, a “GlassFish” icon will">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-05-23T02:55:59.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="struts2">
+<meta name="twitter:description" content="1. Prepare struts2 files and setup Eclipse1.1 Install web server(GlassFish) for EclipseInstall “GlassFish Tools for Kepler” in “Eclipse Marketplace”. When installation succeed, a “GlassFish” icon will">
+  
+    <link rel="alternate" href="/atom.xml" title="Cool Fish In Glacier" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-67906660-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Cool Fish In Glacier</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">叽里咕噜</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://cfig.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2014-04-06-struts2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/04/06/2014-04-06-struts2/" class="article-date">
+  <time datetime="2014-04-06T00:00:00.000Z" itemprop="datePublished">2014-04-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      struts2
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-Prepare-struts2-files-and-setup-Eclipse"><a href="#1-Prepare-struts2-files-and-setup-Eclipse" class="headerlink" title="1. Prepare struts2 files and setup Eclipse"></a>1. Prepare struts2 files and setup Eclipse</h2><h3 id="1-1-Install-web-server-GlassFish-for-Eclipse"><a href="#1-1-Install-web-server-GlassFish-for-Eclipse" class="headerlink" title="1.1 Install web server(GlassFish) for Eclipse"></a>1.1 Install web server(GlassFish) for Eclipse</h3><p>Install “GlassFish Tools for Kepler” in “Eclipse Marketplace”. When installation succeed, a “GlassFish” icon will appear in “Menu” -&gt; “Help”.</p>
+<p>create “Dynamic Web Project” in Eclipse, “Runtime” -&gt; “New Runtime” -&gt; “GlassFish 4.0”, download GlassFish and install it.</p>
+<h3 id="1-2-Download-struts2-jar-files"><a href="#1-2-Download-struts2-jar-files" class="headerlink" title="1.2 Download struts2 jar files"></a>1.2 Download struts2 jar files</h3><p>Download struts2 jar files from <a href="http://struts.apache.org/development/2.x/" target="_blank" rel="noopener">http://struts.apache.org/development/2.x/</a></p>
+<p>Some guides on struts2 <a href="http://www.tutorialspoint.com/struts_2/struts_configuration.htm" target="_blank" rel="noopener">http://www.tutorialspoint.com/struts_2/struts_configuration.htm</a></p>
+<h2 id="2-First-“Dynamic-Web-Project”-on-Glassfish"><a href="#2-First-“Dynamic-Web-Project”-on-Glassfish" class="headerlink" title="2. First “Dynamic Web Project” on Glassfish"></a>2. First “Dynamic Web Project” on Glassfish</h2><p>(1). create project</p>
+<pre><code>Project Name: web1:  
+default output folder: build\classes  
+Context root: web1 (config in WebContent/WEB-INF/glassfish-web.xml  
+Content Directory: WebContent  
+Generate web.xml depoyment description.  
+</code></pre><p>(2). add simple index.jsp</p>
+<p>(3). run on GlassFish</p>
+<h2 id="3-First-struts2-web-project"><a href="#3-First-struts2-web-project" class="headerlink" title="3. First struts2 web project"></a>3. First struts2 web project</h2><h3 id="1-create-dynamic-web-project-as-in-previous-chapter"><a href="#1-create-dynamic-web-project-as-in-previous-chapter" class="headerlink" title="1. create dynamic web project as in previous chapter"></a>1. create dynamic web project as in previous chapter</h3><p> We need struts2 core runtime jars, the core jars can be extracted from <em>struts2-blank.war</em>(in struts-2.x.x-apps.zip).<br> Add core struts2 jar into build path<br> Copy core struts2 jar at WEB-INF/lib.  </p>
+<h3 id="2-add-filter-into-web-xml"><a href="#2-add-filter-into-web-xml" class="headerlink" title="2. add filter into web.xml"></a>2. add filter into web.xml</h3><blockquote>
+<p>web.xml  </p>
+</blockquote>
+<pre><code>&lt;filter&gt;
+    &lt;filter-name&gt;struts2&lt;/filter-name&gt;
+    &lt;filter-class&gt;org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter&lt;/filter-class&gt;
+&lt;/filter&gt;
+
+&lt;filter-mapping&gt;
+    &lt;filter-name&gt;struts2&lt;/filter-name&gt;
+    &lt;url-pattern&gt;/*&lt;/url-pattern&gt;
+&lt;/filter-mapping&gt;
+</code></pre><p>First we create an filter named “struts2”, it’s backed by class org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter.<br>Now we map all /* url to the filter named “struts2”, then all requests to url /* will be feed to class o.a.s.d.n.f.StrutsPrepareAndExecuteFilter.</p>
+<h3 id="3-index-jsp"><a href="#3-index-jsp" class="headerlink" title="3. index.jsp"></a>3. index.jsp</h3><p>add this into the beginning of the xml, this will support struts2 taglib:  </p>
+<pre><code>&lt;%@taglib prefix=&quot;s&quot; uri=&quot;/struts-tags&quot;%&gt;
+</code></pre><p>Then ‘s:form’ can be reconiged in jsp.</p>
+<p>add this into &lt;body&gt;, create a simple login form  </p>
+<pre><code>&lt;H2&gt;System Entry&lt;/H2&gt;
+&lt;s:form action=&quot;loginAction&quot;&gt;
+    &lt;s:textfield name=&quot;theName&quot; label=&quot;User&quot;&gt;&lt;/s:textfield&gt;
+    &lt;s:password name=&quot;thePwd&quot; label=&quot;Password&quot;&gt;&lt;/s:password&gt;
+    &lt;s:submit value=&quot;OK&quot;&gt;&lt;/s:submit&gt;
+    &lt;s:reset value=&quot;clear&quot;&gt;&lt;/s:reset&gt;
+&lt;/s:form&gt;
+</code></pre><p>It creates a simple login webpage. When user click “submit”, the request will be sent to <em>loginAction</em>, with the text fields theName/thePwd passed to the java String variables in action class.<br><strong>jsp files configure the struts2 actions which can handle web requests.</strong></p>
+<h3 id="4-create-loginAction"><a href="#4-create-loginAction" class="headerlink" title="4. create loginAction"></a>4. create loginAction</h3><p>create loginAction(com.LoginAction) which extends ActionSupport, this class will handle requests from index.jsp.</p>
+<p>members:  </p>
+<pre><code>private String theName;
+private String thePwd;
+</code></pre><p>theName and thePwd are configured in index.jsp, they will be passed to com.LoginAction when user click “OK” in login screen.</p>
+<p>functions:  </p>
+<pre><code>@Override
+public String execute() throws Exception {
+    String ret = null;
+    if (theName.equals(&quot;admin&quot;) &amp;&amp; thePwd.equals(&quot;1&quot;)) {
+        ActionContext.getContext().getSession().put(&quot;login&quot;, &quot;true&quot;);
+        ret = &quot;success&quot;;
+    } else {
+        ret = &quot;fail&quot;;
+    }
+
+    return ret;
+}
+</code></pre><p>execute() will set an ActionContext variable “login” if login success, then return a string to web. The returned string will be used to determine next jsp page.(success-&gt;/success.jsp, fail-&gt;/fail.jsp, as configured in struts.xml)</p>
+<h3 id="5-create-struts2-config-file-struts-xml"><a href="#5-create-struts2-config-file-struts-xml" class="headerlink" title="5. create struts2 config file: struts.xml"></a>5. create struts2 config file: struts.xml</h3><p><strong>struts.xml configures the jsp files which will be returned to user after action is executed.</strong></p>
+<p>Note:<br>struts.xml should be place at the src/ directory.<br>PUBLIC ID of DOCTYPE must exactly match the standard struts-2.3.dtd.</p>
+<p>Create “struts.xml” from struts-2.3.dtd:  </p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;!DOCTYPE struts PUBLIC &quot;-//Apache Software Foundation//DTD Struts Configuration 2.3//EN&quot; &quot;struts-2.3.dtd&quot; &gt;
+&lt;struts&gt;
+    &lt;package extends=&quot;struts-default&quot; name=&quot;struts2&quot;&gt;
+        &lt;action class=&quot;com.LoginAction&quot; name=&quot;loginAction&quot;&gt;
+            &lt;result name=&quot;success&quot;&gt;/success.jsp&lt;/result&gt;
+            &lt;result name=&quot;fail&quot;&gt;/fail.jsp&lt;/result&gt;
+        &lt;/action&gt;
+    &lt;/package&gt;
+&lt;/struts&gt;
+</code></pre><p>It creates a <em>package</em> which extends “struts-default”, the <em>package</em> has an actions named “loginAction”(backed by com.LoginAction).<br>If loginAction returns java String “success”, then the web page will switch to “/success.jsp”, if returns java string “fail”, then “/fail.jsp”.  </p>
+<h3 id="6-create-success-jsp-and-fail-jsp"><a href="#6-create-success-jsp-and-fail-jsp" class="headerlink" title="6. create success.jsp and fail.jsp"></a>6. create success.jsp and fail.jsp</h3><p>The 2 files can be very simple, they only provide some infomation about the status of login(success or fail).</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2014/04/06/2014-04-06-struts2/" data-id="cjx5ti7bx000pmvwgzlpnxzf6" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/">web</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/04/10/2014-04-10-android_init/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          android_init
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/04/05/2014-04-05-shell_tips/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">shell_tips</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/code/">code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/health/">health</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/misc/">misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/net-travel/">net travel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/code/" style="font-size: 12.86px;">code</a> <a href="/tags/health/" style="font-size: 10px;">health</a> <a href="/tags/java/" style="font-size: 17.14px;">java</a> <a href="/tags/linux/" style="font-size: 18.57px;">linux</a> <a href="/tags/misc/" style="font-size: 11.43px;">misc</a> <a href="/tags/net-travel/" style="font-size: 14.29px;">net travel</a> <a href="/tags/web/" style="font-size: 15.71px;">web</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/21/Android-boot-animation/">Make your own Android boot animation</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/06/verified-assembled-manifest/">VINTF: verified assembled manifest</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/compatibility-matrix/">VINTF - compatibility matrix</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/VINTF-manifest-xml/">VINTF: manifest.xml</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/24/Linux-capability-tests/">Linux capability tests</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 cfig
+      <br><br>
+      Enjoy your journey here<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

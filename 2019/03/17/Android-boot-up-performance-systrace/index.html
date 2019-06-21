@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>Android boot up performance - systrace | Cool Fish In Glacier</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="We can use ‘systrace’ to analyze Android boot up performance 0. Read firsthttps://source.android.com/devices/tech/perf/boot-times#systrace Following steps have been verified under Android AOSP 9.0.0_r">
+<meta name="keywords" content="android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android boot up performance - systrace">
+<meta property="og:url" content="http://cfig.github.io/2019/03/17/Android-boot-up-performance-systrace/index.html">
+<meta property="og:site_name" content="Cool Fish In Glacier">
+<meta property="og:description" content="We can use ‘systrace’ to analyze Android boot up performance 0. Read firsthttps://source.android.com/devices/tech/perf/boot-times#systrace Following steps have been verified under Android AOSP 9.0.0_r">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-05-23T08:07:46.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android boot up performance - systrace">
+<meta name="twitter:description" content="We can use ‘systrace’ to analyze Android boot up performance 0. Read firsthttps://source.android.com/devices/tech/perf/boot-times#systrace Following steps have been verified under Android AOSP 9.0.0_r">
+  
+    <link rel="alternate" href="/atom.xml" title="Cool Fish In Glacier" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-67906660-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Cool Fish In Glacier</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">叽里咕噜</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://cfig.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Android-boot-up-performance-systrace" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/17/Android-boot-up-performance-systrace/" class="article-date">
+  <time datetime="2019-03-17T14:47:56.000Z" itemprop="datePublished">2019-03-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Android boot up performance - systrace
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>We can use ‘systrace’ to analyze Android boot up performance</p>
+<h1 id="0-Read-first"><a href="#0-Read-first" class="headerlink" title="0. Read first"></a>0. Read first</h1><p><a href="https://source.android.com/devices/tech/perf/boot-times#systrace" target="_blank" rel="noopener">https://source.android.com/devices/tech/perf/boot-times#systrace</a></p>
+<p>Following steps have been verified under Android AOSP <strong>9.0.0_r30</strong>.</p>
+<h1 id="1-Enable-systrace"><a href="#1-Enable-systrace" class="headerlink" title="1. Enable systrace:"></a>1. Enable systrace:</h1><h2 id="1-1-system-etc-init-atrace-rc"><a href="#1-1-system-etc-init-atrace-rc" class="headerlink" title="1.1 /system/etc/init/atrace.rc"></a>1.1 /system/etc/init/atrace.rc</h2><p>$ adb pull /system/etc/init/atrace.rc</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Change</span><br><span class="line">write /sys/kernel/debug/tracing/tracing_on 0</span><br><span class="line">-&gt;to</span><br><span class="line">write /sys/kernel/debug/tracing/tracing_on 1</span><br></pre></td></tr></table></figure>
+<p>add following to atrace.rc:<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">on property:sys.boot_completed=1</span><br><span class="line">    write /d/tracing/tracing_on 0</span><br><span class="line">    write /d/tracing/events/ext4/enable 0</span><br><span class="line">    write /d/tracing/events/block/enable 0</span><br></pre></td></tr></table></figure></p>
+<p>$ adb push atrace.rc /system/etc/init/atrace.rc</p>
+<h2 id="1-2-system-etc-prop-default"><a href="#1-2-system-etc-prop-default" class="headerlink" title="1.2 /system/etc/prop.default"></a>1.2 /system/etc/prop.default</h2><p>$ adb pull /system/etc/prop.default<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">change</span><br><span class="line">debug.atrace.tags.enableflags=0</span><br><span class="line">-&gt;to</span><br><span class="line">debug.atrace.tags.enableflags=802922</span><br></pre></td></tr></table></figure></p>
+<p>$ adb push prop.default /system/etc/prop.default</p>
+<h2 id="1-3-add-kernel-command-line-parameters"><a href="#1-3-add-kernel-command-line-parameters" class="headerlink" title="1.3 add kernel command line parameters"></a>1.3 add kernel command line parameters</h2><p>We can modify <strong>bootloader</strong> or <strong>boot.img</strong> to append following parameters<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">trace_buf_size=64M trace_event=sched_wakeup,sched_switch,sched_blocked_reason,sched_cpu_hotplug</span><br></pre></td></tr></table></figure></p>
+<h1 id="2-Fetch-and-analyze-systrace"><a href="#2-Fetch-and-analyze-systrace" class="headerlink" title="2. Fetch and analyze systrace:"></a>2. Fetch and analyze systrace:</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ git clone https://github.com/catapult-project/catapult.git --depth=10</span><br><span class="line">$ cd catapult</span><br><span class="line">$ adb pull /d/tracing/trace</span><br><span class="line">$ ./trace2html  trace</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2019/03/17/Android-boot-up-performance-systrace/" data-id="cjx5ti7cl001tmvwgw8kglmwo" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/04/24/testing_Q_fastbootd/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          测试Android Q新功能fastbootd
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/03/06/alpine-works/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">alpine_works</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/code/">code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/health/">health</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/misc/">misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/net-travel/">net travel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/code/" style="font-size: 12.86px;">code</a> <a href="/tags/health/" style="font-size: 10px;">health</a> <a href="/tags/java/" style="font-size: 17.14px;">java</a> <a href="/tags/linux/" style="font-size: 18.57px;">linux</a> <a href="/tags/misc/" style="font-size: 11.43px;">misc</a> <a href="/tags/net-travel/" style="font-size: 14.29px;">net travel</a> <a href="/tags/web/" style="font-size: 15.71px;">web</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/06/21/Android-boot-animation/">Make your own Android boot animation</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/06/verified-assembled-manifest/">VINTF: verified assembled manifest</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/compatibility-matrix/">VINTF - compatibility matrix</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/VINTF-manifest-xml/">VINTF: manifest.xml</a>
+          </li>
+        
+          <li>
+            <a href="/2019/05/24/Linux-capability-tests/">Linux capability tests</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 cfig
+      <br><br>
+      Enjoy your journey here<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
