@@ -1,0 +1,955 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>Cool Fish In Glacier</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Cool Fish In Glacier">
+<meta property="og:url" content="http://cfig.github.io/page/7/index.html">
+<meta property="og:site_name" content="Cool Fish In Glacier">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Cool Fish In Glacier">
+  
+    <link rel="alternate" href="/atom.xml" title="Cool Fish In Glacier" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-67906660-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Cool Fish In Glacier</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">叽里咕噜</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://cfig.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-gradle-quick-start-mkd" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/03/04/gradle-quick-start-mkd/" class="article-date">
+  <time datetime="2015-03-04T14:21:41.000Z" itemprop="datePublished">2015-03-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/03/04/gradle-quick-start-mkd/">Gradle quick start</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="What-is-Gradle"><a href="#What-is-Gradle" class="headerlink" title="What is Gradle"></a>What is <a href="http://gradle.org/" target="_blank" rel="noopener">Gradle</a></h2><p>To me, i use it to replace ‘make’ and ‘autotools’.</p>
+<h2 id="Download-Install"><a href="#Download-Install" class="headerlink" title="Download/Install"></a>Download/Install</h2><p><a href="https://gradle.org/get-started" target="_blank" rel="noopener">Download</a> and <a href="https://gradle.org/docs/current/userguide/tutorials.html" target="_blank" rel="noopener">Install/Java Quick Start</a>.<br>Then configure it in .bashrc:</p>
+<pre><code>export GRADLE_OPTS=&quot;-DsocksProxyHost=127.0.0.1 -DsocksProxyPort=9999&quot;
+#export GRADLE_OPTS=-Dorg.gradle.daemon=true
+export GRADLE_HOME=/home/y/.programs/gradle-2.5
+export PATH=$GRADLE_HOME/bin:$PATH
+</code></pre><h2 id="gradle-directory-structure"><a href="#gradle-directory-structure" class="headerlink" title="gradle directory structure"></a>gradle directory structure</h2><h3 id="default"><a href="#default" class="headerlink" title="default"></a>default</h3><p>By default Gradle uses standard Maven project structure.<br>Reference:<br><a href="https://maven.apache.org/guides/introduction/introduction-to-the-standard-directory-layout.html" target="_blank" rel="noopener">https://maven.apache.org/guides/introduction/introduction-to-the-standard-directory-layout.html</a><br><a href="https://docs.gradle.org/current/userguide/java_plugin.html" target="_blank" rel="noopener">https://docs.gradle.org/current/userguide/java_plugin.html</a></p>
+<pre><code>src/main/java --&gt; java source code
+src/main/resources --&gt; other files needed, like logback.xml and log4j.properties
+src/test/java --&gt; unit tests
+</code></pre><p>After “gradle build”, a directory “build” will appear, jar file is in build/libs.</p>
+<p>get resource file in code:</p>
+<pre><code>File f1 = new File(getClass().getClassLoader().getResource(&quot;binary_tree_1.ser&quot;).getFile());
+</code></pre><h3 id="改变默认src-res位置"><a href="#改变默认src-res位置" class="headerlink" title="改变默认src/res位置"></a>改变默认src/res位置</h3><p>如果是android project，sourceSets需要放到android object里面</p>
+<pre><code>sourceSets {
+    main {
+        java {
+            srcDir &apos;src&apos;
+        }  
+        res {
+            srcDir &apos;res&apos;
+        }  
+        resources {
+            srcDir &apos;src&apos;
+        }
+        assets {
+            srcDir &apos;assets&apos;
+        }
+        manifest {
+            srcFile &apos;AndroidManifest.xml&apos;
+        }
+    }//main
+}//sourceSets
+</code></pre><h2 id="Gradle-support-in-vim-IDE"><a href="#Gradle-support-in-vim-IDE" class="headerlink" title="Gradle support in vim/IDE"></a>Gradle support in vim/IDE</h2><p>gradle support in VIM:(it needs pathogen.vim) by <a href="https://github.com/tfnico/vim-gradle" target="_blank" rel="noopener">vim-gradle</a></p>
+<p>gradle is also supported in Intellij.</p>
+<h2 id="文档"><a href="#文档" class="headerlink" title="文档"></a>文档</h2><p>google提供的配置android的gradle<br><a href="https://developer.android.com/tools/building/configuring-gradle.html" target="_blank" rel="noopener">https://developer.android.com/tools/building/configuring-gradle.html</a></p>
+<h2 id="常用配置"><a href="#常用配置" class="headerlink" title="常用配置"></a>常用配置</h2><h4 id="配置静态变量"><a href="#配置静态变量" class="headerlink" title="配置静态变量"></a>配置静态变量</h4><pre><code>buildTypes {
+    debug {
+        buildConfig &quot;public final static boolean HAS_PROTOTYPE_FEATURE = true;&quot;
+    }
+    release {
+        buildConfig &quot;public final static boolean HAS_PROTOTYPE_FEATURE = false;&quot;
+    }
+}
+</code></pre><h4 id="配置依赖项目"><a href="#配置依赖项目" class="headerlink" title="配置依赖项目"></a>配置依赖项目</h4><pre><code>dependencies {
+    compile project(&apos;:library&apos;)
+}
+</code></pre><h4 id="配置依赖jar目录"><a href="#配置依赖jar目录" class="headerlink" title="配置依赖jar目录"></a>配置依赖jar目录</h4><pre><code>dependencies {
+    compile fileTree(include: [&apos;*.jar&apos;], dir: &apos;libs&apos;)
+}
+</code></pre><h4 id="配置依赖jar文件"><a href="#配置依赖jar文件" class="headerlink" title="配置依赖jar文件"></a>配置依赖jar文件</h4><pre><code>dependencies {
+    compile files (
+        &apos;libs/gcm.jar&apos;,
+        &apos;...more-jar-files...&apos;
+    )
+}
+</code></pre><h4 id="配置gradle-run"><a href="#配置gradle-run" class="headerlink" title="配置gradle run"></a>配置gradle run</h4><p>可执行任务gradle run相当于java -jar xxx</p>
+<pre><code>task pack_clear(type: JavaExec, dependsOn:[&apos;:pack_ramdisk_and_gz&apos;, &apos;build&apos;]) {
+    description &apos;运行指定main函数的java&apos;
+    classpath = sourceSets.main.runtimeClasspath
+    main = &quot;cfig.bootimg.repack_with_cmd&quot;
+    args rootProject.outClearIMg, rootProject.rootWorkDir, rootProject.mkbootimgBin
+}
+</code></pre><p>对于gradle, 如果mai在src/main/groovy/cfig/exec.groovy, 则main = “cfig.exec”</p>
+<h4 id="指定gradle版本"><a href="#指定gradle版本" class="headerlink" title="指定gradle版本"></a>指定gradle版本</h4><pre><code>buildscript {
+    repositories {
+          mavenCentral()
+    }
+    dependencies {
+          classpath &apos;com.android.tools.build:gradle:1.3.1&apos;
+    }
+}
+</code></pre><h4 id="两步编译jar"><a href="#两步编译jar" class="headerlink" title="两步编译jar"></a>两步编译jar</h4><p>load进plugin</p>
+<pre><code>apply plugin: &apos;java&apos;
+</code></pre><p>指定main class</p>
+<pre><code>jar {
+    manifest {
+        attributes &apos;Main-Class&apos;: &apos;org.cfig.gradle.Hi&apos;
+    }
+}
+</code></pre><p>或者定制更多:</p>
+<pre><code>jar() {
+    from {configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }}
+    archivesBaseName = &quot;Hi&quot;
+    manifest {
+        attributes &apos;Implementation-Title&apos;: &apos;Good Day&apos;,
+                   &apos;Implementation-Version&apos;: &apos;1.0&apos;,
+                   &apos;Main-Class&apos;: &apos;cfig.Hi&apos;,
+                   &apos;BUILD_TIME&apos;: &apos;2015.11.11&apos;
+    }
+}
+</code></pre><p>或者创建类型为Jar的task</p>
+<pre><code>task mkbootimg(type: Jar, dependsOn:[&apos;build&apos;]) {
+    from files(sourceSets.main.output.classesDir)
+    from configurations.runtime.asFileTree.files.collect { zipTree(it) }
+    baseName = &apos;mkbootimg&apos;
+    manifest {
+        attributes &apos;Main-Class&apos;: &apos;cfig.bootimg.mkbootimg&apos;
+    }
+}
+</code></pre><h4 id="using-gradlew"><a href="#using-gradlew" class="headerlink" title="using gradlew"></a>using gradlew</h4><p>read <a href="https://spring.io/guides/gs/gradle" target="_blank" rel="noopener">this</a> first.<br>add the following block to the bottom of your build.gradle</p>
+<pre><code>task wrapper(type: Wrapper) {
+    gradleVersion = &apos;4.0&apos;
+}
+</code></pre><p>Run the following command to download and initialize the wrapper scripts:</p>
+<pre><code>gradle wrapper
+</code></pre><h4 id="enable-stdout-in-test"><a href="#enable-stdout-in-test" class="headerlink" title="enable stdout in test"></a>enable stdout in test</h4><pre><code>test {
+    testLogging {
+        showStandardStreams = true
+    }
+}
+</code></pre><h3 id="forece-a-test-task-even-everything-is-UP-TO-DATE"><a href="#forece-a-test-task-even-everything-is-UP-TO-DATE" class="headerlink" title="forece a test task even everything is UP-TO-DATE"></a>forece a test task even everything is UP-TO-DATE</h3><pre><code>gradle test --rerun-tasks
+</code></pre><h4 id="init-gradle-project"><a href="#init-gradle-project" class="headerlink" title="init gradle project"></a>init gradle project</h4><pre><code>gradle init --type basic
+gradle init --type groovy-library
+gradle init --type java-library
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2015/03/04/gradle-quick-start-mkd/" data-id="cknwvywer00208si5heenqem1" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-intellij-idea-shortcuts" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/02/13/intellij-idea-shortcuts/" class="article-date">
+  <time datetime="2015-02-13T03:26:00.000Z" itemprop="datePublished">2015-02-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/02/13/intellij-idea-shortcuts/">intellij idea tips</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="shortcuts"><a href="#shortcuts" class="headerlink" title="shortcuts"></a>shortcuts</h2><p>CTRL+ALT+L format code</p>
+<p>ALT+7 structure view</p>
+<p>File | Project Structure | Artifacts<br>then you should press alt+insert or click the plus icon and create new artifact choose –&gt; jar –&gt; From modules with dependencies.</p>
+<p>Next goto Build | Build artifacts –&gt; choose your artifact.</p>
+<p>Quick Fix:<br>    Alt+Enter</p>
+<p>Create sth:<br>    CTRL+ALT+INSERT</p>
+<h2 id="Quickly-create-jar-from-java-project"><a href="#Quickly-create-jar-from-java-project" class="headerlink" title="Quickly create jar from java project"></a>Quickly create jar from java project</h2><ol>
+<li>“Project Setting” -&gt; “Artifacts” -&gt; “+” -&gt; “Jar” -&gt; “from modules with dependencies”</li>
+<li>build artifact</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2015/02/13/intellij-idea-shortcuts/" data-id="cknwvyweq001z8si5gzh617g4" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Handling-Runtime-Changes" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/02/11/Handling-Runtime-Changes/" class="article-date">
+  <time datetime="2015-02-11T07:01:16.000Z" itemprop="datePublished">2015-02-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/02/11/Handling-Runtime-Changes/">Handling_Runtime_Changes</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>app need to <a href="http://developer.android.com/guide/topics/resources/runtime-changes.html" target="_blank" rel="noopener">Handling Runtime Changes</a> such as [<strong>keyboard|keyboardhide|oritation</strong>].</p>
+<h2 id="1-if-app-doesn’t-explicitely-handle-such-changes-android-does"><a href="#1-if-app-doesn’t-explicitely-handle-such-changes-android-does" class="headerlink" title="1. if app doesn’t explicitely handle such changes, android does"></a>1. if app doesn’t explicitely handle such changes, android does</h2><p>android(ActivityStack.java##ensureActivityConfigurationLocked()) will restart the running Activity (onDestroy()-&gt;onCreate()), so app needs to implement onSaveInstanceState(),</p>
+<h2 id="2-else-app-need-to-explicitely-handle-changes"><a href="#2-else-app-need-to-explicitely-handle-changes" class="headerlink" title="2. else app need to explicitely handle changes"></a>2. else app need to explicitely handle changes</h2><h5 id="2-1-Retain-an-object-during-a-configuration-change"><a href="#2-1-Retain-an-object-during-a-configuration-change" class="headerlink" title="2.1 Retain an object during a configuration change"></a>2.1 Retain an object during a configuration change</h5><p>allow activity restart, but carry a stateful object to the new activity instance, read <a href="http://developer.android.com/guide/topics/resources/runtime-changes.html#RetainingAnObject" target="_blank" rel="noopener">this</a></p>
+<h5 id="2-2-Handle-the-configuration-change-yourself"><a href="#2-2-Handle-the-configuration-change-yourself" class="headerlink" title="2.2 Handle the configuration change yourself"></a>2.2 Handle the configuration change yourself</h5><p>disable activity restart, handle the config change event in a callback.</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onConfigurationChanged</span><span class="params">(Configuration newConfig)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onConfigurationChanged(newConfig);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Checks the orientation of the screen</span></span><br><span class="line">    <span class="keyword">if</span> (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) &#123;</span><br><span class="line">        Toast.makeText(<span class="keyword">this</span>, <span class="string">"landscape"</span>, Toast.LENGTH_SHORT).show();</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT)&#123;</span><br><span class="line">        Toast.makeText(<span class="keyword">this</span>, <span class="string">"portrait"</span>, Toast.LENGTH_SHORT).show();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>This is a list of all <a href="http://developer.android.com/guide/topics/manifest/activity-element.html#config" target="_blank" rel="noopener">android:configChanges</a> events and the <a href="http://developer.android.com/reference/android/content/res/Configuration.html" target="_blank" rel="noopener">Configuration</a> class.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2015/02/11/Handling-Runtime-Changes/" data-id="cknwvywe800178si5ruwp1rj0" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2015-01-29-regex" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/01/29/2015-01-29-regex/" class="article-date">
+  <time datetime="2015-01-29T03:03:54.000Z" itemprop="datePublished">2015-01-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/01/29/2015-01-29-regex/">regex</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>There’s a great blog <a href="http://cnn237111.blog.51cto.com/2359144/749047" target="_blank" rel="noopener">post</a> about Lookahead/Lookbehind(先行断言，后行断言)</p>
+<p>Oracle API about <a href="http://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html" target="_blank" rel="noopener">java/util/regex/Pattern.html</a></p>
+<p>Read config file with regex:</p>
+<p>target file: updatedb.conf</p>
+<pre><code> PRUNE_BIND_MOUNTS =&quot;yes&quot;
+# PRUNENAMES=&quot;.git .bzr .hg .svn&quot;
+PRUNEPATHS=&quot;/tmp /var/spool /media&quot;
+PRUNEFS =  &quot;NFS&quot;
+</code></pre><p>grep test:<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ grep -Po <span class="string">"(?&lt;=PRUNEPATHS=).*"</span> updatedb.conf</span><br></pre></td></tr></table></figure></p>
+<p>结果</p>
+<pre><code>&quot;/tmp /var/spool /media&quot;
+</code></pre><p>Find a tag name in xml:(with bug)<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">grep -P <span class="string">"(?&lt;=&lt;)[^&lt;&gt;/]+(?=&gt;)"</span> /etc/cupshelpers/preferreddrivers.xml</span><br></pre></td></tr></table></figure></p>
+<p>前面有&lt;, 中间没有&lt;&gt;?, 后面有&gt;, 匹配中间<br>bug:<br>不能区分<element name="department">,和注释<br><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">grep -P <span class="string">"(?&lt;=&lt;)[^&lt; &gt;/]+(?=( |&gt;))"</span> /etc/cupshelpers/preferreddrivers.xml</span><br></pre></td></tr></table></figure></element></p>
+<p>前面有&lt;, 中间没有&lt; &gt;?, 后面有&gt;或者SPACE, 匹配中间<br>bug:<br>不能过滤注释<!-- xxx --></p>
+<p>?=可以用来分组，但不捕获</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">grep -P <span class="string">"^[-+]?\d*\.?\d*$"</span> list</span><br></pre></td></tr></table></figure>
+<pre><code>list
+7.
+5.56
+0.123
+1.23
+5
+77654
+-3
+-2.0
+-0.33
++833
+0.0.2
+.23
+advg
+-adf
+-3.f
+-f.3
++3.f
++f.3
+.
++kj33f
+</code></pre><p>bug: 还能匹配到.</p>
+<p>git filter-branch –commit-filter ‘export GIT_AUTHOR_NAME=”cfig”; git commit-tree “$@”‘<br>git update-ref -d refs/original/refs/heads/master</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2015/01/29/2015-01-29-regex/" data-id="cknwvywdv000p8si572csyfv8" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/misc/">misc</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2015-01-28-hello-hexo" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/01/28/2015-01-28-hello-hexo/" class="article-date">
+  <time datetime="2015-01-28T03:03:54.000Z" itemprop="datePublished">2015-01-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/01/28/2015-01-28-hello-hexo/">Hello Hexo</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">trobuleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Misc"><a href="#Misc" class="headerlink" title="Misc"></a>Misc</h3><p>steps to create new blog site:</p>
+<pre><code>$ hexo init (hexo will complain if anything wrong, make it happy)
+$ npm install (hexo will ask U to do so)
+$ hexo server
+</code></pre><h3 id="Add-google-analytics-into-hexo"><a href="#Add-google-analytics-into-hexo" class="headerlink" title="Add google analytics into hexo:"></a>Add google analytics into hexo:</h3><ol>
+<li>Get “tracking ID” from <a href="https://www.google.com/analytics/web" target="_blank" rel="noopener">Google</a></li>
+<li>add “tracking ID” in themes/landscape/_config.yml</li>
+</ol>
+<h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+<h3 id="Hexo-configuration"><a href="#Hexo-configuration" class="headerlink" title="Hexo configuration"></a>Hexo configuration</h3><p>全部禁用分页</p>
+<pre><code>per_page: 0
+</code></pre><p>archive禁用分页，主页使用分页</p>
+<pre><code>per_page: 3
+
+archive_generator:
+  per_page: 0
+ yearly: true
+  monthly: true
+
+category_generator:
+  per_page: 0
+
+tag_generator:
+   per_page: 0
+</code></pre><p>启动hexo-local-image插件</p>
+<pre><code>npm install hexo-local-image --save
+</code></pre><p>插件下载后有README.md，配置_config.yml</p>
+<pre><code>plugins:
+    - hexo-local-image
+</code></pre><p>新版hexo默认不提供server插件,需要手动加：</p>
+<pre><code>npm install hexo-server --save
+</code></pre><p>添加plantuml插件</p>
+<p>npm install hexo-tag-plantuml –save</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2015/01/28/2015-01-28-hello-hexo/" data-id="cknwvywdt000m8si53gcg0m21" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/misc/">misc</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2015-01-24-action_bar" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/01/24/2015-01-24-action_bar/" class="article-date">
+  <time datetime="2015-01-24T00:00:00.000Z" itemprop="datePublished">2015-01-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/01/24/2015-01-24-action_bar/">action_bar</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="action-bar"><a href="#action-bar" class="headerlink" title="action bar"></a>action bar</h1><h2 id="1-intro"><a href="#1-intro" class="headerlink" title="1. intro"></a>1. intro</h2><p>the action bar displays the title for the activity and the app icon on the left<br>android:minSdkVersion=”11”(ICS), use <code>android:theme=&quot;@android:style/Theme.Holo&quot;</code> as theme parent will have ActionBar support.</p>
+<h2 id="2-add-basic-actionbar"><a href="#2-add-basic-actionbar" class="headerlink" title="2. add basic actionbar"></a>2. add basic actionbar</h2><h4 id="create-options-menu"><a href="#create-options-menu" class="headerlink" title="create options menu"></a>create options menu</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">    setContentView(R.layout.search_layout);</span><br><span class="line">    getActionBar().setDisplayHomeAsUpEnabled(<span class="keyword">true</span>);<span class="comment">//up button go to parent activity</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="handle-options-menu-actions"><a href="#handle-options-menu-actions" class="headerlink" title="handle options menu actions"></a>handle options menu actions</h4><pre><code>@Override
+public boolean onOptionsItemSelected(MenuItem item) {
+    switch (item.getItemId()) {
+    case R.id.action_call:
+        return true;
+    case R.id.action_search:
+        Intent aI = new Intent(this, SearchActivity.class);
+        startActivity(aI);
+        return true;
+    case R.id.action_settings:
+        return true;
+    case R.id.action_share:
+        return true;
+    }
+    return super.onOptionsItemSelected(item);
+}
+</code></pre><h2 id="3-actionbar-in-overlay-mode"><a href="#3-actionbar-in-overlay-mode" class="headerlink" title="3. actionbar in overlay mode"></a>3. actionbar in overlay mode</h2><p><img src="http://developer.android.com/images/training/basics/actionbar-overlay@2x.png" alt="flower"></p>
+<h4 id="create-a-custome-theme"><a href="#create-a-custome-theme" class="headerlink" title="create a custome theme"></a>create a custome theme</h4><pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;resources&gt;
+    &lt;!-- theme --&gt;
+    &lt;style name=&quot;MEActionBarTheme&quot; parent=&quot;@android:style/Theme.Holo.Light.DarkActionBar&quot;&gt;
+        &lt;item name=&quot;android:actionBarStyle&quot;&gt;@style/MEActionBar&lt;/item&gt;
+        &lt;item name=&quot;android:windowActionBarOverlay&quot;&gt;true&lt;/item&gt;
+    &lt;/style&gt;
+    &lt;!-- ActionBar styles --&gt;
+    &lt;style name=&quot;MEActionBar&quot; parent=&quot;@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse&quot;&gt;
+        &lt;item name=&quot;android:background&quot;&gt;@color/transparent_background&lt;/item&gt;
+    &lt;/style&gt;
+    &lt;color name=&quot;transparent_background&quot;&gt;#3b000000&lt;/color&gt;
+&lt;/resources&gt;
+</code></pre><h4 id="declare-the-theme"><a href="#declare-the-theme" class="headerlink" title="declare the theme"></a>declare the theme</h4><p>declare the activity theme as <code>android:theme=&quot;@style/MEActionBarTheme&quot;</code></p>
+<h4 id="toggle-actionbar-via-click"><a href="#toggle-actionbar-via-click" class="headerlink" title="toggle actionbar via click"></a>toggle actionbar via click</h4><p>hook onClick() event of the view object(TextView or RelativeLayout etc.) with following code:</p>
+<pre><code>@Override
+public void onClick(View v) {
+    if (getActionBar().isShowing()) {
+        getActionBar().hide();
+    } else {
+        getActionBar().show();
+    }
+}
+</code></pre><h2 id="misc"><a href="#misc" class="headerlink" title="misc"></a>misc</h2><p>themes can be applied to Activity/Application.</p>
+<p>eg: Theme.Holo, Theme.Holo.Light, </p>
+<p>google has a default <a href="http://developer.android.com/design/downloads/index.html#action-bar-icon-pack" target="_blank" rel="noopener"><strong>Action Bar Icon Pack</strong></a>.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2015/01/24/2015-01-24-action_bar/" data-id="cknwvywds000l8si57pumjnzp" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2015-01-20-shadow_socks_Proxy" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/01/20/2015-01-20-shadow_socks_Proxy/" class="article-date">
+  <time datetime="2015-01-20T00:00:00.000Z" itemprop="datePublished">2015-01-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/01/20/2015-01-20-shadow_socks_Proxy/">Proxy - ShadowSocks (socks5)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-set-up-shadowsocks-server"><a href="#1-set-up-shadowsocks-server" class="headerlink" title="1. set up shadowsocks server"></a>1. set up shadowsocks server</h1><h2 id="install-ss-for-both-server-and-client"><a href="#install-ss-for-both-server-and-client" class="headerlink" title="install ss for both server and client"></a>install ss for both server and client</h2><p>Debian/Ubuntu</p>
+<pre><code>apt-get install python-pip
+pip install shadowsocks
+</code></pre><p>MacOs</p>
+<pre><code>brew install shadowsocks-libev
+</code></pre><h2 id="start-service"><a href="#start-service" class="headerlink" title="start service"></a>start service</h2><ul>
+<li>linux<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ssserver -p 123 -k &lt;PWD&gt; --fast-open --workers 2 -d start</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>or, edit <em>/etc/shadowsocks-libev/config.json</em>, then start as service<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">service shadowsocks-libev  restart</span><br></pre></td></tr></table></figure></p>
+<h2 id="start-client"><a href="#start-client" class="headerlink" title="start client"></a>start client</h2><ul>
+<li><p>Debian/Ubuntu</p>
+<p>  apt-get install netcat-openbsd<br>  nohup sslocal –fast-open -p 123 -l 9999 -k <pwd> -s &lt;SERVER_ADDRESS&gt;</pwd></p>
+</li>
+<li><p>MacOs</p>
+</li>
+</ul>
+<p>install as service<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">brew services start shadowsocks-libev</span><br></pre></td></tr></table></figure></p>
+<p>manual run<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">/usr/local/opt/shadowsocks-libev/bin/ss-local -c /usr/local/etc/shadowsocks-libev.json -u</span><br></pre></td></tr></table></figure></p>
+<h1 id="2-start-applications"><a href="#2-start-applications" class="headerlink" title="2. start applications"></a>2. start applications</h1><h2 id="2-1-setup-chrome-plugin"><a href="#2-1-setup-chrome-plugin" class="headerlink" title="2.1 setup chrome plugin"></a>2.1 setup chrome plugin</h2><p>install the “proxy SwitchyOmega” plugin for chrome, set proxy to: type socks5, addr 127.0.0.1, port 9999</p>
+<h2 id="2-2-setup-ssh"><a href="#2-2-setup-ssh" class="headerlink" title="2.2 setup ssh"></a>2.2 setup ssh</h2><p>.ssh/config</p>
+<pre><code>host github.com
+  identityfile ~/.ssh/hasee
+  ProxyCommand nc -x 127.0.0.1:9999 %h %p
+</code></pre><h2 id="2-3-setup-aptitude-apt-get"><a href="#2-3-setup-aptitude-apt-get" class="headerlink" title="2.3 setup aptitude/apt-get"></a>2.3 setup aptitude/apt-get</h2><pre><code>apt-get install tsocks
+</code></pre><p>edit tsocks config /etc/tsocks.conf</p>
+<pre><code>server = 127.0.0.1
+server_type = 5
+server_port = 9999
+</code></pre><p>try it out</p>
+<pre><code>tsocks apt-get update
+</code></pre><!-- export http_proxy=http://<name>:<pwd>@<server>:<port> -->
+<h2 id="2-4-setup-git"><a href="#2-4-setup-git" class="headerlink" title="2.4 setup git"></a>2.4 setup git</h2><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">proxy=<span class="string">"SOCKS 127.0.0.1:9999"</span> git <span class="built_in">clone</span> xxxxx</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2015/01/20/2015-01-20-shadow_socks_Proxy/" data-id="cknwvywdq000j8si5l22jki19" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/net-travel/">net travel</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2015-01-16-squid3_defense" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/01/16/2015-01-16-squid3_defense/" class="article-date">
+  <time datetime="2015-01-16T00:00:00.000Z" itemprop="datePublished">2015-01-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/01/16/2015-01-16-squid3_defense/">Defend Squid3</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <meta charset="UTF-8">
+
+<h1 id="保卫鱿鱼"><a href="#保卫鱿鱼" class="headerlink" title="保卫鱿鱼"></a>保卫鱿鱼</h1><p>现象</p>
+<pre><code>机器狂慢，带宽实时用量逼近threshold, VPS发警示邮件
+</code></pre><p>查看log</p>
+<pre><code>/var/log/squid3/access.log
+海量IP疯狂刷本机3128端口，
+</code></pre><p>解决</p>
+<pre><code>1. 改变默认端口号到不常用大端口
+2. 关闭open proxy, 使用密码验证
+3. IP过滤
+
+从access.log提取海量IP, 直接用iptables过滤,丢弃来自攻击网段的所有包
+
+iptables -I INPUT -s &lt;IP_RANGE&gt; -j DROP
+如:
+iptables -I INPUT -s 90.181.203.0/24 -j DROP
+</code></pre><p>结果</p>
+<pre><code>The world is clean and clear.
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2015/01/16/2015-01-16-squid3_defense/" data-id="cknwvywdr000k8si5zw4xpb8k" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/net-travel/">net travel</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2015-01-16-squid3_on_debian" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/01/16/2015-01-16-squid3_on_debian/" class="article-date">
+  <time datetime="2015-01-16T00:00:00.000Z" itemprop="datePublished">2015-01-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/01/16/2015-01-16-squid3_on_debian/">Proxy - squid3 (http)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <meta charset="UTF-8">
+
+<p>环境 Debian 10</p>
+<p>安装</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">apt install squid apache2-utils</span><br></pre></td></tr></table></figure>
+<p>创建密码文件</p>
+<pre><code>htpasswd -c  /etc/squid/squid.pwd &lt;用户名&gt;
+</code></pre><p>配置认证程序</p>
+<pre><code>auth_param basic program /usr/lib/squid3/ncsa_auth /etc/squid3/squid.pwd
+auth_param basic children 5
+auth_param basic realm Squid proxy-caching web server
+auth_param basic credentialsttl 2 hours
+</code></pre><p>允许密码</p>
+<pre><code>acl password proxy_auth REQUIRED
+http_access allow password
+</code></pre><p>取消deny all<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#http_access deny all</span><br></pre></td></tr></table></figure></p>
+<p>问题：</p>
+<pre><code>1. squid3无法启动：
+查看/var/log/squid3/cache.log
+原则上可以把密码文件放在任何位置，但是如果放在/root下，则squid3无法访问该文件。
+</code></pre><p>gradle.properties<br><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">systemProp.http.proxyHost=10.70.52.159</span><br><span class="line">systemProp.http.proxyPort=3128</span><br><span class="line">systemProp.http.proxyUser=linux</span><br><span class="line">systemProp.http.proxyPassword=linux</span><br><span class="line"></span><br><span class="line">systemProp.https.proxyHost=10.70.52.159</span><br><span class="line">systemProp.https.proxyPort=3128</span><br><span class="line">systemProp.https.proxyUser=linux</span><br><span class="line">systemProp.https.proxyPassword=linux</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2015/01/16/2015-01-16-squid3_on_debian/" data-id="cknwvywdw000q8si5q1eq4hgd" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/net-travel/">net travel</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2015-01-15-storage_access_framework" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/01/15/2015-01-15-storage_access_framework/" class="article-date">
+  <time datetime="2015-01-15T00:00:00.000Z" itemprop="datePublished">2015-01-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/01/15/2015-01-15-storage_access_framework/">storage_access_framework</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <meta charset="UTF-8">
+
+<h1 id="SAF-Storage-Access-Framework"><a href="#SAF-Storage-Access-Framework" class="headerlink" title="SAF (Storage Access Framework)"></a>SAF (Storage Access Framework)</h1><h2 id="1-intro"><a href="#1-intro" class="headerlink" title="1. intro"></a>1. intro</h2><p>可以提供本地/云端的DocumentsProvider </p>
+<p>Google guide <a href="https://developer.android.com/guide/topics/providers/document-provider.html" target="_blank" rel="noopener">https://developer.android.com/guide/topics/providers/document-provider.html</a></p>
+<p>api:</p>
+<pre><code>prebuilts/sdk/api/19.txt
+</code></pre><h2 id="2-系统包含3部分："><a href="#2-系统包含3部分：" class="headerlink" title="2. 系统包含3部分："></a>2. 系统包含3部分：</h2><ul>
+<li><p>DocumentsProvider </p>
+<p>  继承DocumentsProvider的类，作为provider</p>
+</li>
+<li><p>Client app</p>
+<p>  发intent (ACTION_OPEN_DOCUMENT and/or ACTION_CREATE_DOCUMENT)</p>
+</li>
+<li><p>Picker</p>
+<p>  一个UI，让用户选文件,系统默认有DocumentsUI.apk</p>
+</li>
+</ul>
+<h3 id="3-providers"><a href="#3-providers" class="headerlink" title="3. providers"></a>3. providers</h3><p><em>系统内置的DocumentsProvider</em></p>
+<pre><code>1. DownloadStorageProvider
+2. ExternalStorageProvider
+3. MediaDocumentsProvider
+</code></pre><p><em>系统的sample provider:</em></p>
+<pre><code>4. VaultProvider
+
+    development/samples/Vault/src/com/example/android/vault/VaultProvider.java
+
+5. MyCloudProvider
+
+    development/samples/browseable/StorageProvider/src/com.example.android.storageprovider/MyCloudProvider.java
+
+6. CTS test provider
+
+    cts/hostsidetests/appsecurity/test-apps/DocumentProvider
+</code></pre><h3 id="4-client-samplese"><a href="#4-client-samplese" class="headerlink" title="4. client samplese"></a>4. client samplese</h3><pre><code>samples/ApiDemos/src/com/example/android/apis/content/DocumentsSample.java
+samples/browseable/StorageClient/src/com.example.android.storageclient
+</code></pre><h3 id="5-client实测"><a href="#5-client实测" class="headerlink" title="5. client实测"></a>5. client实测</h3><p>intent</p>
+<pre><code>Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=org.cfig/.app.saf.SAFActivity }
+</code></pre><p>NG:(image with GMS)</p>
+<pre><code>I/ActivityManager(  550): START u0 {act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10000000 cmp=org.cfig/.app.saf.SAFActivity} from uid 0 on display 0
+
+I/ActivityManager(  550): START u0 {act=android.intent.action.OPEN_DOCUMENT cat=[android.intent.category.OPENABLE] typ=*/* cmp=com.google.android.tv.frameworkpackagestubs/.Stubs$DocumentsStub} from uid 10066 on display 0
+</code></pre><p>GOOD:(image with AOSP only)</p>
+<pre><code>I/ActivityManager( 1217): START u0 {flg=0x10000000 cmp=org.cfig/.app.saf.SAFActivity} from uid 0 on display 0
+
+I/ActivityManager( 1217): START u0 {act=android.intent.action.OPEN_DOCUMENT cat=[android.intent.category.OPENABLE] typ=*/* cmp=com.android.documentsui/.DocumentsActivity} from uid 10038 on display 0
+</code></pre><p>使用android.intent.action.OPEN_DOCUMENT，默认打开DocumentsUI.apk (frameworks/base/packages/DocumentsUI)</p>
+<p>代码</p>
+<pre><code>int READ_REQUEST_CODE = 42;
+Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+intent.addCategory(Intent.CATEGORY_OPENABLE);
+intent.setType(&quot;*/*&quot;);
+intent.setPackage(&quot;com.android.documentsui&quot;);
+startActivityForResult(intent, READ_REQUEST_CODE);
+</code></pre><p>解释</p>
+<pre><code>intent.setType(): ogg files &quot;audio/ogg&quot;,any files &quot;*/*&quot;, imgags &quot;image/*&quot;
+intent.setPackage(): 不设会走到GMS里面，然后会&quot;no app to handle the intent&quot;
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2015/01/15/2015-01-15-storage_access_framework/" data-id="cknwvywdq000i8si54uoblbr6" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/page/6/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/8/">__('next') &raquo;</a>
+  </nav>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/code/">code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/health/">health</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/misc/">misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/net-travel/">net travel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/code/" style="font-size: 12.86px;">code</a> <a href="/tags/health/" style="font-size: 10px;">health</a> <a href="/tags/java/" style="font-size: 17.14px;">java</a> <a href="/tags/linux/" style="font-size: 18.57px;">linux</a> <a href="/tags/misc/" style="font-size: 11.43px;">misc</a> <a href="/tags/net-travel/" style="font-size: 14.29px;">net travel</a> <a href="/tags/web/" style="font-size: 15.71px;">web</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/04/23/2021-04-23-android-reboot-briefing/">Android Reboot briefing</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/21/Android-boot-animation/">Make your own Android boot animation</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/06/verified-assembled-manifest/">VINTF: verified assembled manifest</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/compatibility-matrix/">VINTF - compatibility matrix</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/VINTF-manifest-xml/">VINTF: manifest.xml</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 cfig
+      <br><br>
+      Enjoy your journey here<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

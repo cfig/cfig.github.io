@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>Wake-On-Lan for Android | Cool Fish In Glacier</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="PrefaceFor background information about WOL, please check wikipedia:https://en.wikipedia.org/wiki/Wake-on-LAN The flow is: someone sends an OSI Level-2 magic packet, which contains magic header (ff ff">
+<meta name="keywords" content="android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Wake-On-Lan for Android">
+<meta property="og:url" content="http://cfig.github.io/2016/03/29/Wake-On-LAN/index.html">
+<meta property="og:site_name" content="Cool Fish In Glacier">
+<meta property="og:description" content="PrefaceFor background information about WOL, please check wikipedia:https://en.wikipedia.org/wiki/Wake-on-LAN The flow is: someone sends an OSI Level-2 magic packet, which contains magic header (ff ff">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-09-01T06:49:44.341Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Wake-On-Lan for Android">
+<meta name="twitter:description" content="PrefaceFor background information about WOL, please check wikipedia:https://en.wikipedia.org/wiki/Wake-on-LAN The flow is: someone sends an OSI Level-2 magic packet, which contains magic header (ff ff">
+  
+    <link rel="alternate" href="/atom.xml" title="Cool Fish In Glacier" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-67906660-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Cool Fish In Glacier</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">叽里咕噜</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://cfig.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Wake-On-LAN" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/03/29/Wake-On-LAN/" class="article-date">
+  <time datetime="2016-03-29T08:38:49.000Z" itemprop="datePublished">2016-03-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Wake-On-Lan for Android
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>For background information about WOL, please check wikipedia:<br><a href="https://en.wikipedia.org/wiki/Wake-on-LAN" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Wake-on-LAN</a></p>
+<p>The flow is: someone sends an OSI Level-2 magic packet, which contains magic header (ff ff ff ff ff ff), following by MAC addresses of target platforms.<br>Normally this is done by BIOS and NIC firmware, which can receive the magic packet on standby, and can power on the platform when receive the packet.<br>Strictly speaking, any L2 magic packet is allowed to serve as a wake up packet, but most wake up clients use UDP and discard port (port 9).</p>
+<h2 id="Android-WakeOnLan"><a href="#Android-WakeOnLan" class="headerlink" title="Android WakeOnLan"></a>Android WakeOnLan</h2><ol>
+<li>Andorid has standard Linux suspend state, </li>
+</ol>
+<p>it can enter this state by “echo mem &gt; /sys/power/state”.<br>In this state, system follows standard WOL flow, NIC firmware or some low level module needs to listen to network data and wake up system.</p>
+<ol start="2">
+<li>Android also has an intermediate state between awake and suspend</li>
+</ol>
+<p>Android is sleeping after a call to PowerManager.goToSleep(), but sometimes application still holds wakelock, which blocking the system enters real Linux suspend state. We call it Android sleeping mode.<br>In this mode all userspace processes are alive, WOL features can only be implemented by user space applications.</p>
+<h3 id="Points-need-to-be-taken-care-of"><a href="#Points-need-to-be-taken-care-of" class="headerlink" title="Points need to be taken care of"></a>Points need to be taken care of</h3><ol>
+<li><p>process needs to listen to UDP port 9 for most wake up clients. This needs the process running as root (user 0).</p>
+</li>
+<li><p>To be more compitible, process needs to open a RAW_SOCKET to listen to all port packets, only root progresses written in C can do this. Or use JNI to call native C code.</p>
+</li>
+<li><p>In selinux enforcing mode, additional rules are required.</p>
+</li>
+<li><p>CTS DO NOT allow port listening.<br>Android CTS case: android.security.cts.ListeningPortsTest<br>We can overcome this issue by closing the listening daemon when SCREEN_ON(“android.intent.action.SCREEN_ON”), and start the listening daemon when SCREEN_OFF(“android.intent.action.SCREEN_OFF”).</p>
+</li>
+</ol>
+<h3 id="Implementation"><a href="#Implementation" class="headerlink" title="Implementation"></a>Implementation</h3><p>In wireshark <a href="https://wiki.wireshark.org/WakeOnLAN" target="_blank" rel="noopener">WOL section</a>, it recommends:</p>
+<pre><code>ether proto 0x0842 or udp port 9
+</code></pre><p>To be more generic, we wil use:</p>
+<pre><code>ether proto 0x0842 or udp
+</code></pre><h3 id="TBD"><a href="#TBD" class="headerlink" title="TBD"></a>TBD</h3>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2016/03/29/Wake-On-LAN/" data-id="cknwvywec001e8si5beq6gm5q" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/04/10/Algorithm-binary-tree-traversal/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Algorithm - binary tree traversal
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/01/14/java-singeleton/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">java singeleton</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/code/">code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/health/">health</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/misc/">misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/net-travel/">net travel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/code/" style="font-size: 12.86px;">code</a> <a href="/tags/health/" style="font-size: 10px;">health</a> <a href="/tags/java/" style="font-size: 17.14px;">java</a> <a href="/tags/linux/" style="font-size: 18.57px;">linux</a> <a href="/tags/misc/" style="font-size: 11.43px;">misc</a> <a href="/tags/net-travel/" style="font-size: 14.29px;">net travel</a> <a href="/tags/web/" style="font-size: 15.71px;">web</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/04/23/2021-04-23-android-reboot-briefing/">Android Reboot briefing</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/21/Android-boot-animation/">Make your own Android boot animation</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/06/verified-assembled-manifest/">VINTF: verified assembled manifest</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/compatibility-matrix/">VINTF - compatibility matrix</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/VINTF-manifest-xml/">VINTF: manifest.xml</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 cfig
+      <br><br>
+      Enjoy your journey here<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>GPG usage | Cool Fish In Glacier</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1. Documentshttp://www.ruanyifeng.com/blog/2013/07/gpg.htmlhttp://wiki.ubuntu.org.cn/GPG/PGP使用subkeyhttps://wiki.debian.org/Subkeys相关post:Android ROM用的keyhttp://cfig.github.io/2015/10/15/signing-keys-">
+<meta name="keywords" content="linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GPG usage">
+<meta property="og:url" content="http://cfig.github.io/2015/09/22/GPG-usage/index.html">
+<meta property="og:site_name" content="Cool Fish In Glacier">
+<meta property="og:description" content="1. Documentshttp://www.ruanyifeng.com/blog/2013/07/gpg.htmlhttp://wiki.ubuntu.org.cn/GPG/PGP使用subkeyhttps://wiki.debian.org/Subkeys相关post:Android ROM用的keyhttp://cfig.github.io/2015/10/15/signing-keys-">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-09-01T06:49:44.341Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="GPG usage">
+<meta name="twitter:description" content="1. Documentshttp://www.ruanyifeng.com/blog/2013/07/gpg.htmlhttp://wiki.ubuntu.org.cn/GPG/PGP使用subkeyhttps://wiki.debian.org/Subkeys相关post:Android ROM用的keyhttp://cfig.github.io/2015/10/15/signing-keys-">
+  
+    <link rel="alternate" href="/atom.xml" title="Cool Fish In Glacier" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-67906660-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Cool Fish In Glacier</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">叽里咕噜</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://cfig.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-GPG-usage" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/09/22/GPG-usage/" class="article-date">
+  <time datetime="2015-09-22T05:31:51.000Z" itemprop="datePublished">2015-09-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      GPG usage
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="1-Documents"><a href="#1-Documents" class="headerlink" title="1. Documents"></a>1. Documents</h1><p><a href="http://www.ruanyifeng.com/blog/2013/07/gpg.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2013/07/gpg.html</a><br><a href="http://wiki.ubuntu.org.cn/GPG/PGP" target="_blank" rel="noopener">http://wiki.ubuntu.org.cn/GPG/PGP</a><br>使用subkey<br><a href="https://wiki.debian.org/Subkeys" target="_blank" rel="noopener">https://wiki.debian.org/Subkeys</a><br>相关post:<br>Android ROM用的key<br><a href="http://cfig.github.io/2015/10/15/signing-keys-in-android/">http://cfig.github.io/2015/10/15/signing-keys-in-android/</a></p>
+<h1 id="2-GUI-tools"><a href="#2-GUI-tools" class="headerlink" title="2. GUI tools"></a>2. GUI tools</h1><p><a href="http://gnupg.archive.sunet.se/related\_software/frontends.html" target="_blank" rel="noopener">http://gnupg.archive.sunet.se/related\_software/frontends.html</a><br>‘seahorse’ for GNOME is sufficient.</p>
+<h1 id="3-命令行工具"><a href="#3-命令行工具" class="headerlink" title="3. 命令行工具"></a>3. 命令行工具</h1><h2 id="3-1-密钥管理"><a href="#3-1-密钥管理" class="headerlink" title="3.1 密钥管理"></a>3.1 密钥管理</h2><p>生成密钥</p>
+<pre><code>gpg --gen-key
+</code></pre><p>Tips: To use a shorter name(uid) which is less than 5 characters, need to add <strong>--allow-freeform-uid</strong> to the command line.</p>
+<p>添加签名用的subkey</p>
+<pre><code>gpg --edit-key &lt;keyid&gt;
+&gt; addkey
+&gt; (4) RSA (sign only)
+</code></pre><p>Tips: 同样办法可以添加用于加密的subkey</p>
+<p>添加不同email的uid</p>
+<pre><code>gpg --edit-key &lt;keyid&gt;
+&gt; adduid
+Real Name: &lt;name&gt;
+Email address: &lt;email&gt;
+Comment: &lt;comment or Return to none&gt;
+Change (N)ame, (C)omment, (E)mail or (O)kay/(Q)uit? O
+Enter passphrase: &lt;password&gt;
+gpg&gt; uid &lt;uid&gt;
+gpg&gt; trust
+Your decision? 5
+Do you really want to set this key to ultimate trust? (y/N) y
+&gt; save
+</code></pre><p>删除key</p>
+<pre><code>gpg --delete-keys
+</code></pre><p>查看公钥</p>
+<pre><code>gpg -K
+gpg -k
+</code></pre><p>查看私钥</p>
+<pre><code>gpg --list-keys
+</code></pre><p>导出公钥</p>
+<pre><code>gpg --armor --export &lt;uid&gt;
+gpg --armor --export &lt;name&gt;@gmail.com
+</code></pre><p>导入公钥</p>
+<pre><code>gpg --import &lt;pub.key&gt;
+</code></pre><p>导出私钥</p>
+<pre><code>gpg --armor --export-secret-keys &lt;uid&gt;
+gpg --armor --export-secret-keys &lt;name&gt;@gmail.com
+</code></pre><p>仅导出subkey私钥</p>
+<pre><code>gpg --export-secret-subkeys
+</code></pre><p>导入私钥</p>
+<pre><code>gpg --allow-secret-key-import --import &lt;private.key&gt;
+gpg --fingerprint
+</code></pre><p>信任公钥</p>
+<pre><code>gpg --edit-key &lt;uid&gt;
+gpg &gt; trust
+gpg &gt; 5
+</code></pre><p>上传公钥</p>
+<pre><code>gpg --keyserver hkp://pgp.mit.edu --send-keys 72355772
+</code></pre><p>下载公钥</p>
+<pre><code>gpg --keyserver pgp.mit.edu --recv-key 72355772
+</code></pre><p>召回公钥</p>
+<pre><code>gpg --gen-revoke FD9D429D
+gpg --import revoke.2016.pubkey.txt
+gpg --keyserver pgp.mit.edu --send-keys  FD9D429D
+</code></pre><p>Tips: 把--gen-revoke的结果存入文件，然后导入，最好把导入的key上传</p>
+<h2 id="3-2-密钥使用"><a href="#3-2-密钥使用" class="headerlink" title="3.2 密钥使用"></a>3.2 密钥使用</h2><p>加密文件</p>
+<pre><code>gpg -e -r &lt;name&gt;@gmail.com &lt;file&gt;
+</code></pre><p>解密文件</p>
+<pre><code>gpg -d &lt;file.gpg&gt;
+</code></pre><p>加密解密</p>
+<pre><code>gpg --recipient &lt;name&gt;@gmail.com --output &lt;file.en&gt; --encrypt &lt;file&gt;
+gpg --output &lt;file.dec&gt; --decrypt &lt;file.en&gt;
+gpg &lt;file.en&gt;
+</code></pre><p>签名</p>
+<pre><code>gpg --sign &lt;file&gt;
+gpg --clearsign &lt;file&gt;
+gpg --detach-sign &lt;file&gt;
+gpg --armor --detach-sign &lt;file&gt;
+</code></pre><p>验证签名</p>
+<pre><code>gpg --verify &lt;file.asc&gt; &lt;file&gt;
+</code></pre><p>签名并加密</p>
+<pre><code>gpg --local-user &lt;name&gt;@gmail.com --recipient &lt;name&gt;@gmail.com --armor --sign --encrypt aa.py
+</code></pre><h1 id="4-misc"><a href="#4-misc" class="headerlink" title="4. misc"></a>4. misc</h1><h4 id="可以export-GNUPGHOME临时改变GPGHOME目录"><a href="#可以export-GNUPGHOME临时改变GPGHOME目录" class="headerlink" title="可以export GNUPGHOME临时改变GPGHOME目录"></a>可以export GNUPGHOME临时改变GPGHOME目录</h4><h4 id="如果碰到下面问题"><a href="#如果碰到下面问题" class="headerlink" title="如果碰到下面问题"></a>如果碰到下面问题</h4><p>gpg: signing failed: Inappropriate ioctl for device<br>可以这样解决<br>export GPG_TTY=$(tty)</p>
+<h4 id="如果在gpg2上碰到导入问题，-可以尝试杀掉gpg-agent"><a href="#如果在gpg2上碰到导入问题，-可以尝试杀掉gpg-agent" class="headerlink" title="如果在gpg2上碰到导入问题， 可以尝试杀掉gpg agent,"></a>如果在gpg2上碰到导入问题， 可以尝试杀掉gpg agent,</h4>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2015/09/22/GPG-usage/" data-id="cknwvywe300118si5tvxt2ihv" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/09/22/GIT-usage/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          git - distributed version control
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/09/22/compile-new-debian-kernel/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">compile new debian kernel</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/code/">code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/health/">health</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/misc/">misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/net-travel/">net travel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/code/" style="font-size: 12.86px;">code</a> <a href="/tags/health/" style="font-size: 10px;">health</a> <a href="/tags/java/" style="font-size: 17.14px;">java</a> <a href="/tags/linux/" style="font-size: 18.57px;">linux</a> <a href="/tags/misc/" style="font-size: 11.43px;">misc</a> <a href="/tags/net-travel/" style="font-size: 14.29px;">net travel</a> <a href="/tags/web/" style="font-size: 15.71px;">web</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/04/23/2021-04-23-android-reboot-briefing/">Android Reboot briefing</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/21/Android-boot-animation/">Make your own Android boot animation</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/06/verified-assembled-manifest/">VINTF: verified assembled manifest</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/compatibility-matrix/">VINTF - compatibility matrix</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/VINTF-manifest-xml/">VINTF: manifest.xml</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 cfig
+      <br><br>
+      Enjoy your journey here<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

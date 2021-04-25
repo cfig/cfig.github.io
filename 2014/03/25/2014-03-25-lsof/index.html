@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>lsof usage | Cool Fish In Glacier</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1. lsof intro1.1 lsof can check opened files: /dev file socket files(unix/network) lib files executables .etc  lsof page on debian: https://packages.debian.org/stable/lsof a cool webpage on lsof from">
+<meta name="keywords" content="linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="lsof usage">
+<meta property="og:url" content="http://cfig.github.io/2014/03/25/2014-03-25-lsof/index.html">
+<meta property="og:site_name" content="Cool Fish In Glacier">
+<meta property="og:description" content="1. lsof intro1.1 lsof can check opened files: /dev file socket files(unix/network) lib files executables .etc  lsof page on debian: https://packages.debian.org/stable/lsof a cool webpage on lsof from">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-09-01T06:49:44.337Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="lsof usage">
+<meta name="twitter:description" content="1. lsof intro1.1 lsof can check opened files: /dev file socket files(unix/network) lib files executables .etc  lsof page on debian: https://packages.debian.org/stable/lsof a cool webpage on lsof from">
+  
+    <link rel="alternate" href="/atom.xml" title="Cool Fish In Glacier" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-67906660-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Cool Fish In Glacier</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">叽里咕噜</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://cfig.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2014-03-25-lsof" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/03/25/2014-03-25-lsof/" class="article-date">
+  <time datetime="2014-03-25T00:00:00.000Z" itemprop="datePublished">2014-03-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      lsof usage
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-lsof-intro"><a href="#1-lsof-intro" class="headerlink" title="1. lsof intro"></a>1. lsof intro</h2><h3 id="1-1-lsof-can-check-opened-files"><a href="#1-1-lsof-can-check-opened-files" class="headerlink" title="1.1 lsof can check opened files:"></a>1.1 lsof can check opened files:</h3><ul>
+<li>/dev file</li>
+<li>socket files(unix/network)</li>
+<li>lib files</li>
+<li>executables</li>
+<li>.etc</li>
+</ul>
+<p>lsof page on debian: <a href="https://packages.debian.org/stable/lsof" target="_blank" rel="noopener">https://packages.debian.org/stable/lsof</a></p>
+<p>a cool webpage on lsof from <a href="http://www.danielmiessler.com/study/lsof" target="_blank" rel="noopener">daniel</a></p>
+<h3 id="1-2-output-interpretation"><a href="#1-2-output-interpretation" class="headerlink" title="1.2 output interpretation"></a>1.2 output interpretation</h3><pre><code>**COMMAND   PID USER   FD      TYPE             DEVICE SIZE/OFF     NODE NAME**
+adb     15516   yu  cwd       DIR                8,1     4096 12845057 /home/yu/workspace/q
+adb     15516   yu  rtd       DIR                8,1     4096        2 /
+adb     15516   yu  txt       REG                8,1  4894227 11272415 /home/yu/.bin/adb
+adb     15516   yu  mem       REG                8,1    71488 14420702 /lib/i386-linux-gnu/i686/cmov/libresolv-2.13.so
+adb     15516   yu  mem       REG                8,1    22088 14420706 /lib/i386-linux-gnu/i686/cmov/libnss\_dns-2.13.so
+adb     15516   yu  mem       REG                8,1    42628 14420694 /lib/i386-linux-gnu/i686/cmov/libnss\_files-2.13.so
+adb     15516   yu  mem       REG                8,1  1437864 14420700 /lib/i386-linux-gnu/i686/cmov/libc-2.13.so
+adb     15516   yu  mem       REG                8,1   114788 14420559 /lib/i386-linux-gnu/libgcc\_s.so.1
+</code></pre><h4 id="row-of-“FD”"><a href="#row-of-“FD”" class="headerlink" title="row of “FD”"></a>row of “FD”</h4><pre><code>+----+-------+-----------------------------------+
+| No | item  |              note                 |
++----+-------+-----------------------------------+
+| 1  | cwd   |  current workding directory       |
++----+-------+-----------------------------------+
+| 2  | rtd   |  root directory                   |
++----+-------+-----------------------------------+
+| 3  | txt   |  program text (code and data)     |
++----+-------+-----------------------------------+
+| 4  | mem   |  memory-mapped file               |
++----+-------+-----------------------------------+
+</code></pre><h4 id="row-of-“TYPE”"><a href="#row-of-“TYPE”" class="headerlink" title="row of “TYPE”"></a>row of “TYPE”</h4><pre><code>+----+-------+-----------------------------------+
+| No | item  |              note                 |
++----+-------+-----------------------------------+
+| 1  | DIR   |  Directory                        |
++----+-------+-----------------------------------+
+| 2  | REG   |  Regular file                     |
++----+-------+-----------------------------------+
+| 3  | CHR   |  Character special file           |
++----+-------+-----------------------------------+
+| 4  | FIFO  |  First In First Out               |
++----+-------+-----------------------------------+
+</code></pre><h3 id="1-3-practice"><a href="#1-3-practice" class="headerlink" title="1.3 practice"></a>1.3 practice</h3><h4 id="Given-PID"><a href="#Given-PID" class="headerlink" title="Given PID:"></a>Given PID:</h4><!-- &lt; -->
+<pre><code>$ lsof -p &lt;pid&gt;
+$ ls /proc/&lt;pid&gt;/fd
+</code></pre><h4 id="Given-port-protocol"><a href="#Given-port-protocol" class="headerlink" title="Given port/protocol"></a>Given port/protocol</h4><pre><code>$ lsof -i :5037
+
+COMMAND PID USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
+adbd    939 root    5u  IPv4     93      0t0  TCP localhost:5037 (LISTEN)
+
+$ lsof -i @localhost
+
+COMMAND PID USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
+adbd    939 root    5u  IPv4     93      0t0  TCP localhost:5037 (LISTEN)
+
+$ lsof -i TCP
+$ lsof -i TCP:80
+$ lsof -i TCP@192.168.0.2:636
+$ lsof -i --&gt; show all network connections
+$ lsof -i 4 --&gt; show only IPv4 connections
+$ lsof -i 6 --&gt; show only IPv6 connections
+$ lsof -i TCP:1-1024 --&gt; List Open Files of TCP Port ranges 1-1024
+</code></pre><h4 id="Given-UID"><a href="#Given-UID" class="headerlink" title="Given UID"></a>Given UID</h4><pre><code>$ lsof -u &lt;UID&gt;
+$ lsof -u ^&lt;UID&gt;
+</code></pre><h4 id="Given-category"><a href="#Given-category" class="headerlink" title="Given category"></a>Given category</h4><pre><code>$ lsof -d txt
+$ lsof -d ^mem
+</code></pre><h4 id="Given-files-directries"><a href="#Given-files-directries" class="headerlink" title="Given files/directries"></a>Given files/directries</h4><pre><code>$ lsof &lt;file&gt;
+$ lsof &lt;directory&gt;
+</code></pre><p>only show PID</p>
+<pre><code>$ lsof -t &lt;file&gt;
+</code></pre><h4 id="show-network-port"><a href="#show-network-port" class="headerlink" title="show network port"></a>show network port</h4><pre><code>$ lsof -i -P
+</code></pre><h2 id="2-checking-opening-fd-limits"><a href="#2-checking-opening-fd-limits" class="headerlink" title="2. checking opening fd limits"></a>2. checking opening fd limits</h2><p>use <strong>ulimit -n</strong> to check limits, use <strong>ls /proc/*/fd/</strong> to count all fd</p>
+<h2 id="3-check-server-risk"><a href="#3-check-server-risk" class="headerlink" title="3. check server risk"></a>3. check server risk</h2><p><strong>lsof +L1</strong> shows you all open files that have a link count less than 1<br>This is often (but not always) indicative of an attacker trying to hide file content by unlinking it.</p>
+<pre><code>$ lsof +L1
+</code></pre><h2 id="memory-usage-monitor"><a href="#memory-usage-monitor" class="headerlink" title="memory usage monitor"></a>memory usage monitor</h2><pre><code>memdump: This  program  dumps system memory to the standard output stream, skipping over holes in memory maps.  By default, the program dumps the contents of physical memory (/dev/mem).
+memstat: Identify what&apos;s using up virtual memory.
+
+ps aux --sort:-rss
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2014/03/25/2014-03-25-lsof/" data-id="cknwvywdc00058si5726snb1w" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/03/26/2014-03-26-boot_time_deug_logging/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          debugging (still work in progress)
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/03/23/dmverity/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">dmverity</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/code/">code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/health/">health</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/misc/">misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/net-travel/">net travel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/code/" style="font-size: 12.86px;">code</a> <a href="/tags/health/" style="font-size: 10px;">health</a> <a href="/tags/java/" style="font-size: 17.14px;">java</a> <a href="/tags/linux/" style="font-size: 18.57px;">linux</a> <a href="/tags/misc/" style="font-size: 11.43px;">misc</a> <a href="/tags/net-travel/" style="font-size: 14.29px;">net travel</a> <a href="/tags/web/" style="font-size: 15.71px;">web</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/04/23/2021-04-23-android-reboot-briefing/">Android Reboot briefing</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/21/Android-boot-animation/">Make your own Android boot animation</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/06/verified-assembled-manifest/">VINTF: verified assembled manifest</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/compatibility-matrix/">VINTF - compatibility matrix</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/VINTF-manifest-xml/">VINTF: manifest.xml</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 cfig
+      <br><br>
+      Enjoy your journey here<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

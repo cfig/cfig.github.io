@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>Cool Fish In Glacier</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Cool Fish In Glacier">
+<meta property="og:url" content="http://cfig.github.io/page/5/index.html">
+<meta property="og:site_name" content="Cool Fish In Glacier">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Cool Fish In Glacier">
+  
+    <link rel="alternate" href="/atom.xml" title="Cool Fish In Glacier" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-67906660-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Cool Fish In Glacier</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">叽里咕噜</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://cfig.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-db-tool" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/11/24/db-tool/" class="article-date">
+  <time datetime="2015-11-24T13:04:58.000Z" itemprop="datePublished">2015-11-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/11/24/db-tool/">db Documentation</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="What-is-“db”"><a href="#What-is-“db”" class="headerlink" title="What is “db” ?"></a>What is “db” ?</h1><p>简单来说，用此工具集成vim+cscope+ctags，可以把vim作为一个IDE来用，特别是你只有console的时候。用cscope来看20G的Android源代码毫无压力。<br>db is a wrapper tool to manage <a href="http://cscope.sourceforge.net" target="_blank" rel="noopener">cscope</a> and <a href="http://ctags.sourceforge.net/" target="_blank" rel="noopener">ctags</a> projects.<br>You will love ctags+cscope+vim with this tool.</p>
+<h1 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h1><h3 id="0-Requirements"><a href="#0-Requirements" class="headerlink" title="0. Requirements"></a>0. Requirements</h3><p>Installing “db” tool is easy. However, you do need a couple of other things installed first.</p>
+<ul>
+<li>ctags</li>
+<li>cscope</li>
+<li>git</li>
+<li>gradle</li>
+</ul>
+<h3 id="1-fetch-code"><a href="#1-fetch-code" class="headerlink" title="1. fetch code"></a>1. fetch code</h3><pre><code>git clone https://github.com/cfig/utils
+</code></pre><h3 id="2-make-and-install"><a href="#2-make-and-install" class="headerlink" title="2. make and install"></a>2. make and install</h3><pre><code>$ cd db_tool
+$ gradle install
+</code></pre><h3 id="3-let-vim-load-cscope-ctags-database-automatically"><a href="#3-let-vim-load-cscope-ctags-database-automatically" class="headerlink" title="3. let vim load cscope/ctags database automatically"></a>3. let vim load cscope/ctags database automatically</h3><p>modify .vimrc as follows:</p>
+<pre><code>&quot;taglist
+if $SELECT_PROJECT_DB != &quot;&quot;
+    if filereadable(expand(&quot;~/.proj_db/$SELECT_PROJECT_DB/tags&quot;))
+        set tags=~/.proj_db/$SELECT_PROJECT_DB/tags;
+    endif
+    if filereadable(expand(&quot;$HOME/.proj_db/$SELECT_PROJECT_DB/cscope.out&quot;))
+        &quot; for M$ compatible
+        cd $HOME
+        cs add .proj_db/$SELECT_PROJECT_DB/cscope.out
+        cd -
+    endif
+else
+    set tags=tags; &quot; the &apos;;&apos; is a must!
+endif
+</code></pre><h1 id="Getting-started"><a href="#Getting-started" class="headerlink" title="Getting started"></a>Getting started</h1><h3 id="1-create-project"><a href="#1-create-project" class="headerlink" title="1. create project"></a>1. create project</h3><pre><code>$ db init my_project my_project2
+</code></pre><p>This will create empty projects with name “my_project” and “my_project2” in ~/.proj_db/</p>
+<h3 id="2-check-all-projects-you-just-created"><a href="#2-check-all-projects-you-just-created" class="headerlink" title="2. check all projects you just created."></a>2. check all projects you just created.</h3><pre><code>yu@mint ~ $ db list
+1 - my_project
+2 - my_project2
+yu@mint ~ $ 
+</code></pre><h3 id="3-choose-a-project-as-“current”-active-project"><a href="#3-choose-a-project-as-“current”-active-project" class="headerlink" title="3. choose a project as “current” active project"></a>3. choose a project as “current” active project</h3><pre><code>$ dbc 1
+</code></pre><h3 id="4-add-directories-into-current-project"><a href="#4-add-directories-into-current-project" class="headerlink" title="4. add directories into current project"></a>4. add directories into current project</h3><pre><code>$ cd &lt;your_source_directory&gt;
+$ db +
+</code></pre><p>repeat these steps, until you add them all. You can check which directories are added into current project by “db show”.</p>
+<h3 id="5-generate-cscope-ctags"><a href="#5-generate-cscope-ctags" class="headerlink" title="5. generate cscope/ctags"></a>5. generate cscope/ctags</h3><pre><code>$ db make
+</code></pre><p>This may take some time if your project is huge. It takes up to 40 min for my whole Android source tree.</p>
+<h3 id="6-once-the-index-is-ready-you-can-open-vim-and-search-anything-you-wanted"><a href="#6-once-the-index-is-ready-you-can-open-vim-and-search-anything-you-wanted" class="headerlink" title="6. once the index is ready, you can open vim, and search anything you wanted."></a>6. once the index is ready, you can open vim, and search anything you wanted.</h3><p>Don’t know how to search with <a href="http://cscope.sourceforge.net/" target="_blank" rel="noopener">cscope</a> ?<br>Check this <a href="http://cscope.sourceforge.net/cscope_vim_tutorial.html" target="_blank" rel="noopener">http://cscope.sourceforge.net/cscope_vim_tutorial.html</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2015/11/24/db-tool/" data-id="cknwvywek001r8si5h2mxdhq7" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Android-Testing-application" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/20/Android-Testing-application/" class="article-date">
+  <time datetime="2015-10-20T15:55:11.000Z" itemprop="datePublished">2015-10-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/20/Android-Testing-application/">Android Testing - Instrumentated Unit Tests</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这里讲的<a href="https://developer.android.com/tools/testing/index.html" target="_blank" rel="noopener">Android Testing</a>主要针android packages(application).</p>
+<h2 id="1-测试框架"><a href="#1-测试框架" class="headerlink" title="1. 测试框架"></a>1. 测试框架</h2><p><img src="https://developer.android.com/images/testing/test_framework.png" alt="Testing Framework"></p>
+<h3 id="1-1-TestCase"><a href="#1-1-TestCase" class="headerlink" title="1.1 TestCase:"></a>1.1 TestCase:</h3><p>跟其他流行的的Testing Framework一样，测试也分TestSuit,每个Suit有若干TestCase,每个TestCase有若干Method<br><img src="/images/TestCase.png"></p>
+<h3 id="1-2-TestRunner"><a href="#1-2-TestRunner" class="headerlink" title="1.2 TestRunner:"></a>1.2 TestRunner:</h3><p>TestCase必须运行在某个testrunner之上。</p>
+<p>Android支持多个<a href="https://developer.android.com/tools/testing-support-library/index.html" target="_blank" rel="noopener">TestRunner</a></p>
+<ul>
+<li><p><a href="https://developer.android.com/reference/android/test/InstrumentationTestRunner.html" target="_blank" rel="noopener">InstrumentationTestRunner</a> 继承自<a href="https://developer.android.com/reference/android/app/Instrumentation.html" target="_blank" rel="noopener">android.app.Instrumentation</a></p>
+<p>  <a href="https://developer.android.com/reference/android/app/Instrumentation.html" target="_blank" rel="noopener">Instrumentation</a>是基类.当instrumentation打开（AndroidManifest.xml有instrumentation条目）后, instrumentation会在app启动之前先实例化，然后可以检测app运行状态。<br>  比较土， 只支持Junit3,<br>  支持instrumentation方法(methods).<br>  Android instrumentation is a set of control methods or “hooks” in the Android system. These hooks control an Android component independently of its normal lifecycle.</p>
+</li>
+<li><p><a href="https://developer.android.com/reference/android/support/test/runner/AndroidJUnitRunner.html" target="_blank" rel="noopener">AndroidJUnitRunner</a>, 继承自android.app.Instrumentation<br>  支持Junit3, Junit4.</p>
+</li>
+<li><p>Espresso: 单个app的UI 测试</p>
+</li>
+<li>UI Automator: 跨app的UI测试<br>其中后三个runner在Android SDK的”Android Testing Support Library”中，SDK Mgr中的名字为”Android Support Repository”.</li>
+</ul>
+<h2 id="2-代码结构"><a href="#2-代码结构" class="headerlink" title="2. 代码结构"></a>2. 代码结构</h2><ol>
+<li>标准方式(使用Intellij Idea / Android Studio)<br>如果放到src/main/androidTest, 那么会生成2个apk，一个是&lt;package_name&gt;.apk, 一个是&lt;package_name&gt;.test.apk<br>建一个AndroidTest任务，Idea会依次安装两个apk，然后执行test</li>
+<li>直接暴力方式<br>如果放到src/main/java, 就可以直接生成apk，直接安装后用am instrument执行；</li>
+</ol>
+<h2 id="3-运行测试用例"><a href="#3-运行测试用例" class="headerlink" title="3. 运行测试用例"></a>3. 运行测试用例</h2><h3 id="3-1-command-line运行测试用例"><a href="#3-1-command-line运行测试用例" class="headerlink" title="3.1 command line运行测试用例"></a>3.1 command line运行测试用例</h3><p>帮助文件for <a href="https://developer.android.com/reference/android/test/InstrumentationTestRunner.html" target="_blank" rel="noopener">InstrumentationTestRunner</a> and <a href="https://developer.android.com/reference/android/support/test/runner/AndroidJUnitRunner.html" target="_blank" rel="noopener">AndroidJUnitRunner</a></p>
+<pre><code>am instrument -w                                  &lt;instrument_name&gt;
+am instrument -w -e &lt;k&gt;   &lt;v&gt;                     &lt;instrument_name&gt;
+am instrument -w -e class org.cfig.TestSuit       &lt;instrument_name&gt;
+am instrument -w -e class org.cfig.TestCase       &lt;instrument_name&gt;
+am instrument -w -e class org.cfig.TestCase#test1 &lt;instrument_name&gt;
+</code></pre><h4 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h4><p>查看安装好的instrementation:</p>
+<pre><code># pm list instrumentation
+instrumentation:com.android.cts.view/android.support.test.runner.AndroidJUnitRunner
+</code></pre><p>可以执行</p>
+<pre><code>am instrument -w -e class android.view.animation.cts.AnimatorInflaterTest com.android.cts.view/android.support.test.runner.AndroidJUnitRunner
+</code></pre><h3 id="3-2-IDE运行测试用例-idea"><a href="#3-2-IDE运行测试用例-idea" class="headerlink" title="3.2 IDE运行测试用例(idea)"></a>3.2 IDE运行测试用例(idea)</h3><p>创建AndroidTest运行任务,可以指定package/class/method.</p>
+<h2 id="感谢"><a href="#感谢" class="headerlink" title="感谢"></a>感谢</h2><p>Max Walker 2009年写的傻瓜教程<a href="https://newcircle.com/s/post/1038/android_junit_test_example_tutorial" target="_blank" rel="noopener">https://newcircle.com/s/post/1038/android_junit_test_example_tutorial</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2015/10/20/Android-Testing-application/" data-id="cknwvywdy000u8si55lo5f0mk" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-signing-keys-in-android" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/10/15/signing-keys-in-android/" class="article-date">
+  <time datetime="2015-10-15T06:15:07.000Z" itemprop="datePublished">2015-10-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/15/signing-keys-in-android/">Android keys - release keys</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Android default keys are located at build/target/product/security/, ROM providers must use OEM keys when building factory images for market products.<br>There are 5 paris of keys in all: (*.pk8 is private key, *.x509.pem is cert)</p>
+<pre><code>testkey (I call it dev key)
+shared
+platform
+media
+verity
+</code></pre><h2 id="1-How-to-specify-OEM-keys"><a href="#1-How-to-specify-OEM-keys" class="headerlink" title="1. How to specify OEM keys"></a>1. How to specify OEM keys</h2><p>config release key location in <product>.mk, example:</product></p>
+<pre><code>PRODUCT_DEFAULT_DEV_CERTIFICATE := /home/xx/release_keys/releasekey
+PRODUCT_OTA_PUBLIC_KEYS=/home/xx/release_keys/otakey.x509.pem
+</code></pre><p>Then system will search for $(PRODUCT_DEFAULT_DEV_CERTIFICATE).pk8 and $(PRODUCT_DEFAULT_DEV_CERTIFICATE).x509.pem for release key.</p>
+<p>$(PRODUCT_OTA_PUBLIC_KEYS) will generate target file META/otakeys.txt with content: “/home/xx/release_keys/otakey.x509.pem”</p>
+<h2 id="2-What-are-the-keys-used-for"><a href="#2-What-are-the-keys-used-for" class="headerlink" title="2. What are the keys used for"></a>2. What are the keys used for</h2><h4 id="2-1-release-key"><a href="#2-1-release-key" class="headerlink" title="2.1 release key"></a>2.1 release key</h4><p>If release key is not specified, it will default to build/target/product/security/testkey<br>This key will be used to:</p>
+<pre><code>- sign normal apk
+- The cert will be save to /system/etc/security/otacerts.zip, which will be used to verify OTA pkg signature
+- sign OTA pkg
+</code></pre><h4 id="2-2-shared-media-platform-keys"><a href="#2-2-shared-media-platform-keys" class="headerlink" title="2.2 shared/media/platform keys"></a>2.2 shared/media/platform keys</h4><p>These keys will be put into the same folder as PRODUCT_DEFAULT_DEV_CERTIFICATE<br>These keys will be used to:</p>
+<pre><code>- sign specific apk
+</code></pre><p>For example:</p>
+<pre><code>LOCAL_CERTIFICATE := shared    eg.: Launcher, Dialer, etc.
+LOCAL_CERTIFICATE := platform  eg.: Settings, Nfc, TelephonyProvider, CertInstaller, etc
+LOCAL_CERTIFICATE := media     eg.: DownloadProvider，MediaProvider， Gallery etc.
+</code></pre><h4 id="2-3-verity-key"><a href="#2-3-verity-key" class="headerlink" title="2.3 verity key"></a>2.3 verity key</h4><p>In Android Lollipop, verity key is set to build/target/product/security/verity.{pk8,x509.pem} in build/target/product/verity.mk. OEM vendors need to define PRODUCT_VERITY_SIGNING_KEY by themselves.<br>verity key will be used to:</p>
+<pre><code>- sign boot.img, 
+  the signature will be verified by bootloader.
+  OEM vendors should build verity pub key inside bootloader, or put the pub key in some other secure storage.
+- sign verity metadata in system.img,
+  the signature will be verified by boot.img,
+  boot.img has the pub key /verity_key in ramdisk.
+</code></pre><h2 id="3-Resign-flow-of-Android"><a href="#3-Resign-flow-of-Android" class="headerlink" title="3. Resign flow of Android"></a>3. Resign flow of Android</h2><p>Build signing guide from google: <a href="https://source.android.com/devices/tech/ota/sign_builds.html" target="_blank" rel="noopener">https://source.android.com/devices/tech/ota/sign_builds.html</a></p>
+<p>Typical re-signing flow: sign boot.img/system.img with verity_key, sign apks with specified keys, manually change META/otacerts.zip if needed.</p>
+<pre><code>./build/tools/releasetools/sign_target_files_apks \
+    --replace_ota_keys \
+    --default_key_mappings /home/xx/release_keys/  \
+    --replace_verity_public_key=/home/xx/release_keys/verity_key \
+    --replace_verity_private_key=/home/xx/release_keys/verity \
+    orig.zip signed-target.zip
+</code></pre><p>Typical OTA package generation: sign with new ota key</p>
+<pre><code>./build/tools/releasetools/ota_from_target_files \
+    -k ~/release_keys/otakey \
+    signed-target.zip \
+    signed-ota_update.zip
+</code></pre><p>‘ota_from_target_files’ needs some scripts in &lt;android_src&gt;/build and some host tools under &lt;android_src&gt;/out/host/linxu-x86, like “SignApk.jar”, “imgdiff” and needed shared libraries.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2015/10/15/signing-keys-in-android/" data-id="cknwvywez002d8si5vg3otg5u" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Health-Heart" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/09/28/Health-Heart/" class="article-date">
+  <time datetime="2015-09-28T03:50:11.000Z" itemprop="datePublished">2015-09-28</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/09/28/Health-Heart/">Health - Heart</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>摘自杭州马拉松官网 <a href="http://www.hzim.org/p/hzim/multimedia/articleview.jsf?article=6281411" target="_blank" rel="noopener">http://www.hzim.org/p/hzim/multimedia/articleview.jsf?article=6281411</a></p>
+<p>  据研究发现运动性猝死95%都是心源性猝死，发生的主要原因并不是累死的，基本都是死者的心脏原来就存有有病变，45岁以上的选手发生猝死的原因多数是由冠心病造成的，而常规的心电图检查时发现冠心病最简单的方法，45岁—25岁的人发生了运动性猝死多数是心脏结构发生了变化，心脏彩超是早期发现心脏结构变化和心脏功能下降最直接的手段，25岁以下年轻人发生运动性猝死的主要原因是猝死基因造成的，多数有猝死的家族史。</p>
+<p>  美国心脏协会AHA文献报道：意大利的威特地区通过，家族史、12导联心电图、心脏B超等3项简单的常规心脏检查对该地区的运动员进行普查，每半年一次，一直坚持了20年，最后统计分析该方法是该地区运动性猝死的发生率下降了89%，取得举世瞩目的成就，所以用：询问有无猝死家族史、12导联心电图、心脏彩超等三项临床手段是早期发现心脏是否存在病变基础，早期预防运动性猝死最有效的手段，而且目前心电图、心脏彩超各级医院都可以检查，如果平时单独去检查的话基本不用自费，项目属医保乙类项目。</p>
+<p>  心脏的结构的变化、心功能的下降往往都是动态的，有很多时候半年内各项指标就很快发生了变化，尤其是对于经常进行马拉松赛事的选手更是这样，所以对于心脏的检查、评估最好半年一次。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2015/09/28/Health-Heart/" data-id="cknwvywea001a8si5gkt2zzmb" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/health/">health</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Eclipse-Tips" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/09/22/Eclipse-Tips/" class="article-date">
+  <time datetime="2015-09-22T14:33:11.000Z" itemprop="datePublished">2015-09-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/09/22/Eclipse-Tips/">Eclipse Tips</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Eclipse-Luna-on-debian"><a href="#Eclipse-Luna-on-debian" class="headerlink" title="Eclipse Luna on debian"></a>Eclipse Luna on debian</h2><p>由于debian glibc版本太低glibc2.13<br>需要export SWT_GDK=0，然后启动eclipse<br>或者加入下面几行到eclipse.ini<br>--launcher.GTK_version<br>2</p>
+<h2 id="ObjectAid"><a href="#ObjectAid" class="headerlink" title="ObjectAid"></a>ObjectAid</h2><p>生成类图: ObjectAid<br><a href="http://www.objectaid.com/installation" target="_blank" rel="noopener">http://www.objectaid.com/installation</a><br>New-&gt;Class Diagram</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2015/09/22/Eclipse-Tips/" data-id="cknwvywe400128si5b8u685x3" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-gradle-Android" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/09/22/gradle-Android/" class="article-date">
+  <time datetime="2015-09-22T14:29:40.000Z" itemprop="datePublished">2015-09-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/09/22/gradle-Android/">gradle - Android</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-编译android-library"><a href="#1-编译android-library" class="headerlink" title="1. 编译android library"></a>1. 编译android library</h2><pre><code>apply plugin: &apos;com.android.library&apos;
+android {
+    compileSdkVersion 23
+    buildToolsVersion &quot;23.0.1&quot;
+
+    defaultConfig {
+        minSdkVersion 17
+        targetSdkVersion 23
+    }  
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile(&apos;proguard-android.txt&apos;), &apos;proguard-rules.txt&apos;
+        }  
+    }  
+
+    lintOptions {
+        abortOnError false
+    }  
+}
+</code></pre><h2 id="2-编译android-apk"><a href="#2-编译android-apk" class="headerlink" title="2. 编译android apk"></a>2. 编译android apk</h2><pre><code>apply plugin: &apos;android&apos;
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion &quot;23.0.1&quot;
+
+    defaultConfig {
+        minSdkVersion 17
+        targetSdkVersion 23
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile(&apos;proguard-android.txt&apos;), &apos;proguard-rules.txt&apos;
+        }  
+        release {
+            signingConfig signingConfigs.release
+        }  
+    }  
+
+    lintOptions {
+        abortOnError false
+    }   
+
+}
+</code></pre><h2 id="3-配置apk的key"><a href="#3-配置apk的key" class="headerlink" title="3. 配置apk的key"></a>3. 配置apk的key</h2><pre><code>android {
+  signingConfigs {
+    release {
+      storeFile file(&quot;/home/y/.android/platform.jks&quot;)
+      storePassword &quot;android&quot;
+      keyAlias &quot;androiddebugkey&quot;
+      keyPassword &quot;android&quot;
+    }
+  }
+
+  buildTypes {
+    release {
+      signingConfig signingConfigs.release
+    }
+  }
+}
+</code></pre><h2 id="4-配置instrumentation-apk"><a href="#4-配置instrumentation-apk" class="headerlink" title="4. 配置instrumentation apk"></a>4. 配置instrumentation apk</h2><h4 id="4-1-gradle配置"><a href="#4-1-gradle配置" class="headerlink" title="4.1 gradle配置"></a>4.1 gradle配置</h4><pre><code>repositories {
+    mavenCentral()
+    jcenter()
+}
+dependencies {
+    //for pure testing apk
+    compile &apos;com.android.support.test:runner:0.4&apos;
+    androidTestCompile &apos;com.android.support.test:runner:0.4&apos;
+    // Set this dependency to use JUnit 4 rules
+    androidTestCompile &apos;com.android.support.test:rules:0.4&apos;
+    // Set this dependency to build and run Espresso tests
+    androidTestCompile &apos;com.android.support.test.espresso:espresso-core:2.2.1&apos;
+    // Set this dependency to build and run UI Automator tests
+    androidTestCompile &apos;com.android.support.test.uiautomator:uiautomator-v18:2.1.2&apos;
+}
+</code></pre><h4 id="4-2-AndroidManifest-xml配置"><a href="#4-2-AndroidManifest-xml配置" class="headerlink" title="4.2 AndroidManifest.xml配置"></a>4.2 AndroidManifest.xml配置</h4><p>引入TestRunner</p>
+<pre><code>&lt;application&gt;
+    &lt;uses-library android:name=&quot;android.test.runner&quot;/&gt;
+&lt;/application&gt;
+</code></pre><p>声明一个instrumentation</p>
+<pre><code>&lt;instrumentation android:name=&quot;android.test.InstrumentationTestRunner&quot;
+                 android:targetPackage=&quot;org.cfig.instruments&quot;
+                 android:label=&quot;Android Self Tests&quot;/&gt;
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2015/09/22/gradle-Android/" data-id="cknwvywem001v8si5f9zl4xsu" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-OTA-diff-and-patch" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/09/22/OTA-diff-and-patch/" class="article-date">
+  <time datetime="2015-09-22T07:04:42.000Z" itemprop="datePublished">2015-09-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/09/22/OTA-diff-and-patch/">OTA (2) - diff and patch</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="I-boot-img"><a href="#I-boot-img" class="headerlink" title="(I) boot.img"></a>(I) boot.img</h1><p>boot.img is updated in recovery mode</p>
+<h3 id="OTA-script-to-update-boot"><a href="#OTA-script-to-update-boot" class="headerlink" title="OTA script to update /boot:"></a>OTA script to update /boot:</h3><pre><code>package_extract_file(&quot;boot.img&quot;, &quot;/dev/block/by-name/boot&quot;)
+</code></pre><p>the so-called “boot.img” is raw android boot image.</p>
+<h1 id="II-system-img"><a href="#II-system-img" class="headerlink" title="(II) system.img"></a>(II) system.img</h1><p>system.img is updated in recovery mode</p>
+<h3 id="OTA-script-to-update-system"><a href="#OTA-script-to-update-system" class="headerlink" title="OTA script to update /system"></a>OTA script to update /system</h3><pre><code>block_image_update(&quot;/dev/block/by-name/system&quot;, package_extract_file(&quot;system.transfer.list&quot;), &quot;system.new.dat&quot;, &quot;system.patch.dat&quot;);
+</code></pre><h3 id="Tools-used-for-system-img"><a href="#Tools-used-for-system-img" class="headerlink" title="Tools used for system.img"></a>Tools used for system.img</h3><p><strong>blockimgdiff</strong> is google’s diff tool to handle system image in the OTA package, original sparse system.img will be splitted into 3 files: system.new.dat, system.patch.dat, system.transfer.list. This save some space in OTA package.<br>source location: build/tools/releasetools/blockimgdiff.py</p>
+<p><strong>sdat2img</strong> is a 3rd party tool to assemble the files (system.new.dat, system.patch.dat, system.transfer.list) into system.img</p>
+<h1 id="III-recovery-img"><a href="#III-recovery-img" class="headerlink" title="(III) recovery.img"></a>(III) recovery.img</h1><p>recovery.img is updated in normal mode by an auto-generated script: /system/bin/install-recovery.sh</p>
+<h3 id="Tools-used"><a href="#Tools-used" class="headerlink" title="Tools used"></a>Tools used</h3><p><strong>bsdiff</strong> is a general tool to generate binary diff between 2 files.<br><strong>imgdiff</strong> can generate diff between image files, which means source and target file must have same chunk structures.<br><strong>applypatch</strong> is used for android recovery image OTA, it can be used to verify hashcode of an eMMC partition, or apply a patch to a partition. Full partition hash sum is a realiable way to check its integrity.</p>
+<p>source code of applypatch &amp; imgdiff is here:<br>    bootable/recovery/applypatch/applypatch.c<br>    bootable/recovery/applypatch/imgdiff.c</p>
+<p>source code of bsdiff:<br>     external/bsdiff</p>
+<h3 id="Usage"><a href="#Usage" class="headerlink" title="Usage"></a>Usage</h3><p>Generate binary patch file:<br>     bsdiff <src> <tgt> <patch></patch></tgt></src></p>
+<p>Generate script to apply patch:<br>     build/tools/releasetools/common.py</p>
+<p>Example:</p>
+<p>Complete example for updating recovery.img in normal mode:<br>     ./build/tools/releasetools/make_recovery_patch &lt;target_file_dir&gt; &lt;patch_file_and_script_dir&gt;<br>The above command will generate both patch file and updater script.</p>
+<h2 id="More-detailed-usage-can-be-found-in-private-makefiles"><a href="#More-detailed-usage-can-be-found-in-private-makefiles" class="headerlink" title="More detailed usage can be found in private makefiles"></a>More detailed usage can be found in private makefiles</h2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2015/09/22/OTA-diff-and-patch/" data-id="cknwvywe800188si5xoyeso4y" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-secure-adb" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/09/22/secure-adb/" class="article-date">
+  <time datetime="2015-09-22T06:37:28.000Z" itemprop="datePublished">2015-09-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/09/22/secure-adb/">security - secure adb</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>CTS case: testUsbDebugging:<br>Android: Lollipop</p>
+<h2 id="1-What-will-happen-with-secure-adb"><a href="#1-What-will-happen-with-secure-adb" class="headerlink" title="1. What will happen with secure adb"></a>1. What will happen with secure adb</h2><p>When ro.adb.secure=1 :</p>
+<h4 id="For-devices-w-o-USB-gadget-driver"><a href="#For-devices-w-o-USB-gadget-driver" class="headerlink" title="For devices w/o USB gadget driver:"></a>For devices w/o USB gadget driver:</h4><p>(1) vendor key only works for /adb_keys, not for /data/misc/adb/adb_keys<br>So if you don’t want to see the confirmation dialog:<br>put ~/.android/adbkey.pub into root directory with name “/adbkeys”.</p>
+<p>(2) key verification process will check username/hostname, so other hosts using the same RSA key doesn’t work. (We can hack host machine to workaround)<br>[ro.build.host]: [my_host]<br>[ro.build.user]: [my_name]</p>
+<p>(3) adb connection via network won’t trigger AUTH confirmation dialog. – This is google bug, we can fix it locally, see EOF.</p>
+<h4 id="For-devices-w-USB-gadget-driver"><a href="#For-devices-w-USB-gadget-driver" class="headerlink" title="For devices w/ USB gadget driver:"></a>For devices w/ USB gadget driver:</h4><p>(1)adb connect will trigger AUTH dialog, then user can decide what to do next.</p>
+<h2 id="2-How-to-enable-secure-adb"><a href="#2-How-to-enable-secure-adb" class="headerlink" title="2. How to enable secure adb"></a>2. How to enable secure adb</h2><p>enable secure adb in config:(product.mk)<br>    ifeq ($(TARGET_BUILD_VARIANT),user)<br>    ADDITIONAL_DEFAULT_PROPERTIES += ro.adb.secure=1<br>    endif</p>
+<p>or:</p>
+<pre><code>ifeq ($(TARGET_BUILD_VARIANT),user)
+PRODUCT_PROPERTY_OVERRIDES += ro.adb.secure=1
+endif
+</code></pre><h2 id="3-for-developers"><a href="#3-for-developers" class="headerlink" title="3. for developers"></a>3. for developers</h2><h4 id="how-to-debug-adb"><a href="#how-to-debug-adb" class="headerlink" title="how to debug adb"></a>how to debug adb</h4><pre><code>/data/adb is used for writing adb debugging information when persist.adb.trace_mask is set.
+</code></pre><h4 id="adb-keygen"><a href="#adb-keygen" class="headerlink" title="adb keygen"></a>adb keygen</h4><hr>
+<pre><code>commit 86c9e5f7e20a3f1712038ce642628c2e1e866434
+Author: Nick Kralevich &lt;nnk@google.com&gt;
+Date:   Thu Nov 13 15:17:29 2014 -0800
+
+    Introduce &quot;adb keygen&quot;
+
+    Introduce the &quot;adb keygen&quot; command.
+
+      Usage: adb keygen &lt;filename&gt;
+
+    This command creates an adb public/private key pair in a user
+    specified file. This can be used to create new adb keys, or rotate
+    existing keys.
+</code></pre><hr>
+<h2 id="Attachment-Workaround-for-network-adb"><a href="#Attachment-Workaround-for-network-adb" class="headerlink" title="Attachment: Workaround for network adb"></a>Attachment: Workaround for network adb</h2><p>File: frameworks/base/services/usb/java/com/android/server/usb/UsbService.java<br>Cause: it will check existence of /sys/class/android_usb, if it doesn’t exist, the daemon listener will not start.</p>
+<p>Fix:</p>
+<pre><code>---
+ services/usb/java/com/android/server/usb/UsbDeviceManager.java | 3 ++-
+ services/usb/java/com/android/server/usb/UsbService.java       | 4 ++--
+ 2 files changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/services/usb/java/com/android/server/usb/UsbDeviceManager.java b/services/usb/java/com/android/server/usb/UsbDeviceManager.java
+index f3fa747..42654c7 100644
+--- a/services/usb/java/com/android/server/usb/UsbDeviceManager.java
++++ b/services/usb/java/com/android/server/usb/UsbDeviceManager.java
+@@ -355,7 +355,8 @@ public class UsbDeviceManager {
+                 }
+
+                 mCurrentFunctions = getDefaultFunctions();
+-                String state = FileUtils.readTextFile(new File(STATE_PATH), 0, null).trim();
++                //String state = FileUtils.readTextFile(new File(STATE_PATH), 0, null).trim();
++                String state = &quot;null_state&quot;;
+                 updateState(state);
+                 mAdbEnabled = containsFunction(mCurrentFunctions, UsbManager.USB_FUNCTION_ADB);
+
+diff --git a/services/usb/java/com/android/server/usb/UsbService.java b/services/usb/java/com/android/server/usb/UsbService.java
+index fd83f92..919ea90 100644
+--- a/services/usb/java/com/android/server/usb/UsbService.java
++++ b/services/usb/java/com/android/server/usb/UsbService.java
+@@ -99,9 +99,9 @@ public class UsbService extends IUsbManager.Stub {
+         if (pm.hasSystemFeature(PackageManager.FEATURE_USB_HOST)) {
+             mHostManager = new UsbHostManager(context);
+         }
+-        if (new File(&quot;/sys/class/android_usb&quot;).exists()) {
++        //if (new File(&quot;/sys/class/android_usb&quot;).exists()) {
+             mDeviceManager = new UsbDeviceManager(context);
+-        }
++        //}
+
+         setCurrentUser(UserHandle.USER_OWNER);
+
+-- 
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2015/09/22/secure-adb/" data-id="cknwvywez002c8si5h90kwcv3" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-jgrep-requirement-doc" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/09/22/jgrep-requirement-doc/" class="article-date">
+  <time datetime="2015-09-22T06:32:21.000Z" itemprop="datePublished">2015-09-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/09/22/jgrep-requirement-doc/">jgrep requirement doc</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="jgrep-is-obsolete-I-use-silver-searcher-now"><a href="#jgrep-is-obsolete-I-use-silver-searcher-now" class="headerlink" title="jgrep is obsolete, I use silver searcher now"></a>jgrep is obsolete, I use silver searcher now</h2><ol>
+<li>default with color</li>
+</ol>
+<p>like “grep –color”</p>
+<ol start="2">
+<li>jgrep a single file</li>
+</ol>
+<p>counterpart cmd:<br>    grep -rn “verity” fs_mgr/fs_mgr.c<br>cmd:<br>    jgrep “verity” fs_mgr/fs_mgr.c<br>    jgrep “verity” -f fs_mgr/fs_mgr.c<br>options:<br>    -f: specify a file[default]</p>
+<p>out:<br>    44:#include “fs_mgr_priv_verity.h”<br>    401:            if (fs_mgr_setup_verity(&amp;fstab-&gt;recs[i]) &lt; 0) {<br>    532:            if (fs_mgr_setup_verity(&amp;fstab-&gt;recs[i]) &lt; 0) {</p>
+<ol start="3">
+<li>jgrep a single file with groups</li>
+</ol>
+<p>options:<br>    -r: show groups</p>
+<p>cmd:<br>    jgrep -g “(veri)(ty)” fs_mgr/fs_mgr.c</p>
+<p>out:<br>    401:[33,39)            if (fs_mgr_setup_verity(&amp;fstab-&gt;recs[i]) &lt; verity_kk) {<br>            [0]veri<br>            [1]ty<br>    401:[44,55)            if (fs_mgr_setup_verity(&amp;fstab-&gt;recs[i]) &lt; verity_kk) {<br>            [0]veri<br>            [1]ty<br>    532:[22,33)            if (fs_mgr_setup_verity(&amp;fstab-&gt;recs[i]) &lt; 0) {<br>            [0]veri<br>            [1]ty</p>
+<ol start="4">
+<li>jgrep from stdin</li>
+</ol>
+<p>cmd:<br>    jgrep “(veri)(ty)” -<br>“input some text”<br>“input some text”</p>
+&lt;LINE_END&gt;
+
+<ol start="5">
+<li>jgrep recursively</li>
+</ol>
+<p>options:<br>    -r</p>
+<p>cmd:<br>    jgrep “verity” -r fs_mgr/</p>
+<p>out:<br>    fs_mgr/fs_mgr_verity.c:420:    if (resume_verity_table(io, mount_point, fd) &lt; 0) {<br>    fs_mgr/fs_mgr_verity.c:424:    // assign the new verity block device as the block device<br>    fs_mgr/fs_mgr_verity.c:426:    fstab-&gt;blk_device = verity_blk_name;<br>    fs_mgr/fs_mgr.c:44:#include “fs_mgr_priv_verity.h”<br>    fs_mgr/fs_mgr.c:401:            if (fs_mgr_setup_verity(&amp;fstab-&gt;recs[i]) &lt; 0) {</p>
+<ol start="6">
+<li>jgrep ignore-case option</li>
+</ol>
+<p>options:<br>    -i: ignore case</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2015/09/22/jgrep-requirement-doc/" data-id="cknwvyweu00258si5byaa06jt" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-glibc-version-check" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/09/22/glibc-version-check/" class="article-date">
+  <time datetime="2015-09-22T06:28:14.000Z" itemprop="datePublished">2015-09-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/09/22/glibc-version-check/">glibc version check</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>ldd –version</p>
+<p>getconf GNU_LIBC_VERSION</p>
+<p>dpkg -l libc6</p>
+<p>gcc -dumpmachine</p>
+<p>gcc -print-file-name=libc.so</p>
+<p>/lib/x86_64-linux-gnu/libc.so.6</p>
+<p>gnu_get_libc_version()<br>gnu_get_libc_release()</p>
+<p>如果不匹配:<br>libc.so.6: version 1GLIBC_2.14’ not found”<br>可以自己编一个libc.so, ln -s libc.so.6 libc.so, 然后用LD_LIBRARY_PATH解决.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2015/09/22/glibc-version-check/" data-id="cknwvywel001t8si5bygr576i" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/page/4/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/6/">__('next') &raquo;</a>
+  </nav>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/code/">code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/health/">health</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/misc/">misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/net-travel/">net travel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/code/" style="font-size: 12.86px;">code</a> <a href="/tags/health/" style="font-size: 10px;">health</a> <a href="/tags/java/" style="font-size: 17.14px;">java</a> <a href="/tags/linux/" style="font-size: 18.57px;">linux</a> <a href="/tags/misc/" style="font-size: 11.43px;">misc</a> <a href="/tags/net-travel/" style="font-size: 14.29px;">net travel</a> <a href="/tags/web/" style="font-size: 15.71px;">web</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/04/23/2021-04-23-android-reboot-briefing/">Android Reboot briefing</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/21/Android-boot-animation/">Make your own Android boot animation</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/06/verified-assembled-manifest/">VINTF: verified assembled manifest</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/compatibility-matrix/">VINTF - compatibility matrix</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/VINTF-manifest-xml/">VINTF: manifest.xml</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 cfig
+      <br><br>
+      Enjoy your journey here<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

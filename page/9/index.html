@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>Cool Fish In Glacier</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Cool Fish In Glacier">
+<meta property="og:url" content="http://cfig.github.io/page/9/index.html">
+<meta property="og:site_name" content="Cool Fish In Glacier">
+<meta property="og:locale" content="default">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Cool Fish In Glacier">
+  
+    <link rel="alternate" href="/atom.xml" title="Cool Fish In Glacier" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-67906660-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Cool Fish In Glacier</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">叽里咕噜</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://cfig.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-2014-03-27-GNU_make" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/03/27/2014-03-27-GNU_make/" class="article-date">
+  <time datetime="2014-03-27T00:00:00.000Z" itemprop="datePublished">2014-03-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/03/27/2014-03-27-GNU_make/">GNU_make</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><code>&quot;gcc -M sepo.c&quot;</code> will generate depends.</p>
+<p>debug makefile:</p>
+<pre><code>remake -x
+remake -X
+</code></pre><p>variable in make: </p>
+<pre><code>a = d #comment
+</code></pre><p>now variable a is “d “</p>
+<p>Where do variables come from:</p>
+<pre><code>1.file: via &quot;include&quot; command
+2.command line: user decide [makefile/command_line] when conflicts
+3.env: user decide [env/makefile] when conflicts
+(1)When make is invoked recursively, some variables from the parent make are passed through the environment to the child make. By default, only those variables that originally came from the environment are exported to the child&apos;s environment, but any variable can be exported to the environment by using the export directive.
+(2)The export and unexport directives work the same way their counterparts in sh work.
+    export -- export
+    unexport -- unset
+4.auto
+
+OUTPUT_DIR ?= out #OUTPUT_DIR default to out if undefined
+
+======================
+target_a : | build_log
+REQUIRED_DIRS += build_log
+$(REQUIRED_DIRS):
+        mkdir $@
+======================
+build_log should exist
+
+.DEFAULT_GOAL := apply_product_patch
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2014/03/27/2014-03-27-GNU_make/" data-id="cknwvywdd00068si534pdizv7" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2014-03-27-Multicast_with_VLC" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/03/27/2014-03-27-Multicast_with_VLC/" class="article-date">
+  <time datetime="2014-03-27T00:00:00.000Z" itemprop="datePublished">2014-03-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/03/27/2014-03-27-Multicast_with_VLC/">Multicast_with_VLC</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="VLC-Streaming"><a href="#VLC-Streaming" class="headerlink" title="VLC Streaming"></a>VLC Streaming</h1><p>Multicast Address Range:<br>224.0.0.1-239.255.255.255</p>
+<h3 id="practice-1"><a href="#practice-1" class="headerlink" title="practice 1"></a>practice 1</h3><pre><code>========== RTP/MPEG Transport Stream==========
+Multicast Streaming
+1.File-&gt;Stream
+* Source:Choose src
+* Destination Setup:
+Add &quot;RTP/MPEG Transport Stream&quot;, check &quot;Display locally&quot;
+Address: 239.1.1.1, Port: 5004
+* Option Setup:
+TTL: 10
+
+---------- Client ----------
+Media-&gt;Open Network Stream-&gt;rtp://239.1.1.1:5004
+</code></pre><h3 id="practice-2"><a href="#practice-2" class="headerlink" title="practice 2"></a>practice 2</h3><pre><code>========== RTP/MPEG Transport Stream==========
+VOD
+1.File-&gt;Stream
+* Source:Choose src
+* Destination Setup:
+Add &quot;HTTP&quot;, check &quot;Display locally&quot;
+Port: 8080 
+File Path: /1.ts
+* Option Setup:
+TTL: 10
+
+---------- Client ----------
+Media-&gt;Open Network Stream-&gt;http://10.37.135.142:8080/1.ts
+</code></pre><h3 id="practice-3"><a href="#practice-3" class="headerlink" title="practice 3"></a>practice 3</h3><pre><code>=================================
+            RTP
+=================================
+Destinations:
+RTP/MPEG Transpot Stream &lt;--add
+Display locally &lt;--uncheck
+
+Transcodeing options:
+Active Transcoding &lt;--check
+Video - H.264+MP3(MP4)
+
+Miscellaneous Options:
+uncheck all
+
+
+
+:sout=#transcode{vcodec=h264,vb=0,scale=0,acodec=mpga,ab=128,channels=2,samplerate=44100}:duplicate{dst=std{access=udp{ttl=2},mux=ts,dst=239.239.239.2:1234},dst=display} :sout-keep
+
+
+vlc --sout &quot;#duplicate{dst=rtp{dst=224.5.6.7,port=5004,mux=ts,ttl=1},dst=display}&quot; --sout-keep
+
+vlc --sout &quot;#rtp{dst=224.5.6.7,port=5004,mux=ts,ttl=1}&quot; --sout-keep
+
+vlc --sout &quot;#transcode{vcodec=h264,vb=0,scale=0,acodec=mpga,ab=128,channels=2,samplerate=44100}:duplicate{dst=rtp{dst=224.5.6.7,port=5004,mux=ts,ttl=1},dst=display}&quot; --sout-keep --keep 
+
+vlc --sout &quot;#transcode{vcodec=h264,vb=0,scale=0,acodec=mpga,ab=128,channels=2,samplerate=44100}:duplicate{dst=rtp{dst=224.5.6.7,port=5004,mux=ts,ttl=3},dst=display}&quot; --sout-all --sout-keep --loop 
+
+vlc $1 --sout &quot;#transcode{vcodec=h264,vb=800,scale=1,acodec=mpga,ab=128,channels=2,samplerate=44100}&quot; --sout-all --sout-keep --loop
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2014/03/27/2014-03-27-Multicast_with_VLC/" data-id="cknwvywdg00098si5onofov0u" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/web/">web</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2014-03-26-boot_time_deug_logging" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/03/26/2014-03-26-boot_time_deug_logging/" class="article-date">
+  <time datetime="2014-03-26T00:00:00.000Z" itemprop="datePublished">2014-03-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/03/26/2014-03-26-boot_time_deug_logging/">debugging (still work in progress)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="android-Boot-Time-Analysis-amp-logging-amp-debugging"><a href="#android-Boot-Time-Analysis-amp-logging-amp-debugging" class="headerlink" title="android Boot Time Analysis &amp; logging &amp; debugging"></a>android Boot Time Analysis &amp; logging &amp; debugging</h1><h2 id="Enable-bootchart"><a href="#Enable-bootchart" class="headerlink" title="Enable bootchart"></a>Enable bootchart</h2><p><a href="http://elinux.org/Using_Bootchart_on_Android" target="_blank" rel="noopener">http://elinux.org/Using_Bootchart_on_Android</a></p>
+<ol>
+<li><p>准备<br>Host<br>apt-get install bootchart pybootchartgui<br>Target<br>设置环境变量INIT_BOOTCHART=true， 重编init</p>
+</li>
+<li><p>打开<br>adb shell ‘echo 120 &gt; /data/bootchart-start’<br>或者使用kernel commandline:<br>androidboot.bootchart=120</p>
+</li>
+<li><p>抓取日志<br>system/core/init/grab-bootchart.sh</p>
+</li>
+<li>生成png<br>bootchart bootchart.tgz </li>
+</ol>
+<p>Lollipop上的hack:<br>如果bootchart_init时/data分区未mount,需要hack代码：把/data/bootchart改为/dev/bootchart （同时修改bootchart.c和grab-bootchart.sh)<br>此时只能用kenel commandline传递timeout.</p>
+<h2 id="logging"><a href="#logging" class="headerlink" title="logging"></a>logging</h2><h3 id="kernel-logging"><a href="#kernel-logging" class="headerlink" title="kernel logging"></a>kernel logging</h3><p>kernel has a ring buffer which can be dumped via command <em>dmesg</em>. Default loglevel in init.rc is 3, you can change it to 8(higest).<br>loglevel 8  </p>
+<h3 id="android-logging"><a href="#android-logging" class="headerlink" title="android logging"></a>android logging</h3><p>The Android application framework has a built-in logging system – logcat, which goes through a special driver in the kernel.</p>
+<h2 id="tracing"><a href="#tracing" class="headerlink" title="tracing"></a>tracing</h2><h3 id="strace-trace-system-calls-and-signals"><a href="#strace-trace-system-calls-and-signals" class="headerlink" title="strace : trace system calls and signals"></a>strace : trace system calls and signals</h3><p>android has <em><strong>strace</strong></em> in external/strace, strace can be enabled in init.rc or hot attach.</p>
+<p>init.rc<br>service xxx /system/xbin/strace -tt -o/data/boot.strace /system/bin/vold</p>
+<p>hot attach<br>strace -tt -p &lt;PID&gt;</p>
+<h3 id="ltrace-A-library-call-tracer"><a href="#ltrace-A-library-call-tracer" class="headerlink" title="ltrace : A library call tracer"></a>ltrace : A library call tracer</h3><p>debian has this package</p>
+<h2 id="debugging"><a href="#debugging" class="headerlink" title="debugging"></a>debugging</h2><h3 id="advanced-method"><a href="#advanced-method" class="headerlink" title="advanced method"></a>advanced method</h3><pre><code>start gdbserver on board: find PID of vold, then
+    gdbserver :1234 --attach 1264
+map port on PC: map 1234 on PC to 123 on board
+    adb forward tcp:1234 tcp:1234
+start arm-eabi-gdb
+    arm-eabi-gdb
+    (gdb) target remote :1234
+    (gdb) file out/target/product/$TARGET_PRODUCT/symbols/system/bin/vold
+    (gdb) set solib-search-path out/target/product/$TARGET_PRODUCT/symbols/system/lib
+    (gdb) bt
+    (gdb) info threads
+    (gdb) thread 3
+    (gdb) p &lt;var&gt;
+</code></pre><h3 id="quick-method"><a href="#quick-method" class="headerlink" title="quick method"></a>quick method</h3><pre><code>gdbclient &lt;PID&gt;
+</code></pre><h3 id="debuggerd"><a href="#debuggerd" class="headerlink" title="debuggerd"></a><a href="https://source.android.com/devices/tech/debug/index.html#debuggerd" target="_blank" rel="noopener">debuggerd</a></h3><p>Android crash logcat can be fed to <strong>development/scripts/stack</strong> to get more detailed info.</p>
+<p>Run program inside:<br>gdbserver<br>    gdbserver :5039 /system/bin/my_test_app<br>valgrind</p>
+<p>attach crash programs:<br>    $ adb shell setprop debug.db.uid 999999                 # &lt;= M<br>    $ adb shell setprop debug.debuggerd.wait_for_gdb true   # &gt; M </p>
+<p>AddressSanitizer (ASan)<br>dumpsys: provides information about the status of system services.<br>DDMS - native memory tracking: <a href="https://source.android.com/devices/tech/debug/native-memory.html" target="_blank" rel="noopener">libc.debug.malloc</a></p>
+<p><a href="https://source.android.com/devices/tech/debug/procstats.html" target="_blank" rel="noopener">procstats</a>analyze application memory usage over time<br>meminfo: analyze mem usage in time<br>    $ adb shell dumpsys procstats –hours 3<br>network use</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2014/03/26/2014-03-26-boot_time_deug_logging/" data-id="cknwvywde00078si5zezvm2jb" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2014-03-25-lsof" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/03/25/2014-03-25-lsof/" class="article-date">
+  <time datetime="2014-03-25T00:00:00.000Z" itemprop="datePublished">2014-03-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/03/25/2014-03-25-lsof/">lsof usage</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="1-lsof-intro"><a href="#1-lsof-intro" class="headerlink" title="1. lsof intro"></a>1. lsof intro</h2><h3 id="1-1-lsof-can-check-opened-files"><a href="#1-1-lsof-can-check-opened-files" class="headerlink" title="1.1 lsof can check opened files:"></a>1.1 lsof can check opened files:</h3><ul>
+<li>/dev file</li>
+<li>socket files(unix/network)</li>
+<li>lib files</li>
+<li>executables</li>
+<li>.etc</li>
+</ul>
+<p>lsof page on debian: <a href="https://packages.debian.org/stable/lsof" target="_blank" rel="noopener">https://packages.debian.org/stable/lsof</a></p>
+<p>a cool webpage on lsof from <a href="http://www.danielmiessler.com/study/lsof" target="_blank" rel="noopener">daniel</a></p>
+<h3 id="1-2-output-interpretation"><a href="#1-2-output-interpretation" class="headerlink" title="1.2 output interpretation"></a>1.2 output interpretation</h3><pre><code>**COMMAND   PID USER   FD      TYPE             DEVICE SIZE/OFF     NODE NAME**
+adb     15516   yu  cwd       DIR                8,1     4096 12845057 /home/yu/workspace/q
+adb     15516   yu  rtd       DIR                8,1     4096        2 /
+adb     15516   yu  txt       REG                8,1  4894227 11272415 /home/yu/.bin/adb
+adb     15516   yu  mem       REG                8,1    71488 14420702 /lib/i386-linux-gnu/i686/cmov/libresolv-2.13.so
+adb     15516   yu  mem       REG                8,1    22088 14420706 /lib/i386-linux-gnu/i686/cmov/libnss\_dns-2.13.so
+adb     15516   yu  mem       REG                8,1    42628 14420694 /lib/i386-linux-gnu/i686/cmov/libnss\_files-2.13.so
+adb     15516   yu  mem       REG                8,1  1437864 14420700 /lib/i386-linux-gnu/i686/cmov/libc-2.13.so
+adb     15516   yu  mem       REG                8,1   114788 14420559 /lib/i386-linux-gnu/libgcc\_s.so.1
+</code></pre><h4 id="row-of-“FD”"><a href="#row-of-“FD”" class="headerlink" title="row of “FD”"></a>row of “FD”</h4><pre><code>+----+-------+-----------------------------------+
+| No | item  |              note                 |
++----+-------+-----------------------------------+
+| 1  | cwd   |  current workding directory       |
++----+-------+-----------------------------------+
+| 2  | rtd   |  root directory                   |
++----+-------+-----------------------------------+
+| 3  | txt   |  program text (code and data)     |
++----+-------+-----------------------------------+
+| 4  | mem   |  memory-mapped file               |
++----+-------+-----------------------------------+
+</code></pre><h4 id="row-of-“TYPE”"><a href="#row-of-“TYPE”" class="headerlink" title="row of “TYPE”"></a>row of “TYPE”</h4><pre><code>+----+-------+-----------------------------------+
+| No | item  |              note                 |
++----+-------+-----------------------------------+
+| 1  | DIR   |  Directory                        |
++----+-------+-----------------------------------+
+| 2  | REG   |  Regular file                     |
++----+-------+-----------------------------------+
+| 3  | CHR   |  Character special file           |
++----+-------+-----------------------------------+
+| 4  | FIFO  |  First In First Out               |
++----+-------+-----------------------------------+
+</code></pre><h3 id="1-3-practice"><a href="#1-3-practice" class="headerlink" title="1.3 practice"></a>1.3 practice</h3><h4 id="Given-PID"><a href="#Given-PID" class="headerlink" title="Given PID:"></a>Given PID:</h4><!-- &lt; -->
+<pre><code>$ lsof -p &lt;pid&gt;
+$ ls /proc/&lt;pid&gt;/fd
+</code></pre><h4 id="Given-port-protocol"><a href="#Given-port-protocol" class="headerlink" title="Given port/protocol"></a>Given port/protocol</h4><pre><code>$ lsof -i :5037
+
+COMMAND PID USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
+adbd    939 root    5u  IPv4     93      0t0  TCP localhost:5037 (LISTEN)
+
+$ lsof -i @localhost
+
+COMMAND PID USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
+adbd    939 root    5u  IPv4     93      0t0  TCP localhost:5037 (LISTEN)
+
+$ lsof -i TCP
+$ lsof -i TCP:80
+$ lsof -i TCP@192.168.0.2:636
+$ lsof -i --&gt; show all network connections
+$ lsof -i 4 --&gt; show only IPv4 connections
+$ lsof -i 6 --&gt; show only IPv6 connections
+$ lsof -i TCP:1-1024 --&gt; List Open Files of TCP Port ranges 1-1024
+</code></pre><h4 id="Given-UID"><a href="#Given-UID" class="headerlink" title="Given UID"></a>Given UID</h4><pre><code>$ lsof -u &lt;UID&gt;
+$ lsof -u ^&lt;UID&gt;
+</code></pre><h4 id="Given-category"><a href="#Given-category" class="headerlink" title="Given category"></a>Given category</h4><pre><code>$ lsof -d txt
+$ lsof -d ^mem
+</code></pre><h4 id="Given-files-directries"><a href="#Given-files-directries" class="headerlink" title="Given files/directries"></a>Given files/directries</h4><pre><code>$ lsof &lt;file&gt;
+$ lsof &lt;directory&gt;
+</code></pre><p>only show PID</p>
+<pre><code>$ lsof -t &lt;file&gt;
+</code></pre><h4 id="show-network-port"><a href="#show-network-port" class="headerlink" title="show network port"></a>show network port</h4><pre><code>$ lsof -i -P
+</code></pre><h2 id="2-checking-opening-fd-limits"><a href="#2-checking-opening-fd-limits" class="headerlink" title="2. checking opening fd limits"></a>2. checking opening fd limits</h2><p>use <strong>ulimit -n</strong> to check limits, use <strong>ls /proc/*/fd/</strong> to count all fd</p>
+<h2 id="3-check-server-risk"><a href="#3-check-server-risk" class="headerlink" title="3. check server risk"></a>3. check server risk</h2><p><strong>lsof +L1</strong> shows you all open files that have a link count less than 1<br>This is often (but not always) indicative of an attacker trying to hide file content by unlinking it.</p>
+<pre><code>$ lsof +L1
+</code></pre><h2 id="memory-usage-monitor"><a href="#memory-usage-monitor" class="headerlink" title="memory usage monitor"></a>memory usage monitor</h2><pre><code>memdump: This  program  dumps system memory to the standard output stream, skipping over holes in memory maps.  By default, the program dumps the contents of physical memory (/dev/mem).
+memstat: Identify what&apos;s using up virtual memory.
+
+ps aux --sort:-rss
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2014/03/25/2014-03-25-lsof/" data-id="cknwvywdc00058si5726snb1w" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-dmverity" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/03/23/dmverity/" class="article-date">
+  <time datetime="2014-03-23T00:00:00.000Z" itemprop="datePublished">2014-03-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/03/23/dmverity/">dmverity</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="dm-verity-on-android"><a href="#dm-verity-on-android" class="headerlink" title="dm-verity on android"></a>dm-verity on android</h1><h2 id="1-Keys-needed-for-dm-verity"><a href="#1-Keys-needed-for-dm-verity" class="headerlink" title="1. Keys needed for dm-verity"></a>1. Keys needed for dm-verity</h2><p>android default keys are located at <em>build/target/product/security</em>. They have 4 paris of keys<br>{platform/testkey/media/shared}.x509.pem and {platform/testkey/media/shared}.pk8.  </p>
+<p>What are they:  </p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left"><em>key name</em></th>
+<th style="text-align:left"><em>type</em></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">xx.x509.pem</td>
+<td style="text-align:left">x509 PEM Certificate</td>
+</tr>
+<tr>
+<td style="text-align:left">xx.pk8</td>
+<td style="text-align:left">PKCS#8 PrivateKeyInfo</td>
+</tr>
+</tbody>
+</table>
+<p>dm-verity will use <strong>build/target/product/security/verity.pk8</strong> by default</p>
+<h2 id="2-How-to-generate-root-system-image"><a href="#2-How-to-generate-root-system-image" class="headerlink" title="2. How to generate root/system image"></a>2. How to generate root/system image</h2><p>system.img is combined of 3 part:</p>
+<pre><code>raw ext4 system.img
+    standard ext4 image with all system files
+verity.img : 
+    sha256 hashtree, 
+    generated from google&apos;s build_verity_tree
+    source: system/extras/verity/build_verity_tree.cpp
+verity_metadata.img : 
+    dm-verity metadata, 
+    generated from google&apos;s build_verity_metadata.py
+    source: system/extras/verity/build_verity_metadata.py
+</code></pre><h2 id="misc"><a href="#misc" class="headerlink" title="misc"></a>misc</h2><p>prop:</p>
+<ul>
+<li>partition.system.verified == 1</li>
+<li>partition.vendor.verified == 1</li>
+</ul>
+<p>when system or vendor partition is dm-verity enabled, user can use “adb disable-verity” to disable verity.</p>
+<h3 id="Optimizing-dm-verity-performance"><a href="#Optimizing-dm-verity-performance" class="headerlink" title="Optimizing dm-verity performance:"></a>Optimizing dm-verity performance:</h3><p><a href="https://source.android.com/devices/tech/security/verifiedboot/dm-verity.html" target="_blank" rel="noopener">https://source.android.com/devices/tech/security/verifiedboot/dm-verity.html</a></p>
+<pre><code>To get the best performance out of dm-verity, you should:
+
+In the kernel, turn on NEON SHA-2 for ARMv7 and the SHA-2 extensions for ARMv8.
+Experiment with different read-ahead and prefetch_cluster settings to find the best configuration for your device.
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2014/03/23/dmverity/" data-id="cknwvywej001p8si5a4ua3pbn" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2014-03-22-hello-markdown" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/03/22/2014-03-22-hello-markdown/" class="article-date">
+  <time datetime="2014-03-22T00:00:00.000Z" itemprop="datePublished">2014-03-22</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/03/22/2014-03-22-hello-markdown/">Hello Markdown</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Basic-Demo-of-Markdown"><a href="#Basic-Demo-of-Markdown" class="headerlink" title="Basic Demo of Markdown"></a>Basic Demo of Markdown</h1><h2 id="1-italic-and-bold"><a href="#1-italic-and-bold" class="headerlink" title="1 italic and bold"></a>1 <em>italic</em> and <strong>bold</strong></h2><h3 id="italic"><a href="#italic" class="headerlink" title="italic"></a>italic</h3><p>Just add surround words with underscore(_) make it <em>italic</em>,</p>
+<h3 id="bold"><a href="#bold" class="headerlink" title="bold"></a><strong>bold</strong></h3><p>Just add surround words with 2 underscore(__) or 2 asterisks(**)  make it <strong>bold</strong>.</p>
+<h1 id="2-url"><a href="#2-url" class="headerlink" title="2 url"></a>2 url</h1><h2 id="simple-url-link"><a href="#simple-url-link" class="headerlink" title="simple url link"></a>simple url link</h2><p><a href="http://www.markdowntutorial.com" target="_blank" rel="noopener">You’re <strong>really, really</strong> going to want to see this.</a></p>
+<h2 id="img-url"><a href="#img-url" class="headerlink" title="img url"></a>img url</h2><p><img src="https://www.debian.org/logos/openlogo-nd-100.jpg" alt></p>
+<p> Here’s <a href="www.github.com">a link to something else</a>.<br> Here’s <a href="www.google.com">yet another link</a>.<br> And now back to <a href="www.github.com">the first link</a>.</p>
+<h1 id="blockquote"><a href="#blockquote" class="headerlink" title="blockquote"></a>blockquote</h1><p>examples on LOGD/LOGV in C style  </p>
+<pre><code>#define LOGW(...) fprintf(stdout, &quot;W:&quot; __VA_ARGS__)
+
+#define LOGI(...) fprintf(stdout, &quot;I:&quot; __VA_ARGS__)
+
+#define LOGV(...) do {} while (0)
+
+#define LOGD(...) do {} while (0)
+</code></pre><p>A beginner’s guide:<br>&lt;a href=<a href="http://www.ruanyifeng.com/blog/2012/08/blogging_with_jekyll.html&gt;http://www.ruanyifeng.com/blog/2012/08/blogging_with_jekyll.html" target="_blank" rel="noopener">http://www.ruanyifeng.com/blog/2012/08/blogging_with_jekyll.html&gt;http://www.ruanyifeng.com/blog/2012/08/blogging_with_jekyll.html</a></p>
+<p>github flavored mkd table:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Left-Aligned</th>
+<th style="text-align:center">Center Aligned</th>
+<th style="text-align:right">Right Aligned</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">col 3 is</td>
+<td style="text-align:center">some wordy text</td>
+<td style="text-align:right">$1600</td>
+</tr>
+<tr>
+<td style="text-align:left">col 2 is</td>
+<td style="text-align:center">centered</td>
+<td style="text-align:right">$12</td>
+</tr>
+<tr>
+<td style="text-align:left">zebra stripes</td>
+<td style="text-align:center">are neat</td>
+<td style="text-align:right">$1</td>
+</tr>
+</tbody>
+</table>
+<p><style type="text/css"><br>.tg  {border-collapse:collapse;border-spacing:0;}<br>.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}<br>.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;}<br>.tg .tg-0ord{text-align:right}<br></style></p>
+<table class="tg"><br>  <tr><br>    <th class="tg-031e">a</th><br>    <th class="tg-031e">b</th><br>    <th class="tg-0ord">c</th><br>    <th class="tg-031e"></th><br>  </tr><br>  <tr><br>    <td class="tg-031e">d</td><br>    <td class="tg-031e">e</td><br>    <td class="tg-0ord">f</td><br>    <td class="tg-031e"></td><br>  </tr><br>  <tr><br>    <td class="tg-031e">g</td><br>    <td class="tg-031e">h</td><br>    <td class="tg-0ord">i</td><br>    <td class="tg-031e"></td><br>  </tr><br></table>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://cfig.github.io/2014/03/22/2014-03-22-hello-markdown/" data-id="cknwvywdb00048si5gp8ghevh" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/misc/">misc</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/page/8/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="page-number current">9</span>
+  </nav>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/code/">code</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/health/">health</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/misc/">misc</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/net-travel/">net travel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/web/">web</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/android/" style="font-size: 20px;">android</a> <a href="/tags/code/" style="font-size: 12.86px;">code</a> <a href="/tags/health/" style="font-size: 10px;">health</a> <a href="/tags/java/" style="font-size: 17.14px;">java</a> <a href="/tags/linux/" style="font-size: 18.57px;">linux</a> <a href="/tags/misc/" style="font-size: 11.43px;">misc</a> <a href="/tags/net-travel/" style="font-size: 14.29px;">net travel</a> <a href="/tags/web/" style="font-size: 15.71px;">web</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2021/04/">April 2021</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/12/">December 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">September 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">September 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/03/">March 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/10/">October 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/09/">September 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03/">March 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/02/">February 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/01/">January 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/06/">June 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/04/">April 2014</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/03/">March 2014</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2021/04/23/2021-04-23-android-reboot-briefing/">Android Reboot briefing</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/21/Android-boot-animation/">Make your own Android boot animation</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/06/verified-assembled-manifest/">VINTF: verified assembled manifest</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/compatibility-matrix/">VINTF - compatibility matrix</a>
+          </li>
+        
+          <li>
+            <a href="/2019/06/05/VINTF-manifest-xml/">VINTF: manifest.xml</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2021 cfig
+      <br><br>
+      Enjoy your journey here<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
